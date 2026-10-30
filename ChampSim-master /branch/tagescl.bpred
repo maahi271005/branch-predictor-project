@@ -40,6 +40,19 @@
 //                       probability 1/2^TSL_THR_SHIFT instead of up to two.
 //   -DTSL_THR_LIMIT=<n> payoff value below which throttling applies (default -8)
 //   -DTSL_THR_SHIFT=<n> throttled allocation probability 1/2^n (default 3)
+//
+// Loop-structure features enabled by the target-free backward inference
+// (all inside the SC, all disabled by -DTSL_NO_IMLI):
+//   -DTSL_IMLI_MODE=<m> 0: IMLI as in the paper, counting only branches that
+//                          have been seen not-taken (inferred conditional)
+//                       1: count every taken backward branch; a not-taken
+//                          backward branch (necessarily conditional) resets
+//                       2: as 1, but a taken backward branch outside the
+//                          256-byte region of the counting branch restarts
+//                          the count (region idea of Seznec's BrIMLI, 2024)
+//   -DTSL_IMLI_GEHL     also hash IMLIcount into two global SC tables (paper, §4.2)
+//   -DTSL_IMHIST        per-IMLI-value outcome history table (IMHIST, CBP-2016)
+//   -DTSL_BHIST         SC tables on a global history of backward branches only
 #include "ooo_cpu.h"
 
 #include <cstdint>
@@ -60,6 +73,9 @@
 #endif
 #ifndef TSL_THR_SHIFT
 #define TSL_THR_SHIFT 3
+#endif
+#ifndef TSL_IMLI_MODE
+#define TSL_IMLI_MODE 0
 #endif
 
 namespace tsl {
@@ -95,6 +111,9 @@ static const int LOGIMLI = 9;                        // IMLI-SIC table (512 entr
 static const int IMLIWIDTH = 10;
 static const int LOGBWD = 12;                        // backward-direction memory (bits)
 static const int LOGCOND = 12;                       // "seen not-taken" memory (bits)
+static const int LOGIMH = 8;                         // IMHIST: 256 histories (one per IMLI value)
+static const int IMHW = 10;                          // ... of 10 bits
+static const int BNB = 2;  static const int BHL[BNB] = {16, 8};          // backward-history GEHL
 
 // per-branch allocation throttle (TSL_THROTTLE)
 static const int LOGPAY = 10;                        // 1K payoff counters
@@ -164,8 +183,13 @@ struct Predictor {
     uint8_t bwd[1 << LOGBWD];     // 1 = branch observed jumping backward
     uint8_t cond[1 << LOGCOND];   // 1 = branch observed not-taken (=> conditional)
     uint32_t imli = 0;
+    uint64_t imli_region = 0;     // TSL_IMLI_MODE 2: region of the counting branch
     uint64_t prev_ip = 0;
     bool prev_taken = false, have_prev = false;
+    uint16_t imhist[1 << LOGIMH]; // TSL_IMHIST
+    int8_t imht[1 << LOGGEHL];
+    uint32_t bhist = 0;           // TSL_BHIST: outcomes of backward branches
+    int8_t bgehl[BNB][1 << LOGGEHL];
 
     // allocation throttle
     int8_t payoff[1 << LOGPAY];
@@ -181,7 +205,7 @@ struct Predictor {
     int lhit, lidx; bool lvalid, lpred;
     bool pred_inter;  // TAGE or loop
     // SC
-    int sc_idx_bias[3], sc_idx_g[GNB], sc_idx_p[PNB], sc_idx_l[LNB], sc_idx_imli;
+    int sc_idx_bias[3], sc_idx_g[GNB], sc_idx_p[PNB], sc_idx_l[LNB], sc_idx_imli, sc_idx_imh, sc_idx_b[BNB];
     int lsum; bool sc_pred, final_pred;
 
     uint64_t rnd() { rng ^= rng << 13; rng ^= rng >> 7; rng ^= rng << 17; return rng; }
@@ -209,6 +233,7 @@ struct Predictor {
         memset(lhist, 0, sizeof lhist);
         memset(bwd, 0, sizeof bwd); memset(cond, 0, sizeof cond);
         memset(payoff, 0, sizeof payoff);
+        memset(imhist, 0, sizeof imhist); memset(imht, 0, sizeof imht); memset(bgehl, 0, sizeof bgehl);
         for (int i = 0; i < GNB; i++) gfold[i].init(GHL[i], LOGGEHL);
     }
 
@@ -306,7 +331,11 @@ struct Predictor {
         lsum = 0;
         for (int j = 0; j < 3; j++) lsum += ctrsum(bias[j][sc_idx_bias[j]]);
         for (int i = 0; i < GNB; i++) {
-            sc_idx_g[i] = (int)((pc ^ (pc >> (i + 2)) ^ gfold[i].comp) ^ ((uint64_t)i << (LOGGEHL - 2))) & MG;
+            uint64_t extra = 0;
+#if !defined(TSL_NO_IMLI) && defined(TSL_IMLI_GEHL)
+            if (i >= GNB - 2) extra = (uint64_t)imli << (i + 1);  // the two shortest-history tables
+#endif
+            sc_idx_g[i] = (int)((pc ^ (pc >> (i + 2)) ^ gfold[i].comp ^ extra) ^ ((uint64_t)i << (LOGGEHL - 2))) & MG;
             lsum += ctrsum(ggehl[i][sc_idx_g[i]]);
         }
         for (int i = 0; i < PNB; i++) {
@@ -328,6 +357,22 @@ struct Predictor {
         // IMLI-SIC: table indexed by a hash of the pc and the IMLI counter
         sc_idx_imli = (int)((pc ^ (pc >> 5) ^ ((uint64_t)imli << 3) ^ (imli >> 6)) & ((1 << LOGIMLI) - 1));
         lsum += 2 * ctrsum(imlit[sc_idx_imli]);
+#ifdef TSL_IMHIST
+        {
+            // outcome history of this IMLI iteration number in previous outer iterations
+            uint64_t h = imhist[imli & ((1 << LOGIMH) - 1)];
+            sc_idx_imh = (int)((pc ^ (pc >> 3) ^ (h << 2) ^ (h >> 6)) & MG);
+            lsum += ctrsum(imht[sc_idx_imh]);
+        }
+#endif
+#ifdef TSL_BHIST
+        for (int i = 0; i < BNB; i++) {
+            uint64_t h = bhist & ((1ULL << BHL[i]) - 1);
+            h = h ^ (h >> LOGGEHL);
+            sc_idx_b[i] = (int)((pc ^ (pc >> (i + 4)) ^ (h << 1)) ^ ((uint64_t)(i + 1) << (LOGGEHL - 3))) & MG;
+            lsum += ctrsum(bgehl[i][sc_idx_b[i]]);
+        }
+#endif
 #endif
         sc_pred = lsum >= 0;
     }
@@ -346,6 +391,12 @@ struct Predictor {
 #endif
 #ifndef TSL_NO_IMLI
             satupd<SCW>(imlit[sc_idx_imli], taken);
+#ifdef TSL_IMHIST
+            satupd<SCW>(imht[sc_idx_imh], taken);
+#endif
+#ifdef TSL_BHIST
+            for (int i = 0; i < BNB; i++) satupd<SCW>(bgehl[i][sc_idx_b[i]], taken);
+#endif
 #endif
         }
     }
@@ -358,15 +409,28 @@ struct Predictor {
         if (!have_prev || !prev_taken) return;
         bool backward = pc <= prev_ip;
         bwd[(prev_ip ^ (prev_ip >> LOGBWD)) & ((1 << LOGBWD) - 1)] = backward;
-        if (backward && cond[(prev_ip ^ (prev_ip >> LOGCOND)) & ((1 << LOGCOND) - 1)]) {
-            if (imli < (1u << IMLIWIDTH) - 1) imli++;
-        }
+        if (!backward) return;
+        bhist = (bhist << 1) | 1;  // a taken backward branch
+#if TSL_IMLI_MODE == 0
+        if (!cond[(prev_ip ^ (prev_ip >> LOGCOND)) & ((1 << LOGCOND) - 1)]) return;
+#elif TSL_IMLI_MODE == 2
+        if ((prev_ip >> 8) != imli_region) { imli_region = prev_ip >> 8; imli = 0; }
+#endif
+        if (imli < (1u << IMLIWIDTH) - 1) imli++;
     }
     void imli_on_result(uint64_t pc, bool taken)
     {
+        int c = (int)((pc ^ (pc >> LOGCOND)) & ((1 << LOGCOND) - 1));
         if (!taken) {
-            cond[(pc ^ (pc >> LOGCOND)) & ((1 << LOGCOND) - 1)] = 1;
-            if (bwd[(pc ^ (pc >> LOGBWD)) & ((1 << LOGBWD) - 1)]) imli = 0;  // inner-most loop exit
+            cond[c] = 1;
+            if (bwd[(pc ^ (pc >> LOGBWD)) & ((1 << LOGBWD) - 1)]) {  // inner-most loop exit
+                imli = 0;
+                bhist <<= 1;  // a not-taken backward branch
+            }
+        }
+        if (cond[c]) {  // IMHIST is recorded for (inferred) conditional branches
+            uint16_t& h = imhist[imli & ((1 << LOGIMH) - 1)];
+            h = (uint16_t)(((h << 1) | (taken ? 1 : 0)) & ((1 << IMHW) - 1));
         }
         prev_ip = pc; prev_taken = taken; have_prev = true;
     }
@@ -566,6 +630,15 @@ struct Predictor {
 #endif
 #ifndef TSL_NO_IMLI
         b += (1 << LOGIMLI) * SCW + IMLIWIDTH + (1 << LOGBWD) + (1 << LOGCOND) + 64 + 1;
+#if TSL_IMLI_MODE == 2
+        b += 56;                                     // region of the counting branch
+#endif
+#ifdef TSL_IMHIST
+        b += (1 << LOGIMH) * IMHW + (1 << LOGGEHL) * SCW;
+#endif
+#ifdef TSL_BHIST
+        b += 16 + BNB * (1 << LOGGEHL) * SCW;
+#endif
 #endif
 #endif
 #ifdef TSL_THROTTLE
