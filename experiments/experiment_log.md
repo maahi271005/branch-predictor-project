@@ -34,4 +34,20 @@ ChampSim results: `experiments/results/<stage>/<binary>/<trace>.txt` (header rec
 | E3 | IMLI mode 1 (no conditional filter), mode 2 (region) | +0.14%, +0.16% | keep mode 0 (paper definition) |
 | E3 | IMLI in two global SC tables | +0.19% | alone: no |
 | E3 | IMHIST; backward history; all three | −0.14%; −0.21%; −0.30% | candidates |
-| E4 | IMHIST+BHIST without IMLI_GEHL; candidates on main window | running | |
+| E4 | IMHIST+BHIST without IMLI_GEHL (tune) | 3.1580 (−0.50% vs IMLI only) | **selected** |
+| E4 | main window: hashed_perc / TAGE / TSL no IMLI / +IMLI / +IMHIST+BHIST / +IMLI_GEHL too | 3.2475 / 3.2947 / 3.0727 / 3.0648 / **3.0455** / 3.0501 | ranking confirmed on the reported window; design frozen (commit 660997e) |
+
+## Stage F — ablation (harness, both regions; `results/harness/F_ablation_{main,tune}.txt`)
+| Removed from proposed | Δ mean MPKI main | Δ tune |
+|---|---|---|
+| loop predictor | +0.10% | +0.09% |
+| IMHIST | +0.28% | +0.30% |
+| backward-branch history | +0.36% | +0.37% |
+| all IMLI-derived components | +0.89% | +0.95% |
+| local-history SC tables | +2.94% | +2.84% |
+| whole SC (= TAGE + loop) | +8.13% | +8.10% |
+
+## Stage G — final ChampSim evaluation (50M + 200M, 10 traces)
+| ID | Binaries | Status |
+|---|---|---|
+| G1 | tsl_proposed, tsl_base, tsl_imli, tage, tage_l, tsl_prop_noloop, tsl_prop_nolocal (70 runs, 14 parallel, started 15:03) | running — `results/G_final_50M_200M/` |
