@@ -1,0 +1,1258 @@
+PASS	run exists: bimodal/602.gcc_s-1850B	
+PASS	run exists: bimodal/605.mcf_s-1152B	
+PASS	run exists: bimodal/607.cactuBSSN_s-2421B	
+PASS	run exists: bimodal/619.lbm_s-2676B	
+PASS	run exists: bimodal/620.omnetpp_s-141B	
+PASS	run exists: bimodal/623.xalancbmk_s-10B	
+PASS	run exists: bimodal/625.x264_s-12B	
+PASS	run exists: bimodal/631.deepsjeng_s-928B	
+PASS	run exists: bimodal/638.imagick_s-824B	
+PASS	run exists: bimodal/657.xz_s-2302B	
+PASS	run exists: gshare/602.gcc_s-1850B	
+PASS	run exists: gshare/605.mcf_s-1152B	
+PASS	run exists: gshare/607.cactuBSSN_s-2421B	
+PASS	run exists: gshare/619.lbm_s-2676B	
+PASS	run exists: gshare/620.omnetpp_s-141B	
+PASS	run exists: gshare/623.xalancbmk_s-10B	
+PASS	run exists: gshare/625.x264_s-12B	
+PASS	run exists: gshare/631.deepsjeng_s-928B	
+PASS	run exists: gshare/638.imagick_s-824B	
+PASS	run exists: gshare/657.xz_s-2302B	
+PASS	run exists: perceptron/602.gcc_s-1850B	
+PASS	run exists: perceptron/605.mcf_s-1152B	
+PASS	run exists: perceptron/607.cactuBSSN_s-2421B	
+PASS	run exists: perceptron/619.lbm_s-2676B	
+PASS	run exists: perceptron/620.omnetpp_s-141B	
+PASS	run exists: perceptron/623.xalancbmk_s-10B	
+PASS	run exists: perceptron/625.x264_s-12B	
+PASS	run exists: perceptron/631.deepsjeng_s-928B	
+PASS	run exists: perceptron/638.imagick_s-824B	
+PASS	run exists: perceptron/657.xz_s-2302B	
+PASS	run exists: hashed_perceptron/602.gcc_s-1850B	
+PASS	run exists: hashed_perceptron/605.mcf_s-1152B	
+PASS	run exists: hashed_perceptron/607.cactuBSSN_s-2421B	
+PASS	run exists: hashed_perceptron/619.lbm_s-2676B	
+PASS	run exists: hashed_perceptron/620.omnetpp_s-141B	
+PASS	run exists: hashed_perceptron/623.xalancbmk_s-10B	
+PASS	run exists: hashed_perceptron/625.x264_s-12B	
+PASS	run exists: hashed_perceptron/631.deepsjeng_s-928B	
+PASS	run exists: hashed_perceptron/638.imagick_s-824B	
+PASS	run exists: hashed_perceptron/657.xz_s-2302B	
+PASS	run exists: tage/602.gcc_s-1850B	
+PASS	run exists: tage/605.mcf_s-1152B	
+PASS	run exists: tage/607.cactuBSSN_s-2421B	
+PASS	run exists: tage/619.lbm_s-2676B	
+PASS	run exists: tage/620.omnetpp_s-141B	
+PASS	run exists: tage/623.xalancbmk_s-10B	
+PASS	run exists: tage/625.x264_s-12B	
+PASS	run exists: tage/631.deepsjeng_s-928B	
+PASS	run exists: tage/638.imagick_s-824B	
+PASS	run exists: tage/657.xz_s-2302B	
+PASS	run exists: tage_l/602.gcc_s-1850B	
+PASS	run exists: tage_l/605.mcf_s-1152B	
+PASS	run exists: tage_l/607.cactuBSSN_s-2421B	
+PASS	run exists: tage_l/619.lbm_s-2676B	
+PASS	run exists: tage_l/620.omnetpp_s-141B	
+PASS	run exists: tage_l/623.xalancbmk_s-10B	
+PASS	run exists: tage_l/625.x264_s-12B	
+PASS	run exists: tage_l/631.deepsjeng_s-928B	
+PASS	run exists: tage_l/638.imagick_s-824B	
+PASS	run exists: tage_l/657.xz_s-2302B	
+PASS	run exists: tsl_base/602.gcc_s-1850B	
+PASS	run exists: tsl_base/605.mcf_s-1152B	
+PASS	run exists: tsl_base/607.cactuBSSN_s-2421B	
+PASS	run exists: tsl_base/619.lbm_s-2676B	
+PASS	run exists: tsl_base/620.omnetpp_s-141B	
+PASS	run exists: tsl_base/623.xalancbmk_s-10B	
+PASS	run exists: tsl_base/625.x264_s-12B	
+PASS	run exists: tsl_base/631.deepsjeng_s-928B	
+PASS	run exists: tsl_base/638.imagick_s-824B	
+PASS	run exists: tsl_base/657.xz_s-2302B	
+PASS	run exists: tsl_imli/602.gcc_s-1850B	
+PASS	run exists: tsl_imli/605.mcf_s-1152B	
+PASS	run exists: tsl_imli/607.cactuBSSN_s-2421B	
+PASS	run exists: tsl_imli/619.lbm_s-2676B	
+PASS	run exists: tsl_imli/620.omnetpp_s-141B	
+PASS	run exists: tsl_imli/623.xalancbmk_s-10B	
+PASS	run exists: tsl_imli/625.x264_s-12B	
+PASS	run exists: tsl_imli/631.deepsjeng_s-928B	
+PASS	run exists: tsl_imli/638.imagick_s-824B	
+PASS	run exists: tsl_imli/657.xz_s-2302B	
+PASS	run exists: tsl_proposed/602.gcc_s-1850B	
+PASS	run exists: tsl_proposed/605.mcf_s-1152B	
+PASS	run exists: tsl_proposed/607.cactuBSSN_s-2421B	
+PASS	run exists: tsl_proposed/619.lbm_s-2676B	
+PASS	run exists: tsl_proposed/620.omnetpp_s-141B	
+PASS	run exists: tsl_proposed/623.xalancbmk_s-10B	
+PASS	run exists: tsl_proposed/625.x264_s-12B	
+PASS	run exists: tsl_proposed/631.deepsjeng_s-928B	
+PASS	run exists: tsl_proposed/638.imagick_s-824B	
+PASS	run exists: tsl_proposed/657.xz_s-2302B	
+PASS	run exists: tsl_prop_noloop/602.gcc_s-1850B	
+PASS	run exists: tsl_prop_noloop/605.mcf_s-1152B	
+PASS	run exists: tsl_prop_noloop/607.cactuBSSN_s-2421B	
+PASS	run exists: tsl_prop_noloop/619.lbm_s-2676B	
+PASS	run exists: tsl_prop_noloop/620.omnetpp_s-141B	
+PASS	run exists: tsl_prop_noloop/623.xalancbmk_s-10B	
+PASS	run exists: tsl_prop_noloop/625.x264_s-12B	
+PASS	run exists: tsl_prop_noloop/631.deepsjeng_s-928B	
+PASS	run exists: tsl_prop_noloop/638.imagick_s-824B	
+PASS	run exists: tsl_prop_noloop/657.xz_s-2302B	
+PASS	run exists: tsl_prop_nolocal/602.gcc_s-1850B	
+PASS	run exists: tsl_prop_nolocal/605.mcf_s-1152B	
+PASS	run exists: tsl_prop_nolocal/607.cactuBSSN_s-2421B	
+PASS	run exists: tsl_prop_nolocal/619.lbm_s-2676B	
+PASS	run exists: tsl_prop_nolocal/620.omnetpp_s-141B	
+PASS	run exists: tsl_prop_nolocal/623.xalancbmk_s-10B	
+PASS	run exists: tsl_prop_nolocal/625.x264_s-12B	
+PASS	run exists: tsl_prop_nolocal/631.deepsjeng_s-928B	
+PASS	run exists: tsl_prop_nolocal/638.imagick_s-824B	
+PASS	run exists: tsl_prop_nolocal/657.xz_s-2302B	
+PASS	exit 0: bimodal/602.gcc_s-1850B	0
+PASS	completed: bimodal/602.gcc_s-1850B	
+PASS	no trace wrap: bimodal/602.gcc_s-1850B	
+PASS	window 50M+200M: bimodal/602.gcc_s-1850B	50+200
+PASS	measured instructions in [200M, 200M+4): bimodal/602.gcc_s-1850B	200000000
+PASS	printed IPC = instructions/cycles: bimodal/602.gcc_s-1850B	0.28091 vs 0.280910
+PASS	printed MPKI = ChampSim definition: bimodal/602.gcc_s-1850B	19.8302 vs 19.830190
+PASS	result produced by the binary present in build/bin: bimodal/602.gcc_s-1850B	a9846dd980eab821 vs a9846dd980eab821
+PASS	exit 0: bimodal/605.mcf_s-1152B	0
+PASS	completed: bimodal/605.mcf_s-1152B	
+PASS	no trace wrap: bimodal/605.mcf_s-1152B	
+PASS	window 50M+200M: bimodal/605.mcf_s-1152B	50+200
+PASS	measured instructions in [200M, 200M+4): bimodal/605.mcf_s-1152B	200000000
+PASS	printed IPC = instructions/cycles: bimodal/605.mcf_s-1152B	0.290758 vs 0.290758
+PASS	printed MPKI = ChampSim definition: bimodal/605.mcf_s-1152B	21.0577 vs 21.057695
+PASS	result produced by the binary present in build/bin: bimodal/605.mcf_s-1152B	a9846dd980eab821 vs a9846dd980eab821
+PASS	exit 0: bimodal/607.cactuBSSN_s-2421B	0
+PASS	completed: bimodal/607.cactuBSSN_s-2421B	
+PASS	no trace wrap: bimodal/607.cactuBSSN_s-2421B	
+PASS	window 50M+200M: bimodal/607.cactuBSSN_s-2421B	50+200
+PASS	measured instructions in [200M, 200M+4): bimodal/607.cactuBSSN_s-2421B	200000002
+PASS	printed IPC = instructions/cycles: bimodal/607.cactuBSSN_s-2421B	1.19502 vs 1.195016
+PASS	printed MPKI = ChampSim definition: bimodal/607.cactuBSSN_s-2421B	0.013385 vs 0.013385
+PASS	result produced by the binary present in build/bin: bimodal/607.cactuBSSN_s-2421B	a9846dd980eab821 vs a9846dd980eab821
+PASS	exit 0: bimodal/619.lbm_s-2676B	0
+PASS	completed: bimodal/619.lbm_s-2676B	
+PASS	no trace wrap: bimodal/619.lbm_s-2676B	
+PASS	window 50M+200M: bimodal/619.lbm_s-2676B	50+200
+PASS	measured instructions in [200M, 200M+4): bimodal/619.lbm_s-2676B	200000002
+PASS	printed IPC = instructions/cycles: bimodal/619.lbm_s-2676B	0.633081 vs 0.633081
+PASS	printed MPKI = ChampSim definition: bimodal/619.lbm_s-2676B	0.21118 vs 0.211180
+PASS	result produced by the binary present in build/bin: bimodal/619.lbm_s-2676B	a9846dd980eab821 vs a9846dd980eab821
+PASS	exit 0: bimodal/620.omnetpp_s-141B	0
+PASS	completed: bimodal/620.omnetpp_s-141B	
+PASS	no trace wrap: bimodal/620.omnetpp_s-141B	
+PASS	window 50M+200M: bimodal/620.omnetpp_s-141B	50+200
+PASS	measured instructions in [200M, 200M+4): bimodal/620.omnetpp_s-141B	200000001
+PASS	printed IPC = instructions/cycles: bimodal/620.omnetpp_s-141B	0.311873 vs 0.311874
+PASS	printed MPKI = ChampSim definition: bimodal/620.omnetpp_s-141B	10.6952 vs 10.695230
+PASS	result produced by the binary present in build/bin: bimodal/620.omnetpp_s-141B	a9846dd980eab821 vs a9846dd980eab821
+PASS	exit 0: bimodal/623.xalancbmk_s-10B	0
+PASS	completed: bimodal/623.xalancbmk_s-10B	
+PASS	no trace wrap: bimodal/623.xalancbmk_s-10B	
+PASS	window 50M+200M: bimodal/623.xalancbmk_s-10B	50+200
+PASS	measured instructions in [200M, 200M+4): bimodal/623.xalancbmk_s-10B	200000002
+PASS	printed IPC = instructions/cycles: bimodal/623.xalancbmk_s-10B	0.291068 vs 0.291068
+PASS	printed MPKI = ChampSim definition: bimodal/623.xalancbmk_s-10B	12.8889 vs 12.888855
+PASS	result produced by the binary present in build/bin: bimodal/623.xalancbmk_s-10B	a9846dd980eab821 vs a9846dd980eab821
+PASS	exit 0: bimodal/625.x264_s-12B	0
+PASS	completed: bimodal/625.x264_s-12B	
+PASS	no trace wrap: bimodal/625.x264_s-12B	
+PASS	window 50M+200M: bimodal/625.x264_s-12B	50+200
+PASS	measured instructions in [200M, 200M+4): bimodal/625.x264_s-12B	200000000
+PASS	printed IPC = instructions/cycles: bimodal/625.x264_s-12B	1.54912 vs 1.549119
+PASS	printed MPKI = ChampSim definition: bimodal/625.x264_s-12B	4.69356 vs 4.693565
+PASS	result produced by the binary present in build/bin: bimodal/625.x264_s-12B	a9846dd980eab821 vs a9846dd980eab821
+PASS	exit 0: bimodal/631.deepsjeng_s-928B	0
+PASS	completed: bimodal/631.deepsjeng_s-928B	
+PASS	no trace wrap: bimodal/631.deepsjeng_s-928B	
+PASS	window 50M+200M: bimodal/631.deepsjeng_s-928B	50+200
+PASS	measured instructions in [200M, 200M+4): bimodal/631.deepsjeng_s-928B	200000000
+PASS	printed IPC = instructions/cycles: bimodal/631.deepsjeng_s-928B	0.96331 vs 0.963310
+PASS	printed MPKI = ChampSim definition: bimodal/631.deepsjeng_s-928B	13.7457 vs 13.745745
+PASS	result produced by the binary present in build/bin: bimodal/631.deepsjeng_s-928B	a9846dd980eab821 vs a9846dd980eab821
+PASS	exit 0: bimodal/638.imagick_s-824B	0
+PASS	completed: bimodal/638.imagick_s-824B	
+PASS	no trace wrap: bimodal/638.imagick_s-824B	
+PASS	window 50M+200M: bimodal/638.imagick_s-824B	50+200
+PASS	measured instructions in [200M, 200M+4): bimodal/638.imagick_s-824B	200000002
+PASS	printed IPC = instructions/cycles: bimodal/638.imagick_s-824B	1.20968 vs 1.209680
+PASS	printed MPKI = ChampSim definition: bimodal/638.imagick_s-824B	0.31723 vs 0.317230
+PASS	result produced by the binary present in build/bin: bimodal/638.imagick_s-824B	a9846dd980eab821 vs a9846dd980eab821
+PASS	exit 0: bimodal/657.xz_s-2302B	0
+PASS	completed: bimodal/657.xz_s-2302B	
+PASS	no trace wrap: bimodal/657.xz_s-2302B	
+PASS	window 50M+200M: bimodal/657.xz_s-2302B	50+200
+PASS	measured instructions in [200M, 200M+4): bimodal/657.xz_s-2302B	200000003
+PASS	printed IPC = instructions/cycles: bimodal/657.xz_s-2302B	0.882273 vs 0.882273
+PASS	printed MPKI = ChampSim definition: bimodal/657.xz_s-2302B	15.3902 vs 15.390154
+PASS	result produced by the binary present in build/bin: bimodal/657.xz_s-2302B	a9846dd980eab821 vs a9846dd980eab821
+PASS	exit 0: gshare/602.gcc_s-1850B	0
+PASS	completed: gshare/602.gcc_s-1850B	
+PASS	no trace wrap: gshare/602.gcc_s-1850B	
+PASS	window 50M+200M: gshare/602.gcc_s-1850B	50+200
+PASS	measured instructions in [200M, 200M+4): gshare/602.gcc_s-1850B	200000000
+PASS	printed IPC = instructions/cycles: gshare/602.gcc_s-1850B	0.317848 vs 0.317848
+PASS	printed MPKI = ChampSim definition: gshare/602.gcc_s-1850B	9.06188 vs 9.061880
+PASS	result produced by the binary present in build/bin: gshare/602.gcc_s-1850B	8fb8f073f0e31c77 vs 8fb8f073f0e31c77
+PASS	exit 0: gshare/605.mcf_s-1152B	0
+PASS	completed: gshare/605.mcf_s-1152B	
+PASS	no trace wrap: gshare/605.mcf_s-1152B	
+PASS	window 50M+200M: gshare/605.mcf_s-1152B	50+200
+PASS	measured instructions in [200M, 200M+4): gshare/605.mcf_s-1152B	200000000
+PASS	printed IPC = instructions/cycles: gshare/605.mcf_s-1152B	0.288326 vs 0.288326
+PASS	printed MPKI = ChampSim definition: gshare/605.mcf_s-1152B	17.7343 vs 17.734265
+PASS	result produced by the binary present in build/bin: gshare/605.mcf_s-1152B	8fb8f073f0e31c77 vs 8fb8f073f0e31c77
+PASS	exit 0: gshare/607.cactuBSSN_s-2421B	0
+PASS	completed: gshare/607.cactuBSSN_s-2421B	
+PASS	no trace wrap: gshare/607.cactuBSSN_s-2421B	
+PASS	window 50M+200M: gshare/607.cactuBSSN_s-2421B	50+200
+PASS	measured instructions in [200M, 200M+4): gshare/607.cactuBSSN_s-2421B	200000002
+PASS	printed IPC = instructions/cycles: gshare/607.cactuBSSN_s-2421B	1.19522 vs 1.195215
+PASS	printed MPKI = ChampSim definition: gshare/607.cactuBSSN_s-2421B	0.008975 vs 0.008975
+PASS	result produced by the binary present in build/bin: gshare/607.cactuBSSN_s-2421B	8fb8f073f0e31c77 vs 8fb8f073f0e31c77
+PASS	exit 0: gshare/619.lbm_s-2676B	0
+PASS	completed: gshare/619.lbm_s-2676B	
+PASS	no trace wrap: gshare/619.lbm_s-2676B	
+PASS	window 50M+200M: gshare/619.lbm_s-2676B	50+200
+PASS	measured instructions in [200M, 200M+4): gshare/619.lbm_s-2676B	200000002
+PASS	printed IPC = instructions/cycles: gshare/619.lbm_s-2676B	0.633123 vs 0.633123
+PASS	printed MPKI = ChampSim definition: gshare/619.lbm_s-2676B	0.11596 vs 0.115960
+PASS	result produced by the binary present in build/bin: gshare/619.lbm_s-2676B	8fb8f073f0e31c77 vs 8fb8f073f0e31c77
+PASS	exit 0: gshare/620.omnetpp_s-141B	0
+PASS	completed: gshare/620.omnetpp_s-141B	
+PASS	no trace wrap: gshare/620.omnetpp_s-141B	
+PASS	window 50M+200M: gshare/620.omnetpp_s-141B	50+200
+PASS	measured instructions in [200M, 200M+4): gshare/620.omnetpp_s-141B	200000001
+PASS	printed IPC = instructions/cycles: gshare/620.omnetpp_s-141B	0.323408 vs 0.323408
+PASS	printed MPKI = ChampSim definition: gshare/620.omnetpp_s-141B	8.25789 vs 8.257890
+PASS	result produced by the binary present in build/bin: gshare/620.omnetpp_s-141B	8fb8f073f0e31c77 vs 8fb8f073f0e31c77
+PASS	exit 0: gshare/623.xalancbmk_s-10B	0
+PASS	completed: gshare/623.xalancbmk_s-10B	
+PASS	no trace wrap: gshare/623.xalancbmk_s-10B	
+PASS	window 50M+200M: gshare/623.xalancbmk_s-10B	50+200
+PASS	measured instructions in [200M, 200M+4): gshare/623.xalancbmk_s-10B	200000002
+PASS	printed IPC = instructions/cycles: gshare/623.xalancbmk_s-10B	0.313647 vs 0.313647
+PASS	printed MPKI = ChampSim definition: gshare/623.xalancbmk_s-10B	2.57564 vs 2.575640
+PASS	result produced by the binary present in build/bin: gshare/623.xalancbmk_s-10B	8fb8f073f0e31c77 vs 8fb8f073f0e31c77
+PASS	exit 0: gshare/625.x264_s-12B	0
+PASS	completed: gshare/625.x264_s-12B	
+PASS	no trace wrap: gshare/625.x264_s-12B	
+PASS	window 50M+200M: gshare/625.x264_s-12B	50+200
+PASS	measured instructions in [200M, 200M+4): gshare/625.x264_s-12B	200000002
+PASS	printed IPC = instructions/cycles: gshare/625.x264_s-12B	1.72049 vs 1.720488
+PASS	printed MPKI = ChampSim definition: gshare/625.x264_s-12B	0.66956 vs 0.669560
+PASS	result produced by the binary present in build/bin: gshare/625.x264_s-12B	8fb8f073f0e31c77 vs 8fb8f073f0e31c77
+PASS	exit 0: gshare/631.deepsjeng_s-928B	0
+PASS	completed: gshare/631.deepsjeng_s-928B	
+PASS	no trace wrap: gshare/631.deepsjeng_s-928B	
+PASS	window 50M+200M: gshare/631.deepsjeng_s-928B	50+200
+PASS	measured instructions in [200M, 200M+4): gshare/631.deepsjeng_s-928B	200000000
+PASS	printed IPC = instructions/cycles: gshare/631.deepsjeng_s-928B	1.05101 vs 1.051009
+PASS	printed MPKI = ChampSim definition: gshare/631.deepsjeng_s-928B	9.75968 vs 9.759685
+PASS	result produced by the binary present in build/bin: gshare/631.deepsjeng_s-928B	8fb8f073f0e31c77 vs 8fb8f073f0e31c77
+PASS	exit 0: gshare/638.imagick_s-824B	0
+PASS	completed: gshare/638.imagick_s-824B	
+PASS	no trace wrap: gshare/638.imagick_s-824B	
+PASS	window 50M+200M: gshare/638.imagick_s-824B	50+200
+PASS	measured instructions in [200M, 200M+4): gshare/638.imagick_s-824B	200000002
+PASS	printed IPC = instructions/cycles: gshare/638.imagick_s-824B	1.21169 vs 1.211689
+PASS	printed MPKI = ChampSim definition: gshare/638.imagick_s-824B	0.190215 vs 0.190215
+PASS	result produced by the binary present in build/bin: gshare/638.imagick_s-824B	8fb8f073f0e31c77 vs 8fb8f073f0e31c77
+PASS	exit 0: gshare/657.xz_s-2302B	0
+PASS	completed: gshare/657.xz_s-2302B	
+PASS	no trace wrap: gshare/657.xz_s-2302B	
+PASS	window 50M+200M: gshare/657.xz_s-2302B	50+200
+PASS	measured instructions in [200M, 200M+4): gshare/657.xz_s-2302B	200000003
+PASS	printed IPC = instructions/cycles: gshare/657.xz_s-2302B	0.915599 vs 0.915599
+PASS	printed MPKI = ChampSim definition: gshare/657.xz_s-2302B	13.1534 vs 13.153360
+PASS	result produced by the binary present in build/bin: gshare/657.xz_s-2302B	8fb8f073f0e31c77 vs 8fb8f073f0e31c77
+PASS	exit 0: perceptron/602.gcc_s-1850B	0
+PASS	completed: perceptron/602.gcc_s-1850B	
+PASS	no trace wrap: perceptron/602.gcc_s-1850B	
+PASS	window 50M+200M: perceptron/602.gcc_s-1850B	50+200
+PASS	measured instructions in [200M, 200M+4): perceptron/602.gcc_s-1850B	200000000
+PASS	printed IPC = instructions/cycles: perceptron/602.gcc_s-1850B	0.319011 vs 0.319011
+PASS	printed MPKI = ChampSim definition: perceptron/602.gcc_s-1850B	8.7374 vs 8.737405
+PASS	result produced by the binary present in build/bin: perceptron/602.gcc_s-1850B	c2db6ff66dbd4e2f vs c2db6ff66dbd4e2f
+PASS	exit 0: perceptron/605.mcf_s-1152B	0
+PASS	completed: perceptron/605.mcf_s-1152B	
+PASS	no trace wrap: perceptron/605.mcf_s-1152B	
+PASS	window 50M+200M: perceptron/605.mcf_s-1152B	50+200
+PASS	measured instructions in [200M, 200M+4): perceptron/605.mcf_s-1152B	200000000
+PASS	printed IPC = instructions/cycles: perceptron/605.mcf_s-1152B	0.303201 vs 0.303201
+PASS	printed MPKI = ChampSim definition: perceptron/605.mcf_s-1152B	15.85 vs 15.849975
+PASS	result produced by the binary present in build/bin: perceptron/605.mcf_s-1152B	c2db6ff66dbd4e2f vs c2db6ff66dbd4e2f
+PASS	exit 0: perceptron/607.cactuBSSN_s-2421B	0
+PASS	completed: perceptron/607.cactuBSSN_s-2421B	
+PASS	no trace wrap: perceptron/607.cactuBSSN_s-2421B	
+PASS	window 50M+200M: perceptron/607.cactuBSSN_s-2421B	50+200
+PASS	measured instructions in [200M, 200M+4): perceptron/607.cactuBSSN_s-2421B	200000002
+PASS	printed IPC = instructions/cycles: perceptron/607.cactuBSSN_s-2421B	1.19523 vs 1.195234
+PASS	printed MPKI = ChampSim definition: perceptron/607.cactuBSSN_s-2421B	0.007195 vs 0.007195
+PASS	result produced by the binary present in build/bin: perceptron/607.cactuBSSN_s-2421B	c2db6ff66dbd4e2f vs c2db6ff66dbd4e2f
+PASS	exit 0: perceptron/619.lbm_s-2676B	0
+PASS	completed: perceptron/619.lbm_s-2676B	
+PASS	no trace wrap: perceptron/619.lbm_s-2676B	
+PASS	window 50M+200M: perceptron/619.lbm_s-2676B	50+200
+PASS	measured instructions in [200M, 200M+4): perceptron/619.lbm_s-2676B	200000002
+PASS	printed IPC = instructions/cycles: perceptron/619.lbm_s-2676B	0.633067 vs 0.633067
+PASS	printed MPKI = ChampSim definition: perceptron/619.lbm_s-2676B	0.114475 vs 0.114475
+PASS	result produced by the binary present in build/bin: perceptron/619.lbm_s-2676B	c2db6ff66dbd4e2f vs c2db6ff66dbd4e2f
+PASS	exit 0: perceptron/620.omnetpp_s-141B	0
+PASS	completed: perceptron/620.omnetpp_s-141B	
+PASS	no trace wrap: perceptron/620.omnetpp_s-141B	
+PASS	window 50M+200M: perceptron/620.omnetpp_s-141B	50+200
+PASS	measured instructions in [200M, 200M+4): perceptron/620.omnetpp_s-141B	200000001
+PASS	printed IPC = instructions/cycles: perceptron/620.omnetpp_s-141B	0.331025 vs 0.331025
+PASS	printed MPKI = ChampSim definition: perceptron/620.omnetpp_s-141B	5.85549 vs 5.855495
+PASS	result produced by the binary present in build/bin: perceptron/620.omnetpp_s-141B	c2db6ff66dbd4e2f vs c2db6ff66dbd4e2f
+PASS	exit 0: perceptron/623.xalancbmk_s-10B	0
+PASS	completed: perceptron/623.xalancbmk_s-10B	
+PASS	no trace wrap: perceptron/623.xalancbmk_s-10B	
+PASS	window 50M+200M: perceptron/623.xalancbmk_s-10B	50+200
+PASS	measured instructions in [200M, 200M+4): perceptron/623.xalancbmk_s-10B	200000002
+PASS	printed IPC = instructions/cycles: perceptron/623.xalancbmk_s-10B	0.315639 vs 0.315639
+PASS	printed MPKI = ChampSim definition: perceptron/623.xalancbmk_s-10B	2.04241 vs 2.042410
+PASS	result produced by the binary present in build/bin: perceptron/623.xalancbmk_s-10B	c2db6ff66dbd4e2f vs c2db6ff66dbd4e2f
+PASS	exit 0: perceptron/625.x264_s-12B	0
+PASS	completed: perceptron/625.x264_s-12B	
+PASS	no trace wrap: perceptron/625.x264_s-12B	
+PASS	window 50M+200M: perceptron/625.x264_s-12B	50+200
+PASS	measured instructions in [200M, 200M+4): perceptron/625.x264_s-12B	200000002
+PASS	printed IPC = instructions/cycles: perceptron/625.x264_s-12B	1.75675 vs 1.756748
+PASS	printed MPKI = ChampSim definition: perceptron/625.x264_s-12B	0.49553 vs 0.495530
+PASS	result produced by the binary present in build/bin: perceptron/625.x264_s-12B	c2db6ff66dbd4e2f vs c2db6ff66dbd4e2f
+PASS	exit 0: perceptron/631.deepsjeng_s-928B	0
+PASS	completed: perceptron/631.deepsjeng_s-928B	
+PASS	no trace wrap: perceptron/631.deepsjeng_s-928B	
+PASS	window 50M+200M: perceptron/631.deepsjeng_s-928B	50+200
+PASS	measured instructions in [200M, 200M+4): perceptron/631.deepsjeng_s-928B	200000002
+PASS	printed IPC = instructions/cycles: perceptron/631.deepsjeng_s-928B	1.07075 vs 1.070754
+PASS	printed MPKI = ChampSim definition: perceptron/631.deepsjeng_s-928B	8.48055 vs 8.480555
+PASS	result produced by the binary present in build/bin: perceptron/631.deepsjeng_s-928B	c2db6ff66dbd4e2f vs c2db6ff66dbd4e2f
+PASS	exit 0: perceptron/638.imagick_s-824B	0
+PASS	completed: perceptron/638.imagick_s-824B	
+PASS	no trace wrap: perceptron/638.imagick_s-824B	
+PASS	window 50M+200M: perceptron/638.imagick_s-824B	50+200
+PASS	measured instructions in [200M, 200M+4): perceptron/638.imagick_s-824B	200000002
+PASS	printed IPC = instructions/cycles: perceptron/638.imagick_s-824B	1.21002 vs 1.210024
+PASS	printed MPKI = ChampSim definition: perceptron/638.imagick_s-824B	0.27374 vs 0.273740
+PASS	result produced by the binary present in build/bin: perceptron/638.imagick_s-824B	c2db6ff66dbd4e2f vs c2db6ff66dbd4e2f
+PASS	exit 0: perceptron/657.xz_s-2302B	0
+PASS	completed: perceptron/657.xz_s-2302B	
+PASS	no trace wrap: perceptron/657.xz_s-2302B	
+PASS	window 50M+200M: perceptron/657.xz_s-2302B	50+200
+PASS	measured instructions in [200M, 200M+4): perceptron/657.xz_s-2302B	200000003
+PASS	printed IPC = instructions/cycles: perceptron/657.xz_s-2302B	0.928304 vs 0.928304
+PASS	printed MPKI = ChampSim definition: perceptron/657.xz_s-2302B	11.9787 vs 11.978675
+PASS	result produced by the binary present in build/bin: perceptron/657.xz_s-2302B	c2db6ff66dbd4e2f vs c2db6ff66dbd4e2f
+PASS	exit 0: hashed_perceptron/602.gcc_s-1850B	0
+PASS	completed: hashed_perceptron/602.gcc_s-1850B	
+PASS	no trace wrap: hashed_perceptron/602.gcc_s-1850B	
+PASS	window 50M+200M: hashed_perceptron/602.gcc_s-1850B	50+200
+PASS	measured instructions in [200M, 200M+4): hashed_perceptron/602.gcc_s-1850B	200000000
+PASS	printed IPC = instructions/cycles: hashed_perceptron/602.gcc_s-1850B	0.346981 vs 0.346981
+PASS	printed MPKI = ChampSim definition: hashed_perceptron/602.gcc_s-1850B	0.097185 vs 0.097185
+PASS	result produced by the binary present in build/bin: hashed_perceptron/602.gcc_s-1850B	7736c81b5859db6b vs 7736c81b5859db6b
+PASS	exit 0: hashed_perceptron/605.mcf_s-1152B	0
+PASS	completed: hashed_perceptron/605.mcf_s-1152B	
+PASS	no trace wrap: hashed_perceptron/605.mcf_s-1152B	
+PASS	window 50M+200M: hashed_perceptron/605.mcf_s-1152B	50+200
+PASS	measured instructions in [200M, 200M+4): hashed_perceptron/605.mcf_s-1152B	200000000
+PASS	printed IPC = instructions/cycles: hashed_perceptron/605.mcf_s-1152B	0.312161 vs 0.312161
+PASS	printed MPKI = ChampSim definition: hashed_perceptron/605.mcf_s-1152B	13.9808 vs 13.980810
+PASS	result produced by the binary present in build/bin: hashed_perceptron/605.mcf_s-1152B	7736c81b5859db6b vs 7736c81b5859db6b
+PASS	exit 0: hashed_perceptron/607.cactuBSSN_s-2421B	0
+PASS	completed: hashed_perceptron/607.cactuBSSN_s-2421B	
+PASS	no trace wrap: hashed_perceptron/607.cactuBSSN_s-2421B	
+PASS	window 50M+200M: hashed_perceptron/607.cactuBSSN_s-2421B	50+200
+PASS	measured instructions in [200M, 200M+4): hashed_perceptron/607.cactuBSSN_s-2421B	200000002
+PASS	printed IPC = instructions/cycles: hashed_perceptron/607.cactuBSSN_s-2421B	1.1953 vs 1.195297
+PASS	printed MPKI = ChampSim definition: hashed_perceptron/607.cactuBSSN_s-2421B	0.00654 vs 0.006540
+PASS	result produced by the binary present in build/bin: hashed_perceptron/607.cactuBSSN_s-2421B	7736c81b5859db6b vs 7736c81b5859db6b
+PASS	exit 0: hashed_perceptron/619.lbm_s-2676B	0
+PASS	completed: hashed_perceptron/619.lbm_s-2676B	
+PASS	no trace wrap: hashed_perceptron/619.lbm_s-2676B	
+PASS	window 50M+200M: hashed_perceptron/619.lbm_s-2676B	50+200
+PASS	measured instructions in [200M, 200M+4): hashed_perceptron/619.lbm_s-2676B	200000002
+PASS	printed IPC = instructions/cycles: hashed_perceptron/619.lbm_s-2676B	0.633144 vs 0.633144
+PASS	printed MPKI = ChampSim definition: hashed_perceptron/619.lbm_s-2676B	0.10939 vs 0.109390
+PASS	result produced by the binary present in build/bin: hashed_perceptron/619.lbm_s-2676B	7736c81b5859db6b vs 7736c81b5859db6b
+PASS	exit 0: hashed_perceptron/620.omnetpp_s-141B	0
+PASS	completed: hashed_perceptron/620.omnetpp_s-141B	
+PASS	no trace wrap: hashed_perceptron/620.omnetpp_s-141B	
+PASS	window 50M+200M: hashed_perceptron/620.omnetpp_s-141B	50+200
+PASS	measured instructions in [200M, 200M+4): hashed_perceptron/620.omnetpp_s-141B	200000001
+PASS	printed IPC = instructions/cycles: hashed_perceptron/620.omnetpp_s-141B	0.338752 vs 0.338752
+PASS	printed MPKI = ChampSim definition: hashed_perceptron/620.omnetpp_s-141B	3.83776 vs 3.837760
+PASS	result produced by the binary present in build/bin: hashed_perceptron/620.omnetpp_s-141B	7736c81b5859db6b vs 7736c81b5859db6b
+PASS	exit 0: hashed_perceptron/623.xalancbmk_s-10B	0
+PASS	completed: hashed_perceptron/623.xalancbmk_s-10B	
+PASS	no trace wrap: hashed_perceptron/623.xalancbmk_s-10B	
+PASS	window 50M+200M: hashed_perceptron/623.xalancbmk_s-10B	50+200
+PASS	measured instructions in [200M, 200M+4): hashed_perceptron/623.xalancbmk_s-10B	200000002
+PASS	printed IPC = instructions/cycles: hashed_perceptron/623.xalancbmk_s-10B	0.321743 vs 0.321743
+PASS	printed MPKI = ChampSim definition: hashed_perceptron/623.xalancbmk_s-10B	0.69165 vs 0.691650
+PASS	result produced by the binary present in build/bin: hashed_perceptron/623.xalancbmk_s-10B	7736c81b5859db6b vs 7736c81b5859db6b
+PASS	exit 0: hashed_perceptron/625.x264_s-12B	0
+PASS	completed: hashed_perceptron/625.x264_s-12B	
+PASS	no trace wrap: hashed_perceptron/625.x264_s-12B	
+PASS	window 50M+200M: hashed_perceptron/625.x264_s-12B	50+200
+PASS	measured instructions in [200M, 200M+4): hashed_perceptron/625.x264_s-12B	200000002
+PASS	printed IPC = instructions/cycles: hashed_perceptron/625.x264_s-12B	1.77614 vs 1.776143
+PASS	printed MPKI = ChampSim definition: hashed_perceptron/625.x264_s-12B	0.078705 vs 0.078705
+PASS	result produced by the binary present in build/bin: hashed_perceptron/625.x264_s-12B	7736c81b5859db6b vs 7736c81b5859db6b
+PASS	exit 0: hashed_perceptron/631.deepsjeng_s-928B	0
+PASS	completed: hashed_perceptron/631.deepsjeng_s-928B	
+PASS	no trace wrap: hashed_perceptron/631.deepsjeng_s-928B	
+PASS	window 50M+200M: hashed_perceptron/631.deepsjeng_s-928B	50+200
+PASS	measured instructions in [200M, 200M+4): hashed_perceptron/631.deepsjeng_s-928B	200000002
+PASS	printed IPC = instructions/cycles: hashed_perceptron/631.deepsjeng_s-928B	1.1778 vs 1.177802
+PASS	printed MPKI = ChampSim definition: hashed_perceptron/631.deepsjeng_s-928B	4.16568 vs 4.165680
+PASS	result produced by the binary present in build/bin: hashed_perceptron/631.deepsjeng_s-928B	7736c81b5859db6b vs 7736c81b5859db6b
+PASS	exit 0: hashed_perceptron/638.imagick_s-824B	0
+PASS	completed: hashed_perceptron/638.imagick_s-824B	
+PASS	no trace wrap: hashed_perceptron/638.imagick_s-824B	
+PASS	window 50M+200M: hashed_perceptron/638.imagick_s-824B	50+200
+PASS	measured instructions in [200M, 200M+4): hashed_perceptron/638.imagick_s-824B	200000002
+PASS	printed IPC = instructions/cycles: hashed_perceptron/638.imagick_s-824B	1.21392 vs 1.213916
+PASS	printed MPKI = ChampSim definition: hashed_perceptron/638.imagick_s-824B	0.090205 vs 0.090205
+PASS	result produced by the binary present in build/bin: hashed_perceptron/638.imagick_s-824B	7736c81b5859db6b vs 7736c81b5859db6b
+PASS	exit 0: hashed_perceptron/657.xz_s-2302B	0
+PASS	completed: hashed_perceptron/657.xz_s-2302B	
+PASS	no trace wrap: hashed_perceptron/657.xz_s-2302B	
+PASS	window 50M+200M: hashed_perceptron/657.xz_s-2302B	50+200
+PASS	measured instructions in [200M, 200M+4): hashed_perceptron/657.xz_s-2302B	200000003
+PASS	printed IPC = instructions/cycles: hashed_perceptron/657.xz_s-2302B	0.985105 vs 0.985105
+PASS	printed MPKI = ChampSim definition: hashed_perceptron/657.xz_s-2302B	9.41666 vs 9.416660
+PASS	result produced by the binary present in build/bin: hashed_perceptron/657.xz_s-2302B	7736c81b5859db6b vs 7736c81b5859db6b
+PASS	exit 0: tage/602.gcc_s-1850B	0
+PASS	completed: tage/602.gcc_s-1850B	
+PASS	no trace wrap: tage/602.gcc_s-1850B	
+PASS	window 50M+200M: tage/602.gcc_s-1850B	50+200
+PASS	measured instructions in [200M, 200M+4): tage/602.gcc_s-1850B	200000000
+PASS	printed IPC = instructions/cycles: tage/602.gcc_s-1850B	0.347133 vs 0.347133
+PASS	printed MPKI = ChampSim definition: tage/602.gcc_s-1850B	0.064895 vs 0.064895
+PASS	result produced by the binary present in build/bin: tage/602.gcc_s-1850B	4b5e62795cf0dce0 vs 4b5e62795cf0dce0
+PASS	binary built from current (frozen) tagescl.bpred: tage	3be5e685ada6
+PASS	exit 0: tage/605.mcf_s-1152B	0
+PASS	completed: tage/605.mcf_s-1152B	
+PASS	no trace wrap: tage/605.mcf_s-1152B	
+PASS	window 50M+200M: tage/605.mcf_s-1152B	50+200
+PASS	measured instructions in [200M, 200M+4): tage/605.mcf_s-1152B	200000000
+PASS	printed IPC = instructions/cycles: tage/605.mcf_s-1152B	0.307286 vs 0.307286
+PASS	printed MPKI = ChampSim definition: tage/605.mcf_s-1152B	14.5368 vs 14.536840
+PASS	result produced by the binary present in build/bin: tage/605.mcf_s-1152B	4b5e62795cf0dce0 vs 4b5e62795cf0dce0
+PASS	binary built from current (frozen) tagescl.bpred: tage	3be5e685ada6
+PASS	exit 0: tage/607.cactuBSSN_s-2421B	0
+PASS	completed: tage/607.cactuBSSN_s-2421B	
+PASS	no trace wrap: tage/607.cactuBSSN_s-2421B	
+PASS	window 50M+200M: tage/607.cactuBSSN_s-2421B	50+200
+PASS	measured instructions in [200M, 200M+4): tage/607.cactuBSSN_s-2421B	200000002
+PASS	printed IPC = instructions/cycles: tage/607.cactuBSSN_s-2421B	1.19545 vs 1.195448
+PASS	printed MPKI = ChampSim definition: tage/607.cactuBSSN_s-2421B	0.00471 vs 0.004710
+PASS	result produced by the binary present in build/bin: tage/607.cactuBSSN_s-2421B	4b5e62795cf0dce0 vs 4b5e62795cf0dce0
+PASS	binary built from current (frozen) tagescl.bpred: tage	3be5e685ada6
+PASS	exit 0: tage/619.lbm_s-2676B	0
+PASS	completed: tage/619.lbm_s-2676B	
+PASS	no trace wrap: tage/619.lbm_s-2676B	
+PASS	window 50M+200M: tage/619.lbm_s-2676B	50+200
+PASS	measured instructions in [200M, 200M+4): tage/619.lbm_s-2676B	200000002
+PASS	printed IPC = instructions/cycles: tage/619.lbm_s-2676B	0.633151 vs 0.633151
+PASS	printed MPKI = ChampSim definition: tage/619.lbm_s-2676B	0.101485 vs 0.101485
+PASS	result produced by the binary present in build/bin: tage/619.lbm_s-2676B	4b5e62795cf0dce0 vs 4b5e62795cf0dce0
+PASS	binary built from current (frozen) tagescl.bpred: tage	3be5e685ada6
+PASS	exit 0: tage/620.omnetpp_s-141B	0
+PASS	completed: tage/620.omnetpp_s-141B	
+PASS	no trace wrap: tage/620.omnetpp_s-141B	
+PASS	window 50M+200M: tage/620.omnetpp_s-141B	50+200
+PASS	measured instructions in [200M, 200M+4): tage/620.omnetpp_s-141B	200000001
+PASS	printed IPC = instructions/cycles: tage/620.omnetpp_s-141B	0.339084 vs 0.339084
+PASS	printed MPKI = ChampSim definition: tage/620.omnetpp_s-141B	3.72241 vs 3.722415
+PASS	result produced by the binary present in build/bin: tage/620.omnetpp_s-141B	4b5e62795cf0dce0 vs 4b5e62795cf0dce0
+PASS	binary built from current (frozen) tagescl.bpred: tage	3be5e685ada6
+PASS	exit 0: tage/623.xalancbmk_s-10B	0
+PASS	completed: tage/623.xalancbmk_s-10B	
+PASS	no trace wrap: tage/623.xalancbmk_s-10B	
+PASS	window 50M+200M: tage/623.xalancbmk_s-10B	50+200
+PASS	measured instructions in [200M, 200M+4): tage/623.xalancbmk_s-10B	200000002
+PASS	printed IPC = instructions/cycles: tage/623.xalancbmk_s-10B	0.322862 vs 0.322862
+PASS	printed MPKI = ChampSim definition: tage/623.xalancbmk_s-10B	0.47775 vs 0.477750
+PASS	result produced by the binary present in build/bin: tage/623.xalancbmk_s-10B	4b5e62795cf0dce0 vs 4b5e62795cf0dce0
+PASS	binary built from current (frozen) tagescl.bpred: tage	3be5e685ada6
+PASS	exit 0: tage/625.x264_s-12B	0
+PASS	completed: tage/625.x264_s-12B	
+PASS	no trace wrap: tage/625.x264_s-12B	
+PASS	window 50M+200M: tage/625.x264_s-12B	50+200
+PASS	measured instructions in [200M, 200M+4): tage/625.x264_s-12B	200000002
+PASS	printed IPC = instructions/cycles: tage/625.x264_s-12B	1.78324 vs 1.783243
+PASS	printed MPKI = ChampSim definition: tage/625.x264_s-12B	0.05726 vs 0.057260
+PASS	result produced by the binary present in build/bin: tage/625.x264_s-12B	4b5e62795cf0dce0 vs 4b5e62795cf0dce0
+PASS	binary built from current (frozen) tagescl.bpred: tage	3be5e685ada6
+PASS	exit 0: tage/631.deepsjeng_s-928B	0
+PASS	completed: tage/631.deepsjeng_s-928B	
+PASS	no trace wrap: tage/631.deepsjeng_s-928B	
+PASS	window 50M+200M: tage/631.deepsjeng_s-928B	50+200
+PASS	measured instructions in [200M, 200M+4): tage/631.deepsjeng_s-928B	200000002
+PASS	printed IPC = instructions/cycles: tage/631.deepsjeng_s-928B	1.17715 vs 1.177149
+PASS	printed MPKI = ChampSim definition: tage/631.deepsjeng_s-928B	4.1937 vs 4.193700
+PASS	result produced by the binary present in build/bin: tage/631.deepsjeng_s-928B	4b5e62795cf0dce0 vs 4b5e62795cf0dce0
+PASS	binary built from current (frozen) tagescl.bpred: tage	3be5e685ada6
+PASS	exit 0: tage/638.imagick_s-824B	0
+PASS	completed: tage/638.imagick_s-824B	
+PASS	no trace wrap: tage/638.imagick_s-824B	
+PASS	window 50M+200M: tage/638.imagick_s-824B	50+200
+PASS	measured instructions in [200M, 200M+4): tage/638.imagick_s-824B	200000002
+PASS	printed IPC = instructions/cycles: tage/638.imagick_s-824B	1.21394 vs 1.213938
+PASS	printed MPKI = ChampSim definition: tage/638.imagick_s-824B	0.088275 vs 0.088275
+PASS	result produced by the binary present in build/bin: tage/638.imagick_s-824B	4b5e62795cf0dce0 vs 4b5e62795cf0dce0
+PASS	binary built from current (frozen) tagescl.bpred: tage	3be5e685ada6
+PASS	exit 0: tage/657.xz_s-2302B	0
+PASS	completed: tage/657.xz_s-2302B	
+PASS	no trace wrap: tage/657.xz_s-2302B	
+PASS	window 50M+200M: tage/657.xz_s-2302B	50+200
+PASS	measured instructions in [200M, 200M+4): tage/657.xz_s-2302B	200000003
+PASS	printed IPC = instructions/cycles: tage/657.xz_s-2302B	0.976909 vs 0.976909
+PASS	printed MPKI = ChampSim definition: tage/657.xz_s-2302B	9.70541 vs 9.705410
+PASS	result produced by the binary present in build/bin: tage/657.xz_s-2302B	4b5e62795cf0dce0 vs 4b5e62795cf0dce0
+PASS	binary built from current (frozen) tagescl.bpred: tage	3be5e685ada6
+PASS	exit 0: tage_l/602.gcc_s-1850B	0
+PASS	completed: tage_l/602.gcc_s-1850B	
+PASS	no trace wrap: tage_l/602.gcc_s-1850B	
+PASS	window 50M+200M: tage_l/602.gcc_s-1850B	50+200
+PASS	measured instructions in [200M, 200M+4): tage_l/602.gcc_s-1850B	200000000
+PASS	printed IPC = instructions/cycles: tage_l/602.gcc_s-1850B	0.347133 vs 0.347133
+PASS	printed MPKI = ChampSim definition: tage_l/602.gcc_s-1850B	0.064915 vs 0.064915
+PASS	result produced by the binary present in build/bin: tage_l/602.gcc_s-1850B	261d643ec9c4c1d5 vs 261d643ec9c4c1d5
+PASS	binary built from current (frozen) tagescl.bpred: tage_l	3be5e685ada6
+PASS	exit 0: tage_l/605.mcf_s-1152B	0
+PASS	completed: tage_l/605.mcf_s-1152B	
+PASS	no trace wrap: tage_l/605.mcf_s-1152B	
+PASS	window 50M+200M: tage_l/605.mcf_s-1152B	50+200
+PASS	measured instructions in [200M, 200M+4): tage_l/605.mcf_s-1152B	200000000
+PASS	printed IPC = instructions/cycles: tage_l/605.mcf_s-1152B	0.307167 vs 0.307167
+PASS	printed MPKI = ChampSim definition: tage_l/605.mcf_s-1152B	14.5315 vs 14.531525
+PASS	result produced by the binary present in build/bin: tage_l/605.mcf_s-1152B	261d643ec9c4c1d5 vs 261d643ec9c4c1d5
+PASS	binary built from current (frozen) tagescl.bpred: tage_l	3be5e685ada6
+PASS	exit 0: tage_l/607.cactuBSSN_s-2421B	0
+PASS	completed: tage_l/607.cactuBSSN_s-2421B	
+PASS	no trace wrap: tage_l/607.cactuBSSN_s-2421B	
+PASS	window 50M+200M: tage_l/607.cactuBSSN_s-2421B	50+200
+PASS	measured instructions in [200M, 200M+4): tage_l/607.cactuBSSN_s-2421B	200000002
+PASS	printed IPC = instructions/cycles: tage_l/607.cactuBSSN_s-2421B	1.19549 vs 1.195491
+PASS	printed MPKI = ChampSim definition: tage_l/607.cactuBSSN_s-2421B	0.00301 vs 0.003010
+PASS	result produced by the binary present in build/bin: tage_l/607.cactuBSSN_s-2421B	261d643ec9c4c1d5 vs 261d643ec9c4c1d5
+PASS	binary built from current (frozen) tagescl.bpred: tage_l	3be5e685ada6
+PASS	exit 0: tage_l/619.lbm_s-2676B	0
+PASS	completed: tage_l/619.lbm_s-2676B	
+PASS	no trace wrap: tage_l/619.lbm_s-2676B	
+PASS	window 50M+200M: tage_l/619.lbm_s-2676B	50+200
+PASS	measured instructions in [200M, 200M+4): tage_l/619.lbm_s-2676B	200000002
+PASS	printed IPC = instructions/cycles: tage_l/619.lbm_s-2676B	0.633205 vs 0.633205
+PASS	printed MPKI = ChampSim definition: tage_l/619.lbm_s-2676B	0.101985 vs 0.101985
+PASS	result produced by the binary present in build/bin: tage_l/619.lbm_s-2676B	261d643ec9c4c1d5 vs 261d643ec9c4c1d5
+PASS	binary built from current (frozen) tagescl.bpred: tage_l	3be5e685ada6
+PASS	exit 0: tage_l/620.omnetpp_s-141B	0
+PASS	completed: tage_l/620.omnetpp_s-141B	
+PASS	no trace wrap: tage_l/620.omnetpp_s-141B	
+PASS	window 50M+200M: tage_l/620.omnetpp_s-141B	50+200
+PASS	measured instructions in [200M, 200M+4): tage_l/620.omnetpp_s-141B	200000001
+PASS	printed IPC = instructions/cycles: tage_l/620.omnetpp_s-141B	0.339176 vs 0.339176
+PASS	printed MPKI = ChampSim definition: tage_l/620.omnetpp_s-141B	3.70977 vs 3.709770
+PASS	result produced by the binary present in build/bin: tage_l/620.omnetpp_s-141B	261d643ec9c4c1d5 vs 261d643ec9c4c1d5
+PASS	binary built from current (frozen) tagescl.bpred: tage_l	3be5e685ada6
+PASS	exit 0: tage_l/623.xalancbmk_s-10B	0
+PASS	completed: tage_l/623.xalancbmk_s-10B	
+PASS	no trace wrap: tage_l/623.xalancbmk_s-10B	
+PASS	window 50M+200M: tage_l/623.xalancbmk_s-10B	50+200
+PASS	measured instructions in [200M, 200M+4): tage_l/623.xalancbmk_s-10B	200000002
+PASS	printed IPC = instructions/cycles: tage_l/623.xalancbmk_s-10B	0.322838 vs 0.322838
+PASS	printed MPKI = ChampSim definition: tage_l/623.xalancbmk_s-10B	0.480605 vs 0.480605
+PASS	result produced by the binary present in build/bin: tage_l/623.xalancbmk_s-10B	261d643ec9c4c1d5 vs 261d643ec9c4c1d5
+PASS	binary built from current (frozen) tagescl.bpred: tage_l	3be5e685ada6
+PASS	exit 0: tage_l/625.x264_s-12B	0
+PASS	completed: tage_l/625.x264_s-12B	
+PASS	no trace wrap: tage_l/625.x264_s-12B	
+PASS	window 50M+200M: tage_l/625.x264_s-12B	50+200
+PASS	measured instructions in [200M, 200M+4): tage_l/625.x264_s-12B	200000002
+PASS	printed IPC = instructions/cycles: tage_l/625.x264_s-12B	1.78269 vs 1.782690
+PASS	printed MPKI = ChampSim definition: tage_l/625.x264_s-12B	0.059325 vs 0.059325
+PASS	result produced by the binary present in build/bin: tage_l/625.x264_s-12B	261d643ec9c4c1d5 vs 261d643ec9c4c1d5
+PASS	binary built from current (frozen) tagescl.bpred: tage_l	3be5e685ada6
+PASS	exit 0: tage_l/631.deepsjeng_s-928B	0
+PASS	completed: tage_l/631.deepsjeng_s-928B	
+PASS	no trace wrap: tage_l/631.deepsjeng_s-928B	
+PASS	window 50M+200M: tage_l/631.deepsjeng_s-928B	50+200
+PASS	measured instructions in [200M, 200M+4): tage_l/631.deepsjeng_s-928B	200000002
+PASS	printed IPC = instructions/cycles: tage_l/631.deepsjeng_s-928B	1.17682 vs 1.176822
+PASS	printed MPKI = ChampSim definition: tage_l/631.deepsjeng_s-928B	4.19766 vs 4.197665
+PASS	result produced by the binary present in build/bin: tage_l/631.deepsjeng_s-928B	261d643ec9c4c1d5 vs 261d643ec9c4c1d5
+PASS	binary built from current (frozen) tagescl.bpred: tage_l	3be5e685ada6
+PASS	exit 0: tage_l/638.imagick_s-824B	0
+PASS	completed: tage_l/638.imagick_s-824B	
+PASS	no trace wrap: tage_l/638.imagick_s-824B	
+PASS	window 50M+200M: tage_l/638.imagick_s-824B	50+200
+PASS	measured instructions in [200M, 200M+4): tage_l/638.imagick_s-824B	200000002
+PASS	printed IPC = instructions/cycles: tage_l/638.imagick_s-824B	1.21394 vs 1.213940
+PASS	printed MPKI = ChampSim definition: tage_l/638.imagick_s-824B	0.08825 vs 0.088250
+PASS	result produced by the binary present in build/bin: tage_l/638.imagick_s-824B	261d643ec9c4c1d5 vs 261d643ec9c4c1d5
+PASS	binary built from current (frozen) tagescl.bpred: tage_l	3be5e685ada6
+PASS	exit 0: tage_l/657.xz_s-2302B	0
+PASS	completed: tage_l/657.xz_s-2302B	
+PASS	no trace wrap: tage_l/657.xz_s-2302B	
+PASS	window 50M+200M: tage_l/657.xz_s-2302B	50+200
+PASS	measured instructions in [200M, 200M+4): tage_l/657.xz_s-2302B	200000003
+PASS	printed IPC = instructions/cycles: tage_l/657.xz_s-2302B	0.977356 vs 0.977356
+PASS	printed MPKI = ChampSim definition: tage_l/657.xz_s-2302B	9.69574 vs 9.695740
+PASS	result produced by the binary present in build/bin: tage_l/657.xz_s-2302B	261d643ec9c4c1d5 vs 261d643ec9c4c1d5
+PASS	binary built from current (frozen) tagescl.bpred: tage_l	3be5e685ada6
+PASS	exit 0: tsl_base/602.gcc_s-1850B	0
+PASS	completed: tsl_base/602.gcc_s-1850B	
+PASS	no trace wrap: tsl_base/602.gcc_s-1850B	
+PASS	window 50M+200M: tsl_base/602.gcc_s-1850B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_base/602.gcc_s-1850B	200000000
+PASS	printed IPC = instructions/cycles: tsl_base/602.gcc_s-1850B	0.347135 vs 0.347135
+PASS	printed MPKI = ChampSim definition: tsl_base/602.gcc_s-1850B	0.063245 vs 0.063245
+PASS	result produced by the binary present in build/bin: tsl_base/602.gcc_s-1850B	2e57e261a57f0fc8 vs 2e57e261a57f0fc8
+PASS	binary built from current (frozen) tagescl.bpred: tsl_base	3be5e685ada6
+PASS	exit 0: tsl_base/605.mcf_s-1152B	0
+PASS	completed: tsl_base/605.mcf_s-1152B	
+PASS	no trace wrap: tsl_base/605.mcf_s-1152B	
+PASS	window 50M+200M: tsl_base/605.mcf_s-1152B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_base/605.mcf_s-1152B	200000000
+PASS	printed IPC = instructions/cycles: tsl_base/605.mcf_s-1152B	0.312166 vs 0.312166
+PASS	printed MPKI = ChampSim definition: tsl_base/605.mcf_s-1152B	13.9203 vs 13.920285
+PASS	result produced by the binary present in build/bin: tsl_base/605.mcf_s-1152B	2e57e261a57f0fc8 vs 2e57e261a57f0fc8
+PASS	binary built from current (frozen) tagescl.bpred: tsl_base	3be5e685ada6
+PASS	exit 0: tsl_base/607.cactuBSSN_s-2421B	0
+PASS	completed: tsl_base/607.cactuBSSN_s-2421B	
+PASS	no trace wrap: tsl_base/607.cactuBSSN_s-2421B	
+PASS	window 50M+200M: tsl_base/607.cactuBSSN_s-2421B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_base/607.cactuBSSN_s-2421B	200000002
+PASS	printed IPC = instructions/cycles: tsl_base/607.cactuBSSN_s-2421B	1.19549 vs 1.195495
+PASS	printed MPKI = ChampSim definition: tsl_base/607.cactuBSSN_s-2421B	0.00293 vs 0.002930
+PASS	result produced by the binary present in build/bin: tsl_base/607.cactuBSSN_s-2421B	2e57e261a57f0fc8 vs 2e57e261a57f0fc8
+PASS	binary built from current (frozen) tagescl.bpred: tsl_base	3be5e685ada6
+PASS	exit 0: tsl_base/619.lbm_s-2676B	0
+PASS	completed: tsl_base/619.lbm_s-2676B	
+PASS	no trace wrap: tsl_base/619.lbm_s-2676B	
+PASS	window 50M+200M: tsl_base/619.lbm_s-2676B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_base/619.lbm_s-2676B	200000002
+PASS	printed IPC = instructions/cycles: tsl_base/619.lbm_s-2676B	0.633069 vs 0.633069
+PASS	printed MPKI = ChampSim definition: tsl_base/619.lbm_s-2676B	0.10113 vs 0.101130
+PASS	result produced by the binary present in build/bin: tsl_base/619.lbm_s-2676B	2e57e261a57f0fc8 vs 2e57e261a57f0fc8
+PASS	binary built from current (frozen) tagescl.bpred: tsl_base	3be5e685ada6
+PASS	exit 0: tsl_base/620.omnetpp_s-141B	0
+PASS	completed: tsl_base/620.omnetpp_s-141B	
+PASS	no trace wrap: tsl_base/620.omnetpp_s-141B	
+PASS	window 50M+200M: tsl_base/620.omnetpp_s-141B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_base/620.omnetpp_s-141B	200000001
+PASS	printed IPC = instructions/cycles: tsl_base/620.omnetpp_s-141B	0.340817 vs 0.340817
+PASS	printed MPKI = ChampSim definition: tsl_base/620.omnetpp_s-141B	3.32196 vs 3.321965
+PASS	result produced by the binary present in build/bin: tsl_base/620.omnetpp_s-141B	2e57e261a57f0fc8 vs 2e57e261a57f0fc8
+PASS	binary built from current (frozen) tagescl.bpred: tsl_base	3be5e685ada6
+PASS	exit 0: tsl_base/623.xalancbmk_s-10B	0
+PASS	completed: tsl_base/623.xalancbmk_s-10B	
+PASS	no trace wrap: tsl_base/623.xalancbmk_s-10B	
+PASS	window 50M+200M: tsl_base/623.xalancbmk_s-10B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_base/623.xalancbmk_s-10B	200000002
+PASS	printed IPC = instructions/cycles: tsl_base/623.xalancbmk_s-10B	0.322972 vs 0.322972
+PASS	printed MPKI = ChampSim definition: tsl_base/623.xalancbmk_s-10B	0.45472 vs 0.454720
+PASS	result produced by the binary present in build/bin: tsl_base/623.xalancbmk_s-10B	2e57e261a57f0fc8 vs 2e57e261a57f0fc8
+PASS	binary built from current (frozen) tagescl.bpred: tsl_base	3be5e685ada6
+PASS	exit 0: tsl_base/625.x264_s-12B	0
+PASS	completed: tsl_base/625.x264_s-12B	
+PASS	no trace wrap: tsl_base/625.x264_s-12B	
+PASS	window 50M+200M: tsl_base/625.x264_s-12B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_base/625.x264_s-12B	200000002
+PASS	printed IPC = instructions/cycles: tsl_base/625.x264_s-12B	1.78395 vs 1.783950
+PASS	printed MPKI = ChampSim definition: tsl_base/625.x264_s-12B	0.052785 vs 0.052785
+PASS	result produced by the binary present in build/bin: tsl_base/625.x264_s-12B	2e57e261a57f0fc8 vs 2e57e261a57f0fc8
+PASS	binary built from current (frozen) tagescl.bpred: tsl_base	3be5e685ada6
+PASS	exit 0: tsl_base/631.deepsjeng_s-928B	0
+PASS	completed: tsl_base/631.deepsjeng_s-928B	
+PASS	no trace wrap: tsl_base/631.deepsjeng_s-928B	
+PASS	window 50M+200M: tsl_base/631.deepsjeng_s-928B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_base/631.deepsjeng_s-928B	200000002
+PASS	printed IPC = instructions/cycles: tsl_base/631.deepsjeng_s-928B	1.19043 vs 1.190428
+PASS	printed MPKI = ChampSim definition: tsl_base/631.deepsjeng_s-928B	3.76109 vs 3.761090
+PASS	result produced by the binary present in build/bin: tsl_base/631.deepsjeng_s-928B	2e57e261a57f0fc8 vs 2e57e261a57f0fc8
+PASS	binary built from current (frozen) tagescl.bpred: tsl_base	3be5e685ada6
+PASS	exit 0: tsl_base/638.imagick_s-824B	0
+PASS	completed: tsl_base/638.imagick_s-824B	
+PASS	no trace wrap: tsl_base/638.imagick_s-824B	
+PASS	window 50M+200M: tsl_base/638.imagick_s-824B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_base/638.imagick_s-824B	200000002
+PASS	printed IPC = instructions/cycles: tsl_base/638.imagick_s-824B	1.21395 vs 1.213951
+PASS	printed MPKI = ChampSim definition: tsl_base/638.imagick_s-824B	0.088165 vs 0.088165
+PASS	result produced by the binary present in build/bin: tsl_base/638.imagick_s-824B	2e57e261a57f0fc8 vs 2e57e261a57f0fc8
+PASS	binary built from current (frozen) tagescl.bpred: tsl_base	3be5e685ada6
+PASS	exit 0: tsl_base/657.xz_s-2302B	0
+PASS	completed: tsl_base/657.xz_s-2302B	
+PASS	no trace wrap: tsl_base/657.xz_s-2302B	
+PASS	window 50M+200M: tsl_base/657.xz_s-2302B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_base/657.xz_s-2302B	200000003
+PASS	printed IPC = instructions/cycles: tsl_base/657.xz_s-2302B	0.99695 vs 0.996950
+PASS	printed MPKI = ChampSim definition: tsl_base/657.xz_s-2302B	8.95023 vs 8.950235
+PASS	result produced by the binary present in build/bin: tsl_base/657.xz_s-2302B	2e57e261a57f0fc8 vs 2e57e261a57f0fc8
+PASS	binary built from current (frozen) tagescl.bpred: tsl_base	3be5e685ada6
+PASS	exit 0: tsl_imli/602.gcc_s-1850B	0
+PASS	completed: tsl_imli/602.gcc_s-1850B	
+PASS	no trace wrap: tsl_imli/602.gcc_s-1850B	
+PASS	window 50M+200M: tsl_imli/602.gcc_s-1850B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_imli/602.gcc_s-1850B	200000000
+PASS	printed IPC = instructions/cycles: tsl_imli/602.gcc_s-1850B	0.347273 vs 0.347273
+PASS	printed MPKI = ChampSim definition: tsl_imli/602.gcc_s-1850B	0.03141 vs 0.031410
+PASS	result produced by the binary present in build/bin: tsl_imli/602.gcc_s-1850B	25d469ec98590e64 vs 25d469ec98590e64
+PASS	binary built from current (frozen) tagescl.bpred: tsl_imli	3be5e685ada6
+PASS	exit 0: tsl_imli/605.mcf_s-1152B	0
+PASS	completed: tsl_imli/605.mcf_s-1152B	
+PASS	no trace wrap: tsl_imli/605.mcf_s-1152B	
+PASS	window 50M+200M: tsl_imli/605.mcf_s-1152B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_imli/605.mcf_s-1152B	200000000
+PASS	printed IPC = instructions/cycles: tsl_imli/605.mcf_s-1152B	0.312426 vs 0.312426
+PASS	printed MPKI = ChampSim definition: tsl_imli/605.mcf_s-1152B	13.9238 vs 13.923810
+PASS	result produced by the binary present in build/bin: tsl_imli/605.mcf_s-1152B	25d469ec98590e64 vs 25d469ec98590e64
+PASS	binary built from current (frozen) tagescl.bpred: tsl_imli	3be5e685ada6
+PASS	exit 0: tsl_imli/607.cactuBSSN_s-2421B	0
+PASS	completed: tsl_imli/607.cactuBSSN_s-2421B	
+PASS	no trace wrap: tsl_imli/607.cactuBSSN_s-2421B	
+PASS	window 50M+200M: tsl_imli/607.cactuBSSN_s-2421B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_imli/607.cactuBSSN_s-2421B	200000002
+PASS	printed IPC = instructions/cycles: tsl_imli/607.cactuBSSN_s-2421B	1.19548 vs 1.195481
+PASS	printed MPKI = ChampSim definition: tsl_imli/607.cactuBSSN_s-2421B	0.0031 vs 0.003100
+PASS	result produced by the binary present in build/bin: tsl_imli/607.cactuBSSN_s-2421B	25d469ec98590e64 vs 25d469ec98590e64
+PASS	binary built from current (frozen) tagescl.bpred: tsl_imli	3be5e685ada6
+PASS	exit 0: tsl_imli/619.lbm_s-2676B	0
+PASS	completed: tsl_imli/619.lbm_s-2676B	
+PASS	no trace wrap: tsl_imli/619.lbm_s-2676B	
+PASS	window 50M+200M: tsl_imli/619.lbm_s-2676B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_imli/619.lbm_s-2676B	200000002
+PASS	printed IPC = instructions/cycles: tsl_imli/619.lbm_s-2676B	0.63316 vs 0.633160
+PASS	printed MPKI = ChampSim definition: tsl_imli/619.lbm_s-2676B	0.101355 vs 0.101355
+PASS	result produced by the binary present in build/bin: tsl_imli/619.lbm_s-2676B	25d469ec98590e64 vs 25d469ec98590e64
+PASS	binary built from current (frozen) tagescl.bpred: tsl_imli	3be5e685ada6
+PASS	exit 0: tsl_imli/620.omnetpp_s-141B	0
+PASS	completed: tsl_imli/620.omnetpp_s-141B	
+PASS	no trace wrap: tsl_imli/620.omnetpp_s-141B	
+PASS	window 50M+200M: tsl_imli/620.omnetpp_s-141B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_imli/620.omnetpp_s-141B	200000001
+PASS	printed IPC = instructions/cycles: tsl_imli/620.omnetpp_s-141B	0.34085 vs 0.340850
+PASS	printed MPKI = ChampSim definition: tsl_imli/620.omnetpp_s-141B	3.32148 vs 3.321485
+PASS	result produced by the binary present in build/bin: tsl_imli/620.omnetpp_s-141B	25d469ec98590e64 vs 25d469ec98590e64
+PASS	binary built from current (frozen) tagescl.bpred: tsl_imli	3be5e685ada6
+PASS	exit 0: tsl_imli/623.xalancbmk_s-10B	0
+PASS	completed: tsl_imli/623.xalancbmk_s-10B	
+PASS	no trace wrap: tsl_imli/623.xalancbmk_s-10B	
+PASS	window 50M+200M: tsl_imli/623.xalancbmk_s-10B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_imli/623.xalancbmk_s-10B	200000002
+PASS	printed IPC = instructions/cycles: tsl_imli/623.xalancbmk_s-10B	0.322977 vs 0.322977
+PASS	printed MPKI = ChampSim definition: tsl_imli/623.xalancbmk_s-10B	0.457205 vs 0.457205
+PASS	result produced by the binary present in build/bin: tsl_imli/623.xalancbmk_s-10B	25d469ec98590e64 vs 25d469ec98590e64
+PASS	binary built from current (frozen) tagescl.bpred: tsl_imli	3be5e685ada6
+PASS	exit 0: tsl_imli/625.x264_s-12B	0
+PASS	completed: tsl_imli/625.x264_s-12B	
+PASS	no trace wrap: tsl_imli/625.x264_s-12B	
+PASS	window 50M+200M: tsl_imli/625.x264_s-12B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_imli/625.x264_s-12B	200000002
+PASS	printed IPC = instructions/cycles: tsl_imli/625.x264_s-12B	1.78387 vs 1.783871
+PASS	printed MPKI = ChampSim definition: tsl_imli/625.x264_s-12B	0.052995 vs 0.052995
+PASS	result produced by the binary present in build/bin: tsl_imli/625.x264_s-12B	25d469ec98590e64 vs 25d469ec98590e64
+PASS	binary built from current (frozen) tagescl.bpred: tsl_imli	3be5e685ada6
+PASS	exit 0: tsl_imli/631.deepsjeng_s-928B	0
+PASS	completed: tsl_imli/631.deepsjeng_s-928B	
+PASS	no trace wrap: tsl_imli/631.deepsjeng_s-928B	
+PASS	window 50M+200M: tsl_imli/631.deepsjeng_s-928B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_imli/631.deepsjeng_s-928B	200000002
+PASS	printed IPC = instructions/cycles: tsl_imli/631.deepsjeng_s-928B	1.19096 vs 1.190962
+PASS	printed MPKI = ChampSim definition: tsl_imli/631.deepsjeng_s-928B	3.74865 vs 3.748650
+PASS	result produced by the binary present in build/bin: tsl_imli/631.deepsjeng_s-928B	25d469ec98590e64 vs 25d469ec98590e64
+PASS	binary built from current (frozen) tagescl.bpred: tsl_imli	3be5e685ada6
+PASS	exit 0: tsl_imli/638.imagick_s-824B	0
+PASS	completed: tsl_imli/638.imagick_s-824B	
+PASS	no trace wrap: tsl_imli/638.imagick_s-824B	
+PASS	window 50M+200M: tsl_imli/638.imagick_s-824B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_imli/638.imagick_s-824B	200000002
+PASS	printed IPC = instructions/cycles: tsl_imli/638.imagick_s-824B	1.21395 vs 1.213947
+PASS	printed MPKI = ChampSim definition: tsl_imli/638.imagick_s-824B	0.08838 vs 0.088380
+PASS	result produced by the binary present in build/bin: tsl_imli/638.imagick_s-824B	25d469ec98590e64 vs 25d469ec98590e64
+PASS	binary built from current (frozen) tagescl.bpred: tsl_imli	3be5e685ada6
+PASS	exit 0: tsl_imli/657.xz_s-2302B	0
+PASS	completed: tsl_imli/657.xz_s-2302B	
+PASS	no trace wrap: tsl_imli/657.xz_s-2302B	
+PASS	window 50M+200M: tsl_imli/657.xz_s-2302B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_imli/657.xz_s-2302B	200000003
+PASS	printed IPC = instructions/cycles: tsl_imli/657.xz_s-2302B	0.997766 vs 0.997766
+PASS	printed MPKI = ChampSim definition: tsl_imli/657.xz_s-2302B	8.9178 vs 8.917800
+PASS	result produced by the binary present in build/bin: tsl_imli/657.xz_s-2302B	25d469ec98590e64 vs 25d469ec98590e64
+PASS	binary built from current (frozen) tagescl.bpred: tsl_imli	3be5e685ada6
+PASS	exit 0: tsl_proposed/602.gcc_s-1850B	0
+PASS	completed: tsl_proposed/602.gcc_s-1850B	
+PASS	no trace wrap: tsl_proposed/602.gcc_s-1850B	
+PASS	window 50M+200M: tsl_proposed/602.gcc_s-1850B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_proposed/602.gcc_s-1850B	200000000
+PASS	printed IPC = instructions/cycles: tsl_proposed/602.gcc_s-1850B	0.347272 vs 0.347272
+PASS	printed MPKI = ChampSim definition: tsl_proposed/602.gcc_s-1850B	0.03175 vs 0.031750
+PASS	result produced by the binary present in build/bin: tsl_proposed/602.gcc_s-1850B	7b17ccd09739f651 vs 7b17ccd09739f651
+PASS	binary built from current (frozen) tagescl.bpred: tsl_proposed	3be5e685ada6
+PASS	exit 0: tsl_proposed/605.mcf_s-1152B	0
+PASS	completed: tsl_proposed/605.mcf_s-1152B	
+PASS	no trace wrap: tsl_proposed/605.mcf_s-1152B	
+PASS	window 50M+200M: tsl_proposed/605.mcf_s-1152B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_proposed/605.mcf_s-1152B	200000000
+PASS	printed IPC = instructions/cycles: tsl_proposed/605.mcf_s-1152B	0.312438 vs 0.312438
+PASS	printed MPKI = ChampSim definition: tsl_proposed/605.mcf_s-1152B	13.8743 vs 13.874265
+PASS	result produced by the binary present in build/bin: tsl_proposed/605.mcf_s-1152B	7b17ccd09739f651 vs 7b17ccd09739f651
+PASS	binary built from current (frozen) tagescl.bpred: tsl_proposed	3be5e685ada6
+PASS	exit 0: tsl_proposed/607.cactuBSSN_s-2421B	0
+PASS	completed: tsl_proposed/607.cactuBSSN_s-2421B	
+PASS	no trace wrap: tsl_proposed/607.cactuBSSN_s-2421B	
+PASS	window 50M+200M: tsl_proposed/607.cactuBSSN_s-2421B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_proposed/607.cactuBSSN_s-2421B	200000002
+PASS	printed IPC = instructions/cycles: tsl_proposed/607.cactuBSSN_s-2421B	1.19548 vs 1.195484
+PASS	printed MPKI = ChampSim definition: tsl_proposed/607.cactuBSSN_s-2421B	0.002965 vs 0.002965
+PASS	result produced by the binary present in build/bin: tsl_proposed/607.cactuBSSN_s-2421B	7b17ccd09739f651 vs 7b17ccd09739f651
+PASS	binary built from current (frozen) tagescl.bpred: tsl_proposed	3be5e685ada6
+PASS	exit 0: tsl_proposed/619.lbm_s-2676B	0
+PASS	completed: tsl_proposed/619.lbm_s-2676B	
+PASS	no trace wrap: tsl_proposed/619.lbm_s-2676B	
+PASS	window 50M+200M: tsl_proposed/619.lbm_s-2676B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_proposed/619.lbm_s-2676B	200000002
+PASS	printed IPC = instructions/cycles: tsl_proposed/619.lbm_s-2676B	0.63303 vs 0.633030
+PASS	printed MPKI = ChampSim definition: tsl_proposed/619.lbm_s-2676B	0.101415 vs 0.101415
+PASS	result produced by the binary present in build/bin: tsl_proposed/619.lbm_s-2676B	7b17ccd09739f651 vs 7b17ccd09739f651
+PASS	binary built from current (frozen) tagescl.bpred: tsl_proposed	3be5e685ada6
+PASS	exit 0: tsl_proposed/620.omnetpp_s-141B	0
+PASS	completed: tsl_proposed/620.omnetpp_s-141B	
+PASS	no trace wrap: tsl_proposed/620.omnetpp_s-141B	
+PASS	window 50M+200M: tsl_proposed/620.omnetpp_s-141B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_proposed/620.omnetpp_s-141B	200000001
+PASS	printed IPC = instructions/cycles: tsl_proposed/620.omnetpp_s-141B	0.341288 vs 0.341288
+PASS	printed MPKI = ChampSim definition: tsl_proposed/620.omnetpp_s-141B	3.27818 vs 3.278180
+PASS	result produced by the binary present in build/bin: tsl_proposed/620.omnetpp_s-141B	7b17ccd09739f651 vs 7b17ccd09739f651
+PASS	binary built from current (frozen) tagescl.bpred: tsl_proposed	3be5e685ada6
+PASS	exit 0: tsl_proposed/623.xalancbmk_s-10B	0
+PASS	completed: tsl_proposed/623.xalancbmk_s-10B	
+PASS	no trace wrap: tsl_proposed/623.xalancbmk_s-10B	
+PASS	window 50M+200M: tsl_proposed/623.xalancbmk_s-10B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_proposed/623.xalancbmk_s-10B	200000002
+PASS	printed IPC = instructions/cycles: tsl_proposed/623.xalancbmk_s-10B	0.322987 vs 0.322987
+PASS	printed MPKI = ChampSim definition: tsl_proposed/623.xalancbmk_s-10B	0.45306 vs 0.453060
+PASS	result produced by the binary present in build/bin: tsl_proposed/623.xalancbmk_s-10B	7b17ccd09739f651 vs 7b17ccd09739f651
+PASS	binary built from current (frozen) tagescl.bpred: tsl_proposed	3be5e685ada6
+PASS	exit 0: tsl_proposed/625.x264_s-12B	0
+PASS	completed: tsl_proposed/625.x264_s-12B	
+PASS	no trace wrap: tsl_proposed/625.x264_s-12B	
+PASS	window 50M+200M: tsl_proposed/625.x264_s-12B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_proposed/625.x264_s-12B	200000002
+PASS	printed IPC = instructions/cycles: tsl_proposed/625.x264_s-12B	1.7838 vs 1.783797
+PASS	printed MPKI = ChampSim definition: tsl_proposed/625.x264_s-12B	0.05351 vs 0.053510
+PASS	result produced by the binary present in build/bin: tsl_proposed/625.x264_s-12B	7b17ccd09739f651 vs 7b17ccd09739f651
+PASS	binary built from current (frozen) tagescl.bpred: tsl_proposed	3be5e685ada6
+PASS	exit 0: tsl_proposed/631.deepsjeng_s-928B	0
+PASS	completed: tsl_proposed/631.deepsjeng_s-928B	
+PASS	no trace wrap: tsl_proposed/631.deepsjeng_s-928B	
+PASS	window 50M+200M: tsl_proposed/631.deepsjeng_s-928B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_proposed/631.deepsjeng_s-928B	200000002
+PASS	printed IPC = instructions/cycles: tsl_proposed/631.deepsjeng_s-928B	1.19219 vs 1.192185
+PASS	printed MPKI = ChampSim definition: tsl_proposed/631.deepsjeng_s-928B	3.70906 vs 3.709060
+PASS	result produced by the binary present in build/bin: tsl_proposed/631.deepsjeng_s-928B	7b17ccd09739f651 vs 7b17ccd09739f651
+PASS	binary built from current (frozen) tagescl.bpred: tsl_proposed	3be5e685ada6
+PASS	exit 0: tsl_proposed/638.imagick_s-824B	0
+PASS	completed: tsl_proposed/638.imagick_s-824B	
+PASS	no trace wrap: tsl_proposed/638.imagick_s-824B	
+PASS	window 50M+200M: tsl_proposed/638.imagick_s-824B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_proposed/638.imagick_s-824B	200000002
+PASS	printed IPC = instructions/cycles: tsl_proposed/638.imagick_s-824B	1.21395 vs 1.213948
+PASS	printed MPKI = ChampSim definition: tsl_proposed/638.imagick_s-824B	0.08857 vs 0.088570
+PASS	result produced by the binary present in build/bin: tsl_proposed/638.imagick_s-824B	7b17ccd09739f651 vs 7b17ccd09739f651
+PASS	binary built from current (frozen) tagescl.bpred: tsl_proposed	3be5e685ada6
+PASS	exit 0: tsl_proposed/657.xz_s-2302B	0
+PASS	completed: tsl_proposed/657.xz_s-2302B	
+PASS	no trace wrap: tsl_proposed/657.xz_s-2302B	
+PASS	window 50M+200M: tsl_proposed/657.xz_s-2302B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_proposed/657.xz_s-2302B	200000003
+PASS	printed IPC = instructions/cycles: tsl_proposed/657.xz_s-2302B	0.998704 vs 0.998704
+PASS	printed MPKI = ChampSim definition: tsl_proposed/657.xz_s-2302B	8.86331 vs 8.863315
+PASS	result produced by the binary present in build/bin: tsl_proposed/657.xz_s-2302B	7b17ccd09739f651 vs 7b17ccd09739f651
+PASS	binary built from current (frozen) tagescl.bpred: tsl_proposed	3be5e685ada6
+PASS	exit 0: tsl_prop_noloop/602.gcc_s-1850B	0
+PASS	completed: tsl_prop_noloop/602.gcc_s-1850B	
+PASS	no trace wrap: tsl_prop_noloop/602.gcc_s-1850B	
+PASS	window 50M+200M: tsl_prop_noloop/602.gcc_s-1850B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_prop_noloop/602.gcc_s-1850B	200000000
+PASS	printed IPC = instructions/cycles: tsl_prop_noloop/602.gcc_s-1850B	0.347271 vs 0.347271
+PASS	printed MPKI = ChampSim definition: tsl_prop_noloop/602.gcc_s-1850B	0.032005 vs 0.032005
+PASS	result produced by the binary present in build/bin: tsl_prop_noloop/602.gcc_s-1850B	fcec304e1243ba0d vs fcec304e1243ba0d
+PASS	binary built from current (frozen) tagescl.bpred: tsl_prop_noloop	3be5e685ada6
+PASS	exit 0: tsl_prop_noloop/605.mcf_s-1152B	0
+PASS	completed: tsl_prop_noloop/605.mcf_s-1152B	
+PASS	no trace wrap: tsl_prop_noloop/605.mcf_s-1152B	
+PASS	window 50M+200M: tsl_prop_noloop/605.mcf_s-1152B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_prop_noloop/605.mcf_s-1152B	200000000
+PASS	printed IPC = instructions/cycles: tsl_prop_noloop/605.mcf_s-1152B	0.312547 vs 0.312547
+PASS	printed MPKI = ChampSim definition: tsl_prop_noloop/605.mcf_s-1152B	13.8771 vs 13.877095
+PASS	result produced by the binary present in build/bin: tsl_prop_noloop/605.mcf_s-1152B	fcec304e1243ba0d vs fcec304e1243ba0d
+PASS	binary built from current (frozen) tagescl.bpred: tsl_prop_noloop	3be5e685ada6
+PASS	exit 0: tsl_prop_noloop/607.cactuBSSN_s-2421B	0
+PASS	completed: tsl_prop_noloop/607.cactuBSSN_s-2421B	
+PASS	no trace wrap: tsl_prop_noloop/607.cactuBSSN_s-2421B	
+PASS	window 50M+200M: tsl_prop_noloop/607.cactuBSSN_s-2421B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_prop_noloop/607.cactuBSSN_s-2421B	200000002
+PASS	printed IPC = instructions/cycles: tsl_prop_noloop/607.cactuBSSN_s-2421B	1.19548 vs 1.195479
+PASS	printed MPKI = ChampSim definition: tsl_prop_noloop/607.cactuBSSN_s-2421B	0.003095 vs 0.003095
+PASS	result produced by the binary present in build/bin: tsl_prop_noloop/607.cactuBSSN_s-2421B	fcec304e1243ba0d vs fcec304e1243ba0d
+PASS	binary built from current (frozen) tagescl.bpred: tsl_prop_noloop	3be5e685ada6
+PASS	exit 0: tsl_prop_noloop/619.lbm_s-2676B	0
+PASS	completed: tsl_prop_noloop/619.lbm_s-2676B	
+PASS	no trace wrap: tsl_prop_noloop/619.lbm_s-2676B	
+PASS	window 50M+200M: tsl_prop_noloop/619.lbm_s-2676B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_prop_noloop/619.lbm_s-2676B	200000002
+PASS	printed IPC = instructions/cycles: tsl_prop_noloop/619.lbm_s-2676B	0.633185 vs 0.633185
+PASS	printed MPKI = ChampSim definition: tsl_prop_noloop/619.lbm_s-2676B	0.101405 vs 0.101405
+PASS	result produced by the binary present in build/bin: tsl_prop_noloop/619.lbm_s-2676B	fcec304e1243ba0d vs fcec304e1243ba0d
+PASS	binary built from current (frozen) tagescl.bpred: tsl_prop_noloop	3be5e685ada6
+PASS	exit 0: tsl_prop_noloop/620.omnetpp_s-141B	0
+PASS	completed: tsl_prop_noloop/620.omnetpp_s-141B	
+PASS	no trace wrap: tsl_prop_noloop/620.omnetpp_s-141B	
+PASS	window 50M+200M: tsl_prop_noloop/620.omnetpp_s-141B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_prop_noloop/620.omnetpp_s-141B	200000001
+PASS	printed IPC = instructions/cycles: tsl_prop_noloop/620.omnetpp_s-141B	0.341169 vs 0.341169
+PASS	printed MPKI = ChampSim definition: tsl_prop_noloop/620.omnetpp_s-141B	3.29189 vs 3.291890
+PASS	result produced by the binary present in build/bin: tsl_prop_noloop/620.omnetpp_s-141B	fcec304e1243ba0d vs fcec304e1243ba0d
+PASS	binary built from current (frozen) tagescl.bpred: tsl_prop_noloop	3be5e685ada6
+PASS	exit 0: tsl_prop_noloop/623.xalancbmk_s-10B	0
+PASS	completed: tsl_prop_noloop/623.xalancbmk_s-10B	
+PASS	no trace wrap: tsl_prop_noloop/623.xalancbmk_s-10B	
+PASS	window 50M+200M: tsl_prop_noloop/623.xalancbmk_s-10B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_prop_noloop/623.xalancbmk_s-10B	200000002
+PASS	printed IPC = instructions/cycles: tsl_prop_noloop/623.xalancbmk_s-10B	0.322989 vs 0.322989
+PASS	printed MPKI = ChampSim definition: tsl_prop_noloop/623.xalancbmk_s-10B	0.4524 vs 0.452400
+PASS	result produced by the binary present in build/bin: tsl_prop_noloop/623.xalancbmk_s-10B	fcec304e1243ba0d vs fcec304e1243ba0d
+PASS	binary built from current (frozen) tagescl.bpred: tsl_prop_noloop	3be5e685ada6
+PASS	exit 0: tsl_prop_noloop/625.x264_s-12B	0
+PASS	completed: tsl_prop_noloop/625.x264_s-12B	
+PASS	no trace wrap: tsl_prop_noloop/625.x264_s-12B	
+PASS	window 50M+200M: tsl_prop_noloop/625.x264_s-12B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_prop_noloop/625.x264_s-12B	200000002
+PASS	printed IPC = instructions/cycles: tsl_prop_noloop/625.x264_s-12B	1.78361 vs 1.783610
+PASS	printed MPKI = ChampSim definition: tsl_prop_noloop/625.x264_s-12B	0.05432 vs 0.054320
+PASS	result produced by the binary present in build/bin: tsl_prop_noloop/625.x264_s-12B	fcec304e1243ba0d vs fcec304e1243ba0d
+PASS	binary built from current (frozen) tagescl.bpred: tsl_prop_noloop	3be5e685ada6
+PASS	exit 0: tsl_prop_noloop/631.deepsjeng_s-928B	0
+PASS	completed: tsl_prop_noloop/631.deepsjeng_s-928B	
+PASS	no trace wrap: tsl_prop_noloop/631.deepsjeng_s-928B	
+PASS	window 50M+200M: tsl_prop_noloop/631.deepsjeng_s-928B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_prop_noloop/631.deepsjeng_s-928B	200000002
+PASS	printed IPC = instructions/cycles: tsl_prop_noloop/631.deepsjeng_s-928B	1.19183 vs 1.191832
+PASS	printed MPKI = ChampSim definition: tsl_prop_noloop/631.deepsjeng_s-928B	3.7153 vs 3.715300
+PASS	result produced by the binary present in build/bin: tsl_prop_noloop/631.deepsjeng_s-928B	fcec304e1243ba0d vs fcec304e1243ba0d
+PASS	binary built from current (frozen) tagescl.bpred: tsl_prop_noloop	3be5e685ada6
+PASS	exit 0: tsl_prop_noloop/638.imagick_s-824B	0
+PASS	completed: tsl_prop_noloop/638.imagick_s-824B	
+PASS	no trace wrap: tsl_prop_noloop/638.imagick_s-824B	
+PASS	window 50M+200M: tsl_prop_noloop/638.imagick_s-824B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_prop_noloop/638.imagick_s-824B	200000002
+PASS	printed IPC = instructions/cycles: tsl_prop_noloop/638.imagick_s-824B	1.21394 vs 1.213942
+PASS	printed MPKI = ChampSim definition: tsl_prop_noloop/638.imagick_s-824B	0.088835 vs 0.088835
+PASS	result produced by the binary present in build/bin: tsl_prop_noloop/638.imagick_s-824B	fcec304e1243ba0d vs fcec304e1243ba0d
+PASS	binary built from current (frozen) tagescl.bpred: tsl_prop_noloop	3be5e685ada6
+PASS	exit 0: tsl_prop_noloop/657.xz_s-2302B	0
+PASS	completed: tsl_prop_noloop/657.xz_s-2302B	
+PASS	no trace wrap: tsl_prop_noloop/657.xz_s-2302B	
+PASS	window 50M+200M: tsl_prop_noloop/657.xz_s-2302B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_prop_noloop/657.xz_s-2302B	200000003
+PASS	printed IPC = instructions/cycles: tsl_prop_noloop/657.xz_s-2302B	0.998632 vs 0.998632
+PASS	printed MPKI = ChampSim definition: tsl_prop_noloop/657.xz_s-2302B	8.86818 vs 8.868185
+PASS	result produced by the binary present in build/bin: tsl_prop_noloop/657.xz_s-2302B	fcec304e1243ba0d vs fcec304e1243ba0d
+PASS	binary built from current (frozen) tagescl.bpred: tsl_prop_noloop	3be5e685ada6
+PASS	exit 0: tsl_prop_nolocal/602.gcc_s-1850B	0
+PASS	completed: tsl_prop_nolocal/602.gcc_s-1850B	
+PASS	no trace wrap: tsl_prop_nolocal/602.gcc_s-1850B	
+PASS	window 50M+200M: tsl_prop_nolocal/602.gcc_s-1850B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_prop_nolocal/602.gcc_s-1850B	200000000
+PASS	printed IPC = instructions/cycles: tsl_prop_nolocal/602.gcc_s-1850B	0.347268 vs 0.347268
+PASS	printed MPKI = ChampSim definition: tsl_prop_nolocal/602.gcc_s-1850B	0.033985 vs 0.033985
+PASS	result produced by the binary present in build/bin: tsl_prop_nolocal/602.gcc_s-1850B	1b81e0dd03e8b532 vs 1b81e0dd03e8b532
+PASS	binary built from current (frozen) tagescl.bpred: tsl_prop_nolocal	3be5e685ada6
+PASS	exit 0: tsl_prop_nolocal/605.mcf_s-1152B	0
+PASS	completed: tsl_prop_nolocal/605.mcf_s-1152B	
+PASS	no trace wrap: tsl_prop_nolocal/605.mcf_s-1152B	
+PASS	window 50M+200M: tsl_prop_nolocal/605.mcf_s-1152B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_prop_nolocal/605.mcf_s-1152B	200000000
+PASS	printed IPC = instructions/cycles: tsl_prop_nolocal/605.mcf_s-1152B	0.311055 vs 0.311055
+PASS	printed MPKI = ChampSim definition: tsl_prop_nolocal/605.mcf_s-1152B	14.044 vs 14.043955
+PASS	result produced by the binary present in build/bin: tsl_prop_nolocal/605.mcf_s-1152B	1b81e0dd03e8b532 vs 1b81e0dd03e8b532
+PASS	binary built from current (frozen) tagescl.bpred: tsl_prop_nolocal	3be5e685ada6
+PASS	exit 0: tsl_prop_nolocal/607.cactuBSSN_s-2421B	0
+PASS	completed: tsl_prop_nolocal/607.cactuBSSN_s-2421B	
+PASS	no trace wrap: tsl_prop_nolocal/607.cactuBSSN_s-2421B	
+PASS	window 50M+200M: tsl_prop_nolocal/607.cactuBSSN_s-2421B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_prop_nolocal/607.cactuBSSN_s-2421B	200000002
+PASS	printed IPC = instructions/cycles: tsl_prop_nolocal/607.cactuBSSN_s-2421B	1.19548 vs 1.195481
+PASS	printed MPKI = ChampSim definition: tsl_prop_nolocal/607.cactuBSSN_s-2421B	0.00306 vs 0.003060
+PASS	result produced by the binary present in build/bin: tsl_prop_nolocal/607.cactuBSSN_s-2421B	1b81e0dd03e8b532 vs 1b81e0dd03e8b532
+PASS	binary built from current (frozen) tagescl.bpred: tsl_prop_nolocal	3be5e685ada6
+PASS	exit 0: tsl_prop_nolocal/619.lbm_s-2676B	0
+PASS	completed: tsl_prop_nolocal/619.lbm_s-2676B	
+PASS	no trace wrap: tsl_prop_nolocal/619.lbm_s-2676B	
+PASS	window 50M+200M: tsl_prop_nolocal/619.lbm_s-2676B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_prop_nolocal/619.lbm_s-2676B	200000002
+PASS	printed IPC = instructions/cycles: tsl_prop_nolocal/619.lbm_s-2676B	0.633115 vs 0.633115
+PASS	printed MPKI = ChampSim definition: tsl_prop_nolocal/619.lbm_s-2676B	0.10207 vs 0.102070
+PASS	result produced by the binary present in build/bin: tsl_prop_nolocal/619.lbm_s-2676B	1b81e0dd03e8b532 vs 1b81e0dd03e8b532
+PASS	binary built from current (frozen) tagescl.bpred: tsl_prop_nolocal	3be5e685ada6
+PASS	exit 0: tsl_prop_nolocal/620.omnetpp_s-141B	0
+PASS	completed: tsl_prop_nolocal/620.omnetpp_s-141B	
+PASS	no trace wrap: tsl_prop_nolocal/620.omnetpp_s-141B	
+PASS	window 50M+200M: tsl_prop_nolocal/620.omnetpp_s-141B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_prop_nolocal/620.omnetpp_s-141B	200000001
+PASS	printed IPC = instructions/cycles: tsl_prop_nolocal/620.omnetpp_s-141B	0.340284 vs 0.340284
+PASS	printed MPKI = ChampSim definition: tsl_prop_nolocal/620.omnetpp_s-141B	3.49706 vs 3.497060
+PASS	result produced by the binary present in build/bin: tsl_prop_nolocal/620.omnetpp_s-141B	1b81e0dd03e8b532 vs 1b81e0dd03e8b532
+PASS	binary built from current (frozen) tagescl.bpred: tsl_prop_nolocal	3be5e685ada6
+PASS	exit 0: tsl_prop_nolocal/623.xalancbmk_s-10B	0
+PASS	completed: tsl_prop_nolocal/623.xalancbmk_s-10B	
+PASS	no trace wrap: tsl_prop_nolocal/623.xalancbmk_s-10B	
+PASS	window 50M+200M: tsl_prop_nolocal/623.xalancbmk_s-10B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_prop_nolocal/623.xalancbmk_s-10B	200000002
+PASS	printed IPC = instructions/cycles: tsl_prop_nolocal/623.xalancbmk_s-10B	0.3229 vs 0.322900
+PASS	printed MPKI = ChampSim definition: tsl_prop_nolocal/623.xalancbmk_s-10B	0.47075 vs 0.470750
+PASS	result produced by the binary present in build/bin: tsl_prop_nolocal/623.xalancbmk_s-10B	1b81e0dd03e8b532 vs 1b81e0dd03e8b532
+PASS	binary built from current (frozen) tagescl.bpred: tsl_prop_nolocal	3be5e685ada6
+PASS	exit 0: tsl_prop_nolocal/625.x264_s-12B	0
+PASS	completed: tsl_prop_nolocal/625.x264_s-12B	
+PASS	no trace wrap: tsl_prop_nolocal/625.x264_s-12B	
+PASS	window 50M+200M: tsl_prop_nolocal/625.x264_s-12B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_prop_nolocal/625.x264_s-12B	200000002
+PASS	printed IPC = instructions/cycles: tsl_prop_nolocal/625.x264_s-12B	1.7833 vs 1.783302
+PASS	printed MPKI = ChampSim definition: tsl_prop_nolocal/625.x264_s-12B	0.05625 vs 0.056250
+PASS	result produced by the binary present in build/bin: tsl_prop_nolocal/625.x264_s-12B	1b81e0dd03e8b532 vs 1b81e0dd03e8b532
+PASS	binary built from current (frozen) tagescl.bpred: tsl_prop_nolocal	3be5e685ada6
+PASS	exit 0: tsl_prop_nolocal/631.deepsjeng_s-928B	0
+PASS	completed: tsl_prop_nolocal/631.deepsjeng_s-928B	
+PASS	no trace wrap: tsl_prop_nolocal/631.deepsjeng_s-928B	
+PASS	window 50M+200M: tsl_prop_nolocal/631.deepsjeng_s-928B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_prop_nolocal/631.deepsjeng_s-928B	200000002
+PASS	printed IPC = instructions/cycles: tsl_prop_nolocal/631.deepsjeng_s-928B	1.18633 vs 1.186331
+PASS	printed MPKI = ChampSim definition: tsl_prop_nolocal/631.deepsjeng_s-928B	3.90529 vs 3.905290
+PASS	result produced by the binary present in build/bin: tsl_prop_nolocal/631.deepsjeng_s-928B	1b81e0dd03e8b532 vs 1b81e0dd03e8b532
+PASS	binary built from current (frozen) tagescl.bpred: tsl_prop_nolocal	3be5e685ada6
+PASS	exit 0: tsl_prop_nolocal/638.imagick_s-824B	0
+PASS	completed: tsl_prop_nolocal/638.imagick_s-824B	
+PASS	no trace wrap: tsl_prop_nolocal/638.imagick_s-824B	
+PASS	window 50M+200M: tsl_prop_nolocal/638.imagick_s-824B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_prop_nolocal/638.imagick_s-824B	200000002
+PASS	printed IPC = instructions/cycles: tsl_prop_nolocal/638.imagick_s-824B	1.21395 vs 1.213948
+PASS	printed MPKI = ChampSim definition: tsl_prop_nolocal/638.imagick_s-824B	0.08844 vs 0.088440
+PASS	result produced by the binary present in build/bin: tsl_prop_nolocal/638.imagick_s-824B	1b81e0dd03e8b532 vs 1b81e0dd03e8b532
+PASS	binary built from current (frozen) tagescl.bpred: tsl_prop_nolocal	3be5e685ada6
+PASS	exit 0: tsl_prop_nolocal/657.xz_s-2302B	0
+PASS	completed: tsl_prop_nolocal/657.xz_s-2302B	
+PASS	no trace wrap: tsl_prop_nolocal/657.xz_s-2302B	
+PASS	window 50M+200M: tsl_prop_nolocal/657.xz_s-2302B	50+200
+PASS	measured instructions in [200M, 200M+4): tsl_prop_nolocal/657.xz_s-2302B	200000003
+PASS	printed IPC = instructions/cycles: tsl_prop_nolocal/657.xz_s-2302B	0.98897 vs 0.988970
+PASS	printed MPKI = ChampSim definition: tsl_prop_nolocal/657.xz_s-2302B	9.15787 vs 9.157875
+PASS	result produced by the binary present in build/bin: tsl_prop_nolocal/657.xz_s-2302B	1b81e0dd03e8b532 vs 1b81e0dd03e8b532
+PASS	binary built from current (frozen) tagescl.bpred: tsl_prop_nolocal	3be5e685ada6
+PASS	branch count consistent across predictors (spread < 0.01%): 602.gcc_s-1850B	spread 94 of 51280763
+PASS	branch count consistent across predictors (spread < 0.01%): 605.mcf_s-1152B	spread 13 of 51687317
+PASS	branch count consistent across predictors (spread < 0.01%): 607.cactuBSSN_s-2421B	spread 0 of 278539
+PASS	branch count consistent across predictors (spread < 0.01%): 619.lbm_s-2676B	spread 0 of 2423405
+PASS	branch count consistent across predictors (spread < 0.01%): 620.omnetpp_s-141B	spread 68 of 41988897
+PASS	branch count consistent across predictors (spread < 0.01%): 623.xalancbmk_s-10B	spread 87 of 51740237
+PASS	branch count consistent across predictors (spread < 0.01%): 625.x264_s-12B	spread 14 of 8476119
+PASS	branch count consistent across predictors (spread < 0.01%): 631.deepsjeng_s-928B	spread 5 of 29420101
+PASS	branch count consistent across predictors (spread < 0.01%): 638.imagick_s-824B	spread 0 of 32264412
+PASS	branch count consistent across predictors (spread < 0.01%): 657.xz_s-2302B	spread 0 of 25005126
+PASS	original mean MPKI matches recomputation: bimodal	orig 9.8843 recomputed(ChampSim def) 9.884323 (retired-instr def 9.884323)
+PASS	original geomean speedup vs bimodal matches: bimodal	orig 1.0 recomputed 1.000000
+PASS	original geomean speedup vs hashed perceptron matches: bimodal	
+PASS	original pooled accuracy matches: bimodal	
+PASS	original storage equals predictor-reported storage: bimodal	orig 32768 banner None
+PASS	original per-trace counters match raw output: bimodal/602.gcc_s-1850B	
+PASS	original per-trace counters match raw output: bimodal/605.mcf_s-1152B	
+PASS	original per-trace counters match raw output: bimodal/607.cactuBSSN_s-2421B	
+PASS	original per-trace counters match raw output: bimodal/619.lbm_s-2676B	
+PASS	original per-trace counters match raw output: bimodal/620.omnetpp_s-141B	
+PASS	original per-trace counters match raw output: bimodal/623.xalancbmk_s-10B	
+PASS	original per-trace counters match raw output: bimodal/625.x264_s-12B	
+PASS	original per-trace counters match raw output: bimodal/631.deepsjeng_s-928B	
+PASS	original per-trace counters match raw output: bimodal/638.imagick_s-824B	
+PASS	original per-trace counters match raw output: bimodal/657.xz_s-2302B	
+PASS	original mean MPKI matches recomputation: gshare	orig 6.1527 recomputed(ChampSim def) 6.152743 (retired-instr def 6.152743)
+PASS	original geomean speedup vs bimodal matches: gshare	orig 1.04678 recomputed 1.046780
+PASS	original geomean speedup vs hashed perceptron matches: gshare	
+PASS	original pooled accuracy matches: gshare	
+PASS	original storage equals predictor-reported storage: gshare	orig 32782 banner None
+PASS	original per-trace counters match raw output: gshare/602.gcc_s-1850B	
+PASS	original per-trace counters match raw output: gshare/605.mcf_s-1152B	
+PASS	original per-trace counters match raw output: gshare/607.cactuBSSN_s-2421B	
+PASS	original per-trace counters match raw output: gshare/619.lbm_s-2676B	
+PASS	original per-trace counters match raw output: gshare/620.omnetpp_s-141B	
+PASS	original per-trace counters match raw output: gshare/623.xalancbmk_s-10B	
+PASS	original per-trace counters match raw output: gshare/625.x264_s-12B	
+PASS	original per-trace counters match raw output: gshare/631.deepsjeng_s-928B	
+PASS	original per-trace counters match raw output: gshare/638.imagick_s-824B	
+PASS	original per-trace counters match raw output: gshare/657.xz_s-2302B	
+PASS	original mean MPKI matches recomputation: perceptron	orig 5.3835 recomputed(ChampSim def) 5.383545 (retired-instr def 5.383545)
+PASS	original geomean speedup vs bimodal matches: perceptron	orig 1.06105 recomputed 1.061047
+PASS	original geomean speedup vs hashed perceptron matches: perceptron	
+PASS	original pooled accuracy matches: perceptron	
+PASS	original storage equals predictor-reported storage: perceptron	orig 32648 banner None
+PASS	original per-trace counters match raw output: perceptron/602.gcc_s-1850B	
+PASS	original per-trace counters match raw output: perceptron/605.mcf_s-1152B	
+PASS	original per-trace counters match raw output: perceptron/607.cactuBSSN_s-2421B	
+PASS	original per-trace counters match raw output: perceptron/619.lbm_s-2676B	
+PASS	original per-trace counters match raw output: perceptron/620.omnetpp_s-141B	
+PASS	original per-trace counters match raw output: perceptron/623.xalancbmk_s-10B	
+PASS	original per-trace counters match raw output: perceptron/625.x264_s-12B	
+PASS	original per-trace counters match raw output: perceptron/631.deepsjeng_s-928B	
+PASS	original per-trace counters match raw output: perceptron/638.imagick_s-824B	
+PASS	original per-trace counters match raw output: perceptron/657.xz_s-2302B	
+PASS	original mean MPKI matches recomputation: hashed_perceptron	orig 3.2475 recomputed(ChampSim def) 3.247458 (retired-instr def 3.247458)
+PASS	original geomean speedup vs bimodal matches: hashed_perceptron	orig 1.09604 recomputed 1.096035
+PASS	original geomean speedup vs hashed perceptron matches: hashed_perceptron	
+PASS	original pooled accuracy matches: hashed_perceptron	
+PASS	original storage equals predictor-reported storage: hashed_perceptron	orig 524542 banner None
+PASS	original per-trace counters match raw output: hashed_perceptron/602.gcc_s-1850B	
+PASS	original per-trace counters match raw output: hashed_perceptron/605.mcf_s-1152B	
+PASS	original per-trace counters match raw output: hashed_perceptron/607.cactuBSSN_s-2421B	
+PASS	original per-trace counters match raw output: hashed_perceptron/619.lbm_s-2676B	
+PASS	original per-trace counters match raw output: hashed_perceptron/620.omnetpp_s-141B	
+PASS	original per-trace counters match raw output: hashed_perceptron/623.xalancbmk_s-10B	
+PASS	original per-trace counters match raw output: hashed_perceptron/625.x264_s-12B	
+PASS	original per-trace counters match raw output: hashed_perceptron/631.deepsjeng_s-928B	
+PASS	original per-trace counters match raw output: hashed_perceptron/638.imagick_s-824B	
+PASS	original per-trace counters match raw output: hashed_perceptron/657.xz_s-2302B	
+PASS	original mean MPKI matches recomputation: tage	orig 3.2953 recomputed(ChampSim def) 3.295274 (retired-instr def 3.295274)
+PASS	original geomean speedup vs bimodal matches: tage	orig 1.09433 recomputed 1.094325
+PASS	original geomean speedup vs hashed perceptron matches: tage	
+PASS	original pooled accuracy matches: tage	
+PASS	original storage equals predictor-reported storage: tage	orig 383674 banner 383674
+PASS	original per-trace counters match raw output: tage/602.gcc_s-1850B	
+PASS	original per-trace counters match raw output: tage/605.mcf_s-1152B	
+PASS	original per-trace counters match raw output: tage/607.cactuBSSN_s-2421B	
+PASS	original per-trace counters match raw output: tage/619.lbm_s-2676B	
+PASS	original per-trace counters match raw output: tage/620.omnetpp_s-141B	
+PASS	original per-trace counters match raw output: tage/623.xalancbmk_s-10B	
+PASS	original per-trace counters match raw output: tage/625.x264_s-12B	
+PASS	original per-trace counters match raw output: tage/631.deepsjeng_s-928B	
+PASS	original per-trace counters match raw output: tage/638.imagick_s-824B	
+PASS	original per-trace counters match raw output: tage/657.xz_s-2302B	
+PASS	original mean MPKI matches recomputation: tage_l	orig 3.2933 recomputed(ChampSim def) 3.293279 (retired-instr def 3.293279)
+PASS	original geomean speedup vs bimodal matches: tage_l	orig 1.0943 recomputed 1.094304
+PASS	original geomean speedup vs hashed perceptron matches: tage_l	
+PASS	original pooled accuracy matches: tage_l	
+PASS	original storage equals predictor-reported storage: tage_l	orig 386177 banner 386177
+PASS	original per-trace counters match raw output: tage_l/602.gcc_s-1850B	
+PASS	original per-trace counters match raw output: tage_l/605.mcf_s-1152B	
+PASS	original per-trace counters match raw output: tage_l/607.cactuBSSN_s-2421B	
+PASS	original per-trace counters match raw output: tage_l/619.lbm_s-2676B	
+PASS	original per-trace counters match raw output: tage_l/620.omnetpp_s-141B	
+PASS	original per-trace counters match raw output: tage_l/623.xalancbmk_s-10B	
+PASS	original per-trace counters match raw output: tage_l/625.x264_s-12B	
+PASS	original per-trace counters match raw output: tage_l/631.deepsjeng_s-928B	
+PASS	original per-trace counters match raw output: tage_l/638.imagick_s-824B	
+PASS	original per-trace counters match raw output: tage_l/657.xz_s-2302B	
+PASS	original mean MPKI matches recomputation: tsl_base	orig 3.0717 recomputed(ChampSim def) 3.071655 (retired-instr def 3.071655)
+PASS	original geomean speedup vs bimodal matches: tsl_base	orig 1.10014 recomputed 1.100145
+PASS	original geomean speedup vs hashed perceptron matches: tsl_base	
+PASS	original pooled accuracy matches: tsl_base	
+PASS	original storage equals predictor-reported storage: tsl_base	orig 476319 banner 476319
+PASS	original per-trace counters match raw output: tsl_base/602.gcc_s-1850B	
+PASS	original per-trace counters match raw output: tsl_base/605.mcf_s-1152B	
+PASS	original per-trace counters match raw output: tsl_base/607.cactuBSSN_s-2421B	
+PASS	original per-trace counters match raw output: tsl_base/619.lbm_s-2676B	
+PASS	original per-trace counters match raw output: tsl_base/620.omnetpp_s-141B	
+PASS	original per-trace counters match raw output: tsl_base/623.xalancbmk_s-10B	
+PASS	original per-trace counters match raw output: tsl_base/625.x264_s-12B	
+PASS	original per-trace counters match raw output: tsl_base/631.deepsjeng_s-928B	
+PASS	original per-trace counters match raw output: tsl_base/638.imagick_s-824B	
+PASS	original per-trace counters match raw output: tsl_base/657.xz_s-2302B	
+PASS	original mean MPKI matches recomputation: tsl_imli	orig 3.0646 recomputed(ChampSim def) 3.064619 (retired-instr def 3.064619)
+PASS	original geomean speedup vs bimodal matches: tsl_imli	orig 1.10044 recomputed 1.100442
+PASS	original geomean speedup vs hashed perceptron matches: tsl_imli	
+PASS	original pooled accuracy matches: tsl_imli	
+PASS	original storage equals predictor-reported storage: tsl_imli	orig 487658 banner 487658
+PASS	original per-trace counters match raw output: tsl_imli/602.gcc_s-1850B	
+PASS	original per-trace counters match raw output: tsl_imli/605.mcf_s-1152B	
+PASS	original per-trace counters match raw output: tsl_imli/607.cactuBSSN_s-2421B	
+PASS	original per-trace counters match raw output: tsl_imli/619.lbm_s-2676B	
+PASS	original per-trace counters match raw output: tsl_imli/620.omnetpp_s-141B	
+PASS	original per-trace counters match raw output: tsl_imli/623.xalancbmk_s-10B	
+PASS	original per-trace counters match raw output: tsl_imli/625.x264_s-12B	
+PASS	original per-trace counters match raw output: tsl_imli/631.deepsjeng_s-928B	
+PASS	original per-trace counters match raw output: tsl_imli/638.imagick_s-824B	
+PASS	original per-trace counters match raw output: tsl_imli/657.xz_s-2302B	
+PASS	original mean MPKI matches recomputation: tsl_proposed	orig 3.0456 recomputed(ChampSim def) 3.045609 (retired-instr def 3.045609)
+PASS	original geomean speedup vs bimodal matches: tsl_proposed	orig 1.10078 recomputed 1.100780
+PASS	original geomean speedup vs hashed perceptron matches: tsl_proposed	
+PASS	original pooled accuracy matches: tsl_proposed	
+PASS	original storage equals predictor-reported storage: tsl_proposed	orig 508666 banner 508666
+PASS	original per-trace counters match raw output: tsl_proposed/602.gcc_s-1850B	
+PASS	original per-trace counters match raw output: tsl_proposed/605.mcf_s-1152B	
+PASS	original per-trace counters match raw output: tsl_proposed/607.cactuBSSN_s-2421B	
+PASS	original per-trace counters match raw output: tsl_proposed/619.lbm_s-2676B	
+PASS	original per-trace counters match raw output: tsl_proposed/620.omnetpp_s-141B	
+PASS	original per-trace counters match raw output: tsl_proposed/623.xalancbmk_s-10B	
+PASS	original per-trace counters match raw output: tsl_proposed/625.x264_s-12B	
+PASS	original per-trace counters match raw output: tsl_proposed/631.deepsjeng_s-928B	
+PASS	original per-trace counters match raw output: tsl_proposed/638.imagick_s-824B	
+PASS	original per-trace counters match raw output: tsl_proposed/657.xz_s-2302B	
+PASS	original mean MPKI matches recomputation: tsl_prop_noloop	orig 3.0485 recomputed(ChampSim def) 3.048453 (retired-instr def 3.048453)
+PASS	original geomean speedup vs bimodal matches: tsl_prop_noloop	orig 1.10075 recomputed 1.100754
+PASS	original geomean speedup vs hashed perceptron matches: tsl_prop_noloop	
+PASS	original pooled accuracy matches: tsl_prop_noloop	
+PASS	original storage equals predictor-reported storage: tsl_prop_noloop	orig 506163 banner 506163
+PASS	original per-trace counters match raw output: tsl_prop_noloop/602.gcc_s-1850B	
+PASS	original per-trace counters match raw output: tsl_prop_noloop/605.mcf_s-1152B	
+PASS	original per-trace counters match raw output: tsl_prop_noloop/607.cactuBSSN_s-2421B	
+PASS	original per-trace counters match raw output: tsl_prop_noloop/619.lbm_s-2676B	
+PASS	original per-trace counters match raw output: tsl_prop_noloop/620.omnetpp_s-141B	
+PASS	original per-trace counters match raw output: tsl_prop_noloop/623.xalancbmk_s-10B	
+PASS	original per-trace counters match raw output: tsl_prop_noloop/625.x264_s-12B	
+PASS	original per-trace counters match raw output: tsl_prop_noloop/631.deepsjeng_s-928B	
+PASS	original per-trace counters match raw output: tsl_prop_noloop/638.imagick_s-824B	
+PASS	original per-trace counters match raw output: tsl_prop_noloop/657.xz_s-2302B	
+PASS	original mean MPKI matches recomputation: tsl_prop_nolocal	orig 3.1359 recomputed(ChampSim def) 3.135873 (retired-instr def 3.135873)
+PASS	original geomean speedup vs bimodal matches: tsl_prop_nolocal	orig 1.0983 recomputed 1.098303
+PASS	original geomean speedup vs hashed perceptron matches: tsl_prop_nolocal	
+PASS	original pooled accuracy matches: tsl_prop_nolocal	
+PASS	original storage equals predictor-reported storage: tsl_prop_nolocal	orig 479994 banner 479994
+PASS	original per-trace counters match raw output: tsl_prop_nolocal/602.gcc_s-1850B	
+PASS	original per-trace counters match raw output: tsl_prop_nolocal/605.mcf_s-1152B	
+PASS	original per-trace counters match raw output: tsl_prop_nolocal/607.cactuBSSN_s-2421B	
+PASS	original per-trace counters match raw output: tsl_prop_nolocal/619.lbm_s-2676B	
+PASS	original per-trace counters match raw output: tsl_prop_nolocal/620.omnetpp_s-141B	
+PASS	original per-trace counters match raw output: tsl_prop_nolocal/623.xalancbmk_s-10B	
+PASS	original per-trace counters match raw output: tsl_prop_nolocal/625.x264_s-12B	
+PASS	original per-trace counters match raw output: tsl_prop_nolocal/631.deepsjeng_s-928B	
+PASS	original per-trace counters match raw output: tsl_prop_nolocal/638.imagick_s-824B	
+PASS	original per-trace counters match raw output: tsl_prop_nolocal/657.xz_s-2302B	
+PASS	harness mean MPKI within 0.1% of ChampSim: tsl_proposed vs harness prop	harness 3.0455 ChampSim 3.0456
+PASS	harness mean MPKI within 0.1% of ChampSim: tsl_prop_noloop vs harness prop_noloop	harness 3.0485 ChampSim 3.0485
+PASS	harness mean MPKI within 0.1% of ChampSim: tsl_prop_nolocal vs harness prop_nolocal	harness 3.1349 ChampSim 3.1359
+PASS	harness mean MPKI within 0.1% of ChampSim: tsl_base vs harness prop_noimli	harness 3.0727 ChampSim 3.0717
+PASS	harness mean MPKI within 0.1% of ChampSim: tage_l vs harness prop_nosc	harness 3.2931 ChampSim 3.2933
+PASS	harness mean MPKI within 0.1% of ChampSim: tage vs harness tage	harness 3.2947 ChampSim 3.2953
+PASS	harness mean MPKI within 0.1% of ChampSim: hashed_perceptron vs harness hashed_perceptron	harness 3.2475 ChampSim 3.2475
+PASS	harness result main/prop produced from the frozen source (key)	flags='-DTSL_IMHIST -DTSL_BHIST'
+PASS	harness result main/prop_noimhist produced from the frozen source (key)	flags='-DTSL_BHIST'
+PASS	harness result main/prop_nobhist produced from the frozen source (key)	flags='-DTSL_IMHIST'
+PASS	harness result main/prop_noimli produced from the frozen source (key)	flags='-DTSL_NO_IMLI'
+PASS	harness result main/prop_noloop produced from the frozen source (key)	flags='-DTSL_IMHIST -DTSL_BHIST -DTSL_NO_LOOP'
+PASS	harness result main/prop_nolocal produced from the frozen source (key)	flags='-DTSL_IMHIST -DTSL_BHIST -DTSL_NO_LOCAL'
+PASS	harness result main/prop_nosc produced from the frozen source (key)	flags='-DTSL_NO_SC'
+PASS	harness result main/tage produced from the frozen source (key)	flags='-DTSL_NO_SC -DTSL_NO_LOOP'
+PASS	harness result tune/prop produced from the frozen source (key)	flags='-DTSL_IMHIST -DTSL_BHIST'
+PASS	harness result tune/prop_noimhist produced from the frozen source (key)	flags='-DTSL_BHIST'
+PASS	harness result tune/prop_nobhist produced from the frozen source (key)	flags='-DTSL_IMHIST'
+PASS	harness result tune/prop_noimli produced from the frozen source (key)	flags='-DTSL_NO_IMLI'
+PASS	harness result tune/prop_noloop produced from the frozen source (key)	flags='-DTSL_IMHIST -DTSL_BHIST -DTSL_NO_LOOP'
+PASS	harness result tune/prop_nolocal produced from the frozen source (key)	flags='-DTSL_IMHIST -DTSL_BHIST -DTSL_NO_LOCAL'
+PASS	harness result tune/prop_nosc produced from the frozen source (key)	flags='-DTSL_NO_SC'
+PASS	harness result tune/tage produced from the frozen source (key)	flags='-DTSL_NO_SC -DTSL_NO_LOOP'
