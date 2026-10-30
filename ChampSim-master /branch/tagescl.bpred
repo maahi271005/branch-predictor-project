@@ -670,6 +670,21 @@ void O3_CPU::initialize_branch_predictor()
 #ifdef TSL_NO_LOCAL
          << " [no local]"
 #endif
+#ifndef TSL_NO_IMLI
+         << " [IMLI mode " << TSL_IMLI_MODE << "]"
+#ifdef TSL_IMLI_GEHL
+         << " [IMLI in GEHL]"
+#endif
+#ifdef TSL_IMHIST
+         << " [IMHIST]"
+#endif
+#ifdef TSL_BHIST
+         << " [backward history]"
+#endif
+#endif
+#ifdef TSL_THROTTLE
+         << " [alloc throttle]"
+#endif
          << " storage: " << bits << " bits (" << bits / 8192.0 << " KB)" << endl;
 }
 
