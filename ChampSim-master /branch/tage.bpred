@@ -1,0 +1,5 @@
+// Baseline: TAGE only (no statistical corrector, no loop predictor).
+// Build: ./build_champsim.sh tage no no no no lru 1
+#define TSL_NO_SC
+#define TSL_NO_LOOP
+#include "tagescl.bpred"

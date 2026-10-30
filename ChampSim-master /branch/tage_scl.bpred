@@ -1,0 +1,5 @@
+// Baseline: TAGE-SC-L style predictor without the IMLI-derived components
+// (re-implementation of Seznec's TAGE-SC-L design; no contribution of this project).
+// Build: ./build_champsim.sh tage_scl no no no no lru 1
+#define TSL_NO_IMLI
+#include "tagescl.bpred"

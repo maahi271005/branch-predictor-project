@@ -1,0 +1,8 @@
+// Proposed predictor: TFL-TAGE-SC-L
+// (TAGE-SC-L with Target-Free Loop-structure history: IMLI-SIC + IMHIST +
+// backward-branch history, enabled by target-free backward-branch inference).
+// Build: ./build_champsim.sh tfl_tage_scl no no no no lru 1
+// Implementation and all switches: branch/tagescl.bpred
+#define TSL_IMHIST
+#define TSL_BHIST
+#include "tagescl.bpred"
