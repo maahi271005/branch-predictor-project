@@ -134,7 +134,9 @@ def main():
         f"traces (50M warm-up + 200M measured instructions) it reaches a mean MPKI of {f3(P['mean_mpki_10'])}, "
         f"{red(P, HP):.1f}% lower than the 64 KB hashed perceptron shipped with ChampSim ({f3(HP['mean_mpki_10'])}) "
         f"and {red(P, TB):.2f}% lower than our TAGE-SC-L without the loop-structure components ({f3(TB['mean_mpki_10'])}), "
-        f"with a geometric-mean IPC speedup of {100*(sp_hp-1):.2f}% over the hashed perceptron and {100*(sp_bi-1):.1f}% over bimodal. "
+        f"with a geometric-mean IPC speedup of {100*(sp_hp-1):.2f}% over the hashed perceptron and {100*(sp_bi-1):.1f}% over bimodal; "
+        f"the IPC gain attributable to the loop-structure components alone is small ({100*(sp_tb-1):+.2f}%) because "
+        f"the traces that benefit most are memory-bound. "
         f"Ablations attribute the gains to each component, and we report negative results (a per-branch "
         f"allocation throttle that helps plain TAGE but is subsumed in TAGE-SC-L, and several IMLI variants).")
 
@@ -176,7 +178,8 @@ def main():
     R.p(f"Two observations motivated the design. First, among the predictors shipped with this ChampSim, the hashed "
         f"perceptron (64 KB) is by far the best (mean MPKI {f3(HP['mean_mpki_10'])} vs {f3(S['gshare']['mean_mpki_10'])} for gshare), "
         f"and our re-implemented TAGE of similar storage is not better on average ({f3(TG['mean_mpki_10'])}): it wins on "
-        f"gcc, xalancbmk, omnetpp and x264 but loses on mcf and xz, the two traces that dominate mean MPKI. Combining "
+        f"gcc, xalancbmk, omnetpp and x264, is level on deepsjeng, and loses on mcf and xz, the two traces that dominate "
+        f"mean MPKI. Combining "
         f"TAGE with a perceptron-like statistical corrector (TAGE-SC-L) is the established way to get the best of both.")
     R.p("Second, the corrector of TAGE-SC-L gains part of its accuracy from loop-structure history (IMLI, IMHIST, "
         "backward-branch history), all of which are defined on **backward** branches. The interface hides the target, so "
@@ -348,21 +351,49 @@ def main():
         + (f" and higher on {', '.join(worse_mpki_hp)}" if worse_mpki_hp else "") +
         f". The geometric-mean IPC speedup is {100*(sp_hp-1):.2f}%; IPC is higher on {len(ipc_up_hp)} traces"
         + (f" and lower on {', '.join(ipc_dn_hp)}" if ipc_dn_hp else "") + ".")
+    worse_delta = max([float(PT["tsl_proposed", t]["mpki"]) - float(PT["tsl_base", t]["mpki"]) for t in TRACES
+                       if SHORT[t] in worse_mpki_tb] or [0.0])
+    worse_level = max([float(PT["tsl_base", t]["mpki"]) for t in TRACES if SHORT[t] in worse_mpki_tb] or [0.0])
     R.p(f"**Against TAGE-SC-L without the loop-structure components.** The contribution reduces mean MPKI from "
         f"{f3(TB['mean_mpki_10'])} to {f3(P['mean_mpki_10'])} ({red(P, TB):.2f}%), lower on {len(better_mpki_tb)} traces "
-        f"({', '.join(better_mpki_tb)})" + (f", higher on {', '.join(worse_mpki_tb)}" if worse_mpki_tb else "") +
+        f"({', '.join(better_mpki_tb)})" +
+        (f", marginally higher on {', '.join(worse_mpki_tb)} (by at most {worse_delta:.4f} MPKI, on traces whose MPKI "
+         f"is at most {worse_level:.3f})" if worse_mpki_tb else "") +
         f"; geometric-mean IPC speedup {100*(sp_tb-1):+.3f}%. IMLI-SIC alone accounts for "
         f"{red(IM, TB):.2f}% (TAGE-SC-L + IMLI: {f3(IM['mean_mpki_10'])}).")
-    R.p("**Accuracy, MPKI and IPC.** IPC gains do not scale uniformly with MPKI reductions (Figure 4). Programs with "
-        "low IPC and many long-latency cache misses (mcf, omnetpp, xalancbmk, gcc in this window) hide part of the "
-        "branch resolution latency behind memory stalls, and in this ChampSim a misprediction costs the time until the "
-        "branch executes plus one cycle, so a removed misprediction is worth more where branches resolve late on the "
-        "critical path (deepsjeng, xz). Traces whose MPKI is already near zero (cactuBSSN, lbm, imagick) show no IPC "
-        "change at all. Accuracy over all branch types is inflated by trivially predicted unconditional branches, so "
-        "conditional accuracy is the more informative number; the ranking is the same under both.")
+    R.p("**Accuracy, MPKI and IPC.** IPC gains are much smaller than MPKI reductions and do not scale uniformly with "
+        "them (Figure 4). In this ChampSim a misprediction stalls fetch until the branch executes, plus one cycle; "
+        "Table 9 measures, per trace, the cycles saved per avoided misprediction (difference in cycles divided by "
+        "difference in mispredictions, proposed vs hashed perceptron). The relative IPC gain is approximately "
+        "ΔMPKI × (cycles per avoided misprediction) / (1000 × CPI): the same absolute saving matters less in a "
+        "program that spends many cycles per instruction on memory stalls.")
+    rows = []
+    for tn in TRACES:
+        hp, pp = PT["hashed_perceptron", tn], PT["tsl_proposed", tn]
+        dm = int(hp["mispredictions"]) - int(pp["mispredictions"])
+        dc = int(hp["cycles"]) - int(pp["cycles"])
+        cpi = int(hp["cycles"]) / int(hp["instructions"])
+        dmpki = float(hp["mpki"]) - float(pp["mpki"])
+        cpm = dc / dm if dm else float("nan")
+        est = 100 * dmpki * cpm / (1000 * cpi) if dm else float("nan")
+        meas = 100 * (float(pp["ipc"]) / float(hp["ipc"]) - 1)
+        rows.append([SHORT[tn], f"{dmpki:.3f}", f"{cpm:.1f}" if abs(dmpki) > 0.01 else "n/a (Δ≈0)", f"{cpi:.2f}",
+                     f"{est:+.2f}%" if abs(dmpki) > 0.01 else "≈0", f"{meas:+.3f}%"])
+    R.table(["Trace", "ΔMPKI (hp − proposed)", "Cycles saved per avoided misprediction", "CPI (hp)",
+             "ΔMPKI × cycles / (1000 × CPI)", "Measured ΔIPC"], rows,
+            "Why IPC moves less than MPKI: decomposition of the measured IPC gain of the proposed predictor over the "
+            "hashed perceptron (the cycles per avoided misprediction are themselves measured, so the two right-hand "
+            "columns agree by construction; the table shows which factor limits each trace).", fs=8)
+    R.p("For example, mcf removes 0.107 mispredictions per 1,000 instructions at ~27 cycles each, but runs at "
+        "~3.2 cycles per instruction (it is dominated by cache misses), so the IPC gain is below 0.1%; xz removes "
+        "0.55 per 1,000 at ~25 cycles with a CPI near 1.0, giving +1.4%. Traces whose MPKI is already near zero "
+        "(cactuBSSN, lbm, imagick) show IPC differences of a few thousandths of a percent in either direction, which "
+        "is timing noise from the out-of-order model rather than a predictor effect. Accuracy over all branch types "
+        "is inflated by trivially predicted unconditional branches, so conditional accuracy is the more informative "
+        "number; the ranking of predictors is the same under both.")
     R.figure(os.path.join(figd, "fig_mpki_vs_ipc.png"), "Per-trace MPKI reduction vs IPC gain of TFL-TAGE-SC-L over the hashed perceptron.", width=4.6)
     R.p("**Where the remaining mispredictions are.** mcf and xz together account for most of the mean MPKI of every "
-        "predictor. Lin & Tarsa [6] attribute 97% (mcf) and 81% (xz) of mispredictions to a handful of data-dependent "
+        "predictor. Lin & Tarsa [6] attribute about 97% (mcf) and 80% (xz) of mispredictions to a handful of data-dependent "
         "branches; no history-based predictor in our study removes them, consistent with their conclusion that such "
         "branches need different information than branch history.")
 
@@ -434,6 +465,9 @@ def main():
         f"loop-structure history of IMLI, IMHIST and backward-branch history usable without simulator changes and adds "
         f"a further {red(P, TB):.2f}% MPKI reduction, for a total of {red(P, HP):.1f}% ({f3(HP['mean_mpki_10'])} → "
         f"{f3(P['mean_mpki_10'])} MPKI) and a {100*(sp_hp-1):.2f}% geometric-mean IPC gain at {f2(P['storage_KB'])} KB. "
+        f"In IPC the loop-structure components alone add only {100*(sp_tb-1):+.2f}%: in this simulator an avoided "
+        f"misprediction saves about 22–50 cycles on most traces, which is small relative to the memory stalls of "
+        f"several of the traces where they help most. "
         f"The largest remaining errors (mcf, xz) come from data-dependent branches that history-based prediction does not capture.")
 
     R.h("References", 1)
