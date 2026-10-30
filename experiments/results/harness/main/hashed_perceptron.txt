@@ -1,0 +1,11 @@
+# predictor=hashed_perceptron flags= key=db34396b00c1b10a
+602.gcc_s-1850B.br branches=51280758 mispredictions=19437 accuracy=99.9621 mpki=0.0972 cond_branches=42641837 cond_mispredictions=19434 cond_mpki=0.0972
+605.mcf_s-1152B.br branches=51687367 mispredictions=2796326 accuracy=94.5899 mpki=13.9816 cond_branches=38055899 cond_mispredictions=2796274 cond_mpki=13.9814
+607.cactuBSSN_s-2421B.br branches=278560 mispredictions=1308 accuracy=99.5304 mpki=0.0065 cond_branches=146160 cond_mispredictions=1016 cond_mpki=0.0051
+619.lbm_s-2676B.br branches=2423404 mispredictions=21878 accuracy=99.0972 mpki=0.1094 cond_branches=2302625 cond_mispredictions=21878 cond_mpki=0.1094
+620.omnetpp_s-141B.br branches=41988895 mispredictions=767556 accuracy=98.1720 mpki=3.8378 cond_branches=26837318 cond_mispredictions=767223 cond_mpki=3.8361
+623.xalancbmk_s-10B.br branches=51740180 mispredictions=138330 accuracy=99.7326 mpki=0.6916 cond_branches=46390925 cond_mispredictions=138122 cond_mpki=0.6906
+625.x264_s-12B.br branches=8476113 mispredictions=15741 accuracy=99.8143 mpki=0.0787 cond_branches=7132562 cond_mispredictions=15717 cond_mpki=0.0786
+631.deepsjeng_s-928B.br branches=29420146 mispredictions=833135 accuracy=97.1681 mpki=4.1657 cond_branches=19440784 cond_mispredictions=832377 cond_mpki=4.1619
+638.imagick_s-824B.br branches=32264420 mispredictions=18037 accuracy=99.9441 mpki=0.0902 cond_branches=20769382 cond_mispredictions=18035 cond_mpki=0.0902
+657.xz_s-2302B.br branches=25005140 mispredictions=1883332 accuracy=92.4682 mpki=9.4167 cond_branches=21154339 cond_mispredictions=1883200 cond_mpki=9.4160

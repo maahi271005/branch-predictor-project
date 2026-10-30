@@ -1,0 +1,30 @@
+602.gcc_s-1850B.champsimtrace.xz         taken=6250493 backward=48.26% inference_agree=100.00000% | cond=10660046 imli_agree=0.2803% imli_nonzero_agree=0.0111% (nonzero=99.73%)
+605.mcf_s-1152B.champsimtrace.xz         taken=7146064 backward=38.06% inference_agree=100.00000% | cond=8803681 imli_agree=98.6685% imli_nonzero_agree=97.9525% (nonzero=65.03%)
+607.cactuBSSN_s-2421B.champsimtrace.xz   taken=282739 backward=45.22% inference_agree=99.99965% | cond=274375 imli_agree=0.5252% imli_nonzero_agree=0.1379% (nonzero=99.60%)
+619.lbm_s-2676B.champsimtrace.xz         taken=727874 backward=28.99% inference_agree=99.99986% | cond=706587 imli_agree=0.0001% imli_nonzero_agree=0.0000% (nonzero=100.00%)
+620.omnetpp_s-141B.champsimtrace.xz      taken=6447454 backward=37.63% inference_agree=100.00000% | cond=6740343 imli_agree=7.2758% imli_nonzero_agree=4.9903% (nonzero=97.26%)
+623.xalancbmk_s-10B.champsimtrace.xz     taken=6262220 backward=77.68% inference_agree=100.00000% | cond=11708830 imli_agree=54.6987% imli_nonzero_agree=38.7911% (nonzero=72.48%)
+625.x264_s-12B.champsimtrace.xz          taken=1466328 backward=66.13% inference_agree=99.99993% | cond=1620410 imli_agree=99.7056% imli_nonzero_agree=99.5700% (nonzero=68.47%)
+631.deepsjeng_s-928B.champsimtrace.xz    taken=5103876 backward=28.06% inference_agree=99.99998% | cond=5005784 imli_agree=56.0914% imli_nonzero_agree=38.6713% (nonzero=50.07%)
+638.imagick_s-824B.champsimtrace.xz      taken=3740914 backward=40.23% inference_agree=99.99997% | cond=5191698 imli_agree=82.3402% imli_nonzero_agree=82.3400% (nonzero=100.00%)
+657.xz_s-2302B.champsimtrace.xz          taken=3688637 backward=45.81% inference_agree=99.99997% | cond=5603331 imli_agree=94.9640% imli_nonzero_agree=92.8927% (nonzero=68.96%)
+LOG20 602.gcc_s-1850B.champsimtrace.xz         taken=6250493 backward=48.26% inference_agree=100.00000% | cond=10660046 imli_agree=0.2803% imli_nonzero_agree=0.0111% (nonzero=99.73%)
+LOG20 605.mcf_s-1152B.champsimtrace.xz         taken=7146064 backward=38.06% inference_agree=100.00000% | cond=8803681 imli_agree=98.6685% imli_nonzero_agree=97.9525% (nonzero=65.03%)
+LOG20 607.cactuBSSN_s-2421B.champsimtrace.xz   taken=282739 backward=45.22% inference_agree=99.99965% | cond=274375 imli_agree=0.5248% imli_nonzero_agree=0.1295% (nonzero=99.60%)
+LOG20 619.lbm_s-2676B.champsimtrace.xz         taken=727874 backward=28.99% inference_agree=99.99986% | cond=706587 imli_agree=0.0001% imli_nonzero_agree=0.0000% (nonzero=100.00%)
+LOG20 620.omnetpp_s-141B.champsimtrace.xz      taken=6447454 backward=37.63% inference_agree=100.00000% | cond=6740343 imli_agree=9.1876% imli_nonzero_agree=6.6259% (nonzero=97.26%)
+LOG20 623.xalancbmk_s-10B.champsimtrace.xz     taken=6262220 backward=77.68% inference_agree=100.00000% | cond=11708830 imli_agree=57.2587% imli_nonzero_agree=41.0335% (nonzero=72.48%)
+LOG20 625.x264_s-12B.champsimtrace.xz          taken=1466328 backward=66.13% inference_agree=99.99993% | cond=1620410 imli_agree=99.7056% imli_nonzero_agree=99.5700% (nonzero=68.47%)
+LOG20 631.deepsjeng_s-928B.champsimtrace.xz    taken=5103876 backward=28.06% inference_agree=99.99998% | cond=5005784 imli_agree=83.1503% imli_nonzero_agree=66.3474% (nonzero=50.07%)
+LOG20 638.imagick_s-824B.champsimtrace.xz      taken=3740914 backward=40.23% inference_agree=99.99997% | cond=5191698 imli_agree=82.3402% imli_nonzero_agree=82.3400% (nonzero=100.00%)
+LOG20 657.xz_s-2302B.champsimtrace.xz          taken=3688637 backward=45.81% inference_agree=99.99997% | cond=5603331 imli_agree=95.1831% imli_nonzero_agree=93.0148% (nonzero=68.96%)
+602.gcc_s-1850B.champsimtrace.xz         HIST oracle[0|1-15|16-1022|sat]=0.3/1.2/66.1/32.4% inferred=0.4/3.4/96.2/0.0% agree(min(v,16))=96.43%
+605.mcf_s-1152B.champsimtrace.xz         HIST oracle[0|1-15|16-1022|sat]=35.0/33.0/32.1/0.0% inferred=35.0/33.0/32.0/0.0% agree(min(v,16))=99.68%
+607.cactuBSSN_s-2421B.champsimtrace.xz   HIST oracle[0|1-15|16-1022|sat]=0.4/2.7/96.9/0.0% inferred=65.6/17.8/16.7/0.0% agree(min(v,16))=17.19%
+619.lbm_s-2676B.champsimtrace.xz         HIST oracle[0|1-15|16-1022|sat]=0.0/0.0/0.5/99.5% inferred=100.0/0.0/0.0/0.0% agree(min(v,16))=0.00%
+620.omnetpp_s-141B.champsimtrace.xz      HIST oracle[0|1-15|16-1022|sat]=2.7/30.7/65.6/1.0% inferred=40.0/58.3/1.7/0.1% agree(min(v,16))=8.66%
+623.xalancbmk_s-10B.champsimtrace.xz     HIST oracle[0|1-15|16-1022|sat]=27.5/67.5/3.8/1.2% inferred=55.7/42.7/1.6/0.0% agree(min(v,16))=55.27%
+625.x264_s-12B.champsimtrace.xz          HIST oracle[0|1-15|16-1022|sat]=31.5/68.5/0.0/0.0% inferred=31.7/68.3/0.0/0.0% agree(min(v,16))=99.71%
+631.deepsjeng_s-928B.champsimtrace.xz    HIST oracle[0|1-15|16-1022|sat]=49.9/42.8/7.3/0.0% inferred=46.1/45.8/8.1/0.0% agree(min(v,16))=58.59%
+638.imagick_s-824B.champsimtrace.xz      HIST oracle[0|1-15|16-1022|sat]=0.0/0.0/2.8/97.1% inferred=7.4/0.2/10.1/82.3% agree(min(v,16))=92.43%
+657.xz_s-2302B.champsimtrace.xz          HIST oracle[0|1-15|16-1022|sat]=31.0/63.7/5.2/0.1% inferred=33.3/61.7/4.9/0.1% agree(min(v,16))=95.72%

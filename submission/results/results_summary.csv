@@ -1,0 +1,12 @@
+predictor,label,role,storage_bits,storage_KB,mean_ipc,geomean_speedup_vs_bimodal,geomean_speedup_vs_hashed_perceptron,geomean_speedup_vs_tage_sc_l,mean_mpki_10,mean_mpki_int7,mpki_reduction_vs_hashed_perceptron_pct,mpki_reduction_vs_tage_sc_l_pct,pooled_accuracy_all_pct,pooled_cond_accuracy_pct,mean_accuracy_all_pct,total_mispredictions
+bimodal,Bimodal,baseline (repo),32768,4.0,0.76071,1.0,0.91238,0.90897,9.8843,14.0431,-204.37,-221.79,93.2889,91.2426,93.8412,19768646
+gshare,Gshare,baseline (repo),32782,4.0,0.79704,1.04678,0.95506,0.95149,6.1527,8.7446,-89.46,-100.31,95.8225,94.7658,96.422,12305486
+perceptron,Perceptron,baseline (repo),32648,3.99,0.8063,1.06105,0.96808,0.96446,5.3835,7.6343,-65.78,-75.27,96.3447,95.3013,96.8734,10767091
+hashed_perceptron,Hashed perceptron,"baseline (repo, 64 KB)",524542,64.03,0.8301,1.09604,1.0,0.99626,3.2475,4.6098,0.0,-5.72,97.7951,97.1125,98.0479,6494917
+tage,TAGE,baseline (re-implemented),383674,46.84,0.82962,1.09433,0.99844,0.99471,3.2953,4.6798,-1.47,-7.28,97.7626,97.0737,98.0413,6590548
+tage_l,TAGE + loop,baseline (re-implemented),386177,47.14,0.82958,1.0943,0.99842,0.99469,3.2933,4.6771,-1.41,-7.22,97.764,97.0755,98.0538,6586558
+tsl_base,TAGE-SC-L,"baseline (re-implemented, no IMLI)",476319,58.14,0.83369,1.10014,1.00375,1.0,3.0717,4.3606,5.41,0.0,97.9144,97.2694,98.1891,6143310
+tsl_imli,TAGE-SC-L + IMLI,intermediate,487658,59.53,0.83387,1.10044,1.00402,1.00027,3.0646,4.3505,5.63,0.23,97.9192,97.2756,98.1921,6129238
+tsl_proposed,Proposed (TSL + IMLI + IMHIST + BHIST),proposed,508666,62.09,0.83411,1.10078,1.00433,1.00058,3.0456,4.3233,6.22,0.85,97.9321,97.2924,98.2041,6091218
+tsl_prop_noloop,Proposed - loop,ablation,506163,61.79,0.83407,1.10075,1.0043,1.00055,3.0485,4.3273,6.13,0.76,97.9302,97.2899,98.2014,6096906
+tsl_prop_nolocal,Proposed - local,ablation,479994,58.59,0.83227,1.0983,1.00207,0.99833,3.1359,4.4522,3.44,-2.09,97.8708,97.2123,98.1476,6271747

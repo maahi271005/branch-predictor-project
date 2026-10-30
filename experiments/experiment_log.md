@@ -50,4 +50,24 @@ ChampSim results: `experiments/results/<stage>/<binary>/<trace>.txt` (header rec
 ## Stage G — final ChampSim evaluation (50M + 200M, 10 traces)
 | ID | Binaries | Status |
 |---|---|---|
-| G1 | tsl_proposed, tsl_base, tsl_imli, tage, tage_l, tsl_prop_noloop, tsl_prop_nolocal (70 runs, 14 parallel, started 15:03) | running — `results/G_final_50M_200M/` |
+| G1 | tsl_proposed, tsl_base, tsl_imli, tage, tage_l, tsl_prop_noloop, tsl_prop_nolocal (70 runs, 14 parallel, 15:03–16:14) | done: 70/70 exit 0, no wrap-around; 13–20 min per run — `results/G_final_50M_200M/` |
+
+Headline (ChampSim, mean of 10 traces): proposed MPKI 3.0456 (hashed perceptron 3.2475, TAGE-SC-L 3.0717);
+geomean IPC speedup +0.43% vs hashed perceptron, +0.06% vs TAGE-SC-L, +10.08% vs bimodal.
+Per-trace decomposition of IPC vs MPKI in the report (§9). Processed with `analyze.py` → `submission/results/`.
+
+## Stage H — generalization decision
+- Additional traces would strengthen the evaluation: the contribution's gain (≈0.9% MPKI) is small relative
+  to trace-to-trace variation, and tuning used other windows of the same 10 programs.
+- Candidate set: the other 10 SPEC CPU2017 DPC-3 traces (perlbench, bwaves, cam4, exchange2, fotonik3d,
+  leela, nab, pop2, roms, wrf) — roughly 4–7 GB compressed (estimated from the sizes of the current traces).
+- Cost: extraction ~1 min, harness MPKI for proposed vs baselines ~5 min; ChampSim IPC for 3 predictors
+  ≈ 30 runs ≈ 45 min at 14 parallel. Disk: 20 GB free.
+- **Not downloaded** (brief: no additional downloads without approval); the DPC-3 server did not respond
+  to a header check on 2026-10-30, so the source would need to be confirmed first.
+
+## Final verification (2026-10-30)
+- ZIP extracted to a scratch directory, built with stock `build_champsim.sh tfl_tage_scl no no no no lru 1`;
+  1M/10M xz run identical to the experiment binary (IPC 0.843805, 11,851,077 cycles, 102,619 mispredictions).
+- Scripts in the ZIP regenerate `results_summary.csv`, `results_per_trace.csv`, `ablation_mpki.csv` byte-identically.
+- All 7 final binaries built from tagescl.bpred sha256 3be5e685…, unchanged since the freeze commit 660997e.

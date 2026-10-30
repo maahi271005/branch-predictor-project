@@ -1,0 +1,11 @@
+# predictor=tagescl flags=-DTSL_NO_SC -DTSL_NO_LOOP -DTSL_THROTTLE -DTSL_THR_LIMIT=-4 -DTSL_THR_SHIFT=2 key=a1b9d964624b843e
+602.gcc_s-1850B.br branches=25642288 mispredictions=5440 accuracy=99.9788 mpki=0.0544 cond_branches=21322372 cond_mispredictions=5440 cond_mpki=0.0544
+605.mcf_s-1152B.br branches=26109317 mispredictions=1309474 accuracy=94.9846 mpki=13.0947 cond_branches=19543709 cond_mispredictions=1308293 cond_mpki=13.0829
+607.cactuBSSN_s-2421B.br branches=118585 mispredictions=181 accuracy=99.8474 mpki=0.0018 cond_branches=59382 cond_mispredictions=181 cond_mpki=0.0018
+619.lbm_s-2676B.br branches=1803044 mispredictions=52569 accuracy=97.0844 mpki=0.5257 cond_branches=1508303 cond_mispredictions=52569 cond_mpki=0.5257
+620.omnetpp_s-141B.br branches=21041077 mispredictions=371392 accuracy=98.2349 mpki=3.7139 cond_branches=13420734 cond_mispredictions=370279 cond_mpki=3.7028
+623.xalancbmk_s-10B.br branches=25783853 mispredictions=48434 accuracy=99.8122 mpki=0.4843 cond_branches=23078617 cond_mispredictions=48309 cond_mpki=0.4831
+625.x264_s-12B.br branches=3079181 mispredictions=7617 accuracy=99.7526 mpki=0.0762 cond_branches=2396808 cond_mispredictions=7614 cond_mpki=0.0761
+631.deepsjeng_s-928B.br branches=14786117 mispredictions=456460 accuracy=96.9129 mpki=4.5646 cond_branches=9904835 cond_mispredictions=454118 cond_mpki=4.5412
+638.imagick_s-824B.br branches=16138170 mispredictions=7890 accuracy=99.9511 mpki=0.0789 cond_branches=10394892 cond_mispredictions=7888 cond_mpki=0.0789
+657.xz_s-2302B.br branches=13456241 mispredictions=1138088 accuracy=91.5423 mpki=11.3809 cond_branches=11756591 cond_mispredictions=1137377 cond_mpki=11.3738

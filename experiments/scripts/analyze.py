@@ -193,7 +193,8 @@ def figures(out, data, preds, abl_rows):
         ax.set_ylabel(ylabel)
         if log: ax.set_yscale("log")
         if ref: ax.axhline(1.0, color="black", lw=0.8)
-        ax.legend(fontsize=8, ncol=4); ax.grid(axis="y", alpha=0.3)
+        ax.legend(fontsize=8, ncol=4, loc="lower center", bbox_to_anchor=(0.5, 1.01), frameon=False)
+        ax.grid(axis="y", alpha=0.3)
         fig.tight_layout(); fig.savefig(os.path.join(fig_dir, fname), dpi=160); plt.close(fig)
 
     grouped("mpki", "MPKI (log scale)", "fig_mpki_per_trace.png", log=True)
@@ -230,7 +231,7 @@ def figures(out, data, preds, abl_rows):
         ax.barh([r["description"] for r in rows], [r["mean_mpki_10"] for r in rows],
                 color=["#006d2c"] + ["#74c476"] * (len(rows) - 1))
         for i, r in enumerate(rows): ax.text(r["mean_mpki_10"], i, f" {r['mean_mpki_10']:.4f} ({r['delta_vs_proposed_pct']:+.2f}%)", va="center", fontsize=8)
-        ax.invert_yaxis(); ax.set_xlabel("mean MPKI, 10 traces (reported window, harness)")
+        ax.invert_yaxis(); ax.set_xlabel("mean MPKI, 10 traces (reported window, harness) — axis does not start at 0")
         ax.set_xlim(min(r["mean_mpki_10"] for r in rows) * 0.97, max(r["mean_mpki_10"] for r in rows) * 1.06)
         fig.tight_layout(); fig.savefig(os.path.join(fig_dir, "fig_ablation.png"), dpi=160); plt.close(fig)
 

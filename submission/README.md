@@ -15,18 +15,21 @@ the strongest predictor shipped with ChampSim (hashed perceptron, 524,542 bits).
 
 | Path | What |
 |---|---|
-| `ChampSim/` (in the ZIP) | complete ChampSim source (2021 `build_champsim.sh` version) with the new predictors |
-| `ChampSim/branch/tagescl.bpred` | implementation of the predictor family (all components and switches) |
-| `ChampSim/branch/tfl_tage_scl.bpred` | **proposed configuration** |
-| `ChampSim/branch/tage_scl.bpred`, `tage.bpred` | re-implemented baselines (TAGE-SC-L without IMLI components; TAGE only) |
-| `ChampSim/branch/{bimodal,gshare,perceptron,hashed_perceptron}.bpred` | baselines shipped with ChampSim (unchanged) |
-| `ChampSim/src/main.cc`, `src/ooo_cpu.cc`, `inc/ooo_cpu.h` | **stats-only** additions: exact branch/misprediction counts and per-branch-type mispredictions (timing unchanged) |
+| `champsim/` (in the ZIP) | complete ChampSim source (2021 `build_champsim.sh` version) with the new predictors |
+| `champsim/branch/tagescl.bpred` | implementation of the predictor family (all components and switches) |
+| `champsim/branch/tfl_tage_scl.bpred` | **proposed configuration** |
+| `champsim/branch/tage_scl.bpred`, `tage.bpred` | re-implemented baselines (TAGE-SC-L without IMLI components; TAGE only) |
+| `champsim/branch/{bimodal,gshare,perceptron,hashed_perceptron}.bpred` | baselines shipped with ChampSim (unchanged) |
+| `champsim/src/main.cc`, `src/ooo_cpu.cc`, `inc/ooo_cpu.h` | **stats-only** additions: exact branch/misprediction counts and per-branch-type mispredictions (timing unchanged) |
 | `experiments/scripts/` | build, run, parse, harness and analysis scripts |
 | `experiments/harness/` | functional branch-stream replay harness + IMLI inference verification tool |
 | `experiments/results/` | raw ChampSim outputs of every reported run, harness outputs, run logs |
 | `results/` | `Branch_Predictor_Results.xlsx`, CSV files, figures |
 | `Branch_Predictor_Report.docx` | technical report |
-| `research/` | literature review, candidate comparison, design rationale |
+| `research/` | literature review, candidate comparison, design rationale, research notes |
+| `experiments/*.md` | experiment plan, experiment log, requirement checklist |
+
+Traces, binaries and object files are not included (see Section 3 for the traces).
 
 ## 2. Prerequisites
 - Linux, `g++` with C++11 (tested: g++ 13.3.0, Ubuntu 24.04), GNU make, bash, `xz`.
@@ -45,7 +48,7 @@ The 10 SPEC CPU2017 traces of the 3rd Data Prefetching Championship (DPC-3), eac
 602.gcc_s-1850B   605.mcf_s-1152B      607.cactuBSSN_s-2421B  619.lbm_s-2676B    620.omnetpp_s-141B
 623.xalancbmk_s-10B 625.x264_s-12B     631.deepsjeng_s-928B   638.imagick_s-824B 657.xz_s-2302B
 ```
-Place them as `ChampSim/dpc3_traces/<name>.champsimtrace.xz`. They are not included (5.2 GB). They
+Place them as `champsim/dpc3_traces/<name>.champsimtrace.xz`. They are not included (5.2 GB). They
 were provided for the course; the DPC-3 trace server used by `scripts/download_dpc3_traces.sh` is
 `http://hpca23.cse.tamu.edu/champsim-traces/speccpu/<name>.champsimtrace.xz` (it did not respond
 when checked on 2026-10-30, so availability there is unverified). Note that the
@@ -57,7 +60,7 @@ the exact file names above. Check them with `xz -t`.
 
 ### 4.1 Standard ChampSim workflow
 ```
-cd ChampSim
+cd champsim
 ./build_champsim.sh tfl_tage_scl no no no no lru 1       # proposed predictor
 ./build_champsim.sh tage_scl          no no no no lru 1  # TAGE-SC-L baseline
 ./build_champsim.sh tage              no no no no lru 1  # TAGE baseline
@@ -95,7 +98,7 @@ The predictor prints its configuration and storage (bits) at start-up.
 
 ## 6. Running
 ```
-cd ChampSim
+cd champsim
 ./run_champsim.sh tfl_tage_scl-no-no-no-no-lru-1core 50 200 605.mcf_s-1152B.champsimtrace.xz
 # -> results_200M/605.mcf_s-1152B.champsimtrace.xz-tfl_tage_scl-no-no-no-no-lru-1core.txt
 ```
@@ -109,8 +112,8 @@ Reported metrics (end of the output, "Region of Interest Statistics"):
 NOT_BRANCH, DIRECT_JUMP, INDIRECT, CONDITIONAL, DIRECT_CALL, INDIRECT_CALL, RETURN, OTHER).
 
 ## 7. Reproducing the reported results
-From the project root (the directory containing `ChampSim/` — the scripts expect it to be reachable
-as `champsim/`; create the link with `ln -s ChampSim champsim` if needed):
+From the root of the extracted ZIP (the directory containing `champsim/`, `experiments/` and
+`README.md`; all scripts locate ChampSim as `<root>/champsim`):
 ```
 # baselines shipped with ChampSim
 for p in bimodal gshare perceptron hashed_perceptron; do experiments/scripts/build.sh $p $p; done
