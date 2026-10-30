@@ -81,6 +81,7 @@ class O3_CPU {
     uint64_t num_branch, branch_mispredictions;
     uint64_t total_rob_occupancy_at_branch_mispredict;
   uint64_t total_branch_types[8];
+  uint64_t branch_type_misses[8]; // [stats-only addition] mispredictions per branch type
 
     // TLBs and caches
     CACHE ITLB{"ITLB", ITLB_SET, ITLB_WAY, ITLB_SET*ITLB_WAY, ITLB_WQ_SIZE, ITLB_RQ_SIZE, ITLB_PQ_SIZE, ITLB_MSHR_SIZE},
@@ -132,6 +133,7 @@ class O3_CPU {
 	for(uint32_t i=0; i<8; i++)
 	  {
 	    total_branch_types[i] = 0;
+	    branch_type_misses[i] = 0;
 	  }
 	
         for (uint32_t i=0; i<STA_SIZE; i++)

@@ -1,0 +1,611 @@
+// TAGE-SC-L style conditional branch predictor for the (2021) ChampSim
+// interface: predict_branch(ip) / last_branch_result(ip, taken).
+//
+// Re-implemented for this project from the published algorithms:
+//   A. Seznec, P. Michaud, "A case for (partially) TAgged GEometric history
+//      length branch prediction", JILP 2006                       (TAGE)
+//   A. Seznec, "A new case for the TAGE branch predictor", MICRO 2011
+//   A. Seznec, "TAGE-SC-L branch predictors (again)", CBP-4 2014 / CBP-5 2016
+//   A. Seznec, J. San Miguel, J. Albericio, "The inner most loop iteration
+//      counter: a new dimension in branch history", MICRO 2015    (IMLI)
+//
+// Interface-specific points (see research/design_rationale.md):
+//  * ChampSim calls the predictor for every branch type and gives neither the
+//    branch type nor the target.  The update follows each prediction
+//    immediately, so no speculative-history repair is needed.
+//  * IMLI needs to know whether a conditional branch is backward (target <=
+//    pc).  We infer it without the target: after a TAKEN branch B, execution
+//    resumes at its target T, and the next branch fetched has pc N >= T; if
+//    T <= B the path from T reaches B itself, so N <= B.  Hence
+//          B backward  <=>  pc(next branch) <= pc(B).
+//    The bit is remembered per branch (bwd table) so that NOT-taken (loop
+//    exit) instances can be classified too.  A branch is treated as
+//    conditional once it has been observed not-taken (cond table).
+//
+// Component switches (compile-time, for ablation studies):
+//   -DTSL_NO_SC     disable the statistical corrector
+//   -DTSL_NO_LOOP   disable the loop predictor
+//   -DTSL_NO_IMLI   disable the IMLI components of the SC
+//   -DTSL_NO_LOCAL  disable the local-history components of the SC
+//   -DTSL_LOG_TAGE=<n>  log2 entries per tagged table (default 11)
+//   -DTSL_MAXHIST=<n>   longest global history length (default 640)
+//   -DTSL_HBITS=<n>     global-history bits inserted per branch (default 1)
+//   -DTSL_THROTTLE      per-branch allocation throttle (candidate contribution N2):
+//                       a PC-indexed payoff counter is decremented on every TAGE
+//                       allocation for the branch and incremented whenever one
+//                       of its tagged entries is useful (provider correct where
+//                       the alternate prediction was wrong).  Branches whose
+//                       allocations do not pay off (typically hard-to-predict,
+//                       data-dependent branches) allocate one entry with
+//                       probability 1/2^TSL_THR_SHIFT instead of up to two.
+//   -DTSL_THR_LIMIT=<n> payoff value below which throttling applies (default -8)
+//   -DTSL_THR_SHIFT=<n> throttled allocation probability 1/2^n (default 3)
+#include "ooo_cpu.h"
+
+#include <cstdint>
+#include <cstdlib>
+#include <cstring>
+
+#ifndef TSL_LOG_TAGE
+#define TSL_LOG_TAGE 11
+#endif
+#ifndef TSL_MAXHIST
+#define TSL_MAXHIST 640
+#endif
+#ifndef TSL_HBITS
+#define TSL_HBITS 1
+#endif
+#ifndef TSL_THR_LIMIT
+#define TSL_THR_LIMIT -8
+#endif
+#ifndef TSL_THR_SHIFT
+#define TSL_THR_SHIFT 3
+#endif
+
+namespace tsl {
+
+// ------------------------------------------------------------------ params
+static const int NHIST = 12;                         // tagged tables T1..T12
+static const int MINHIST = 4, MAXHIST = TSL_MAXHIST; // geometric history lengths
+static const int LOGG = TSL_LOG_TAGE;                // log2 entries per tagged table
+static const int TBITS[NHIST + 1] = {0, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 13};
+static const int CWIDTH = 3;                         // tagged prediction counter
+static const int UWIDTH = 1;                         // useful bit (as in TAGE-SC-L 2016)
+static const int LOGB = 13;                          // base bimodal: 2^13 2-bit counters
+static const int HISTBUFLEN = 4096;                  // circular global-history buffer
+static const int PHISTWIDTH = 27;                    // path history bits
+static const int BORNTICK = 1024;                    // u-aging trigger (Seznec 2016)
+static const int NUSEALT = 4;                        // use_alt_on_na: (table group, alt conf)
+
+// loop predictor (L-TAGE / TAGE-SC-L style)
+static const int LOGL = 6;                           // 64 entries, 4-way
+static const int WIDTHNBITERLOOP = 10;
+static const int LOOPTAG = 10;
+static const int CONFLOOP = 15;
+
+// statistical corrector
+static const int SCW = 6;                            // SC counter width
+static const int LOGBIAS = 10;
+static const int LOGGEHL = 10;
+static const int GNB = 4;  static const int GHL[GNB] = {40, 24, 12, 6};   // global GEHL
+static const int PNB = 3;  static const int PHL[PNB] = {25, 16, 9};      // path GEHL
+static const int LNB = 4;  static const int LHL[LNB] = {16, 11, 6, 3};   // local GEHL
+static const int LOGLOCAL = 8;                       // 256 local histories
+static const int LOGIMLI = 9;                        // IMLI-SIC table (512 entries, as in the paper)
+static const int IMLIWIDTH = 10;
+static const int LOGBWD = 12;                        // backward-direction memory (bits)
+static const int LOGCOND = 12;                       // "seen not-taken" memory (bits)
+
+// per-branch allocation throttle (TSL_THROTTLE)
+static const int LOGPAY = 10;                        // 1K payoff counters
+static const int PAYW = 6;                           // signed 6-bit
+
+// ----------------------------------------------------------------- helpers
+template <int W> inline void satupd(int8_t& c, bool up)
+{
+    const int mx = (1 << (W - 1)) - 1, mn = -(1 << (W - 1));
+    if (up) { if (c < mx) c++; } else { if (c > mn) c--; }
+}
+
+// folded history (circular shift register folding, as in the TAGE papers)
+struct Folded {
+    unsigned comp = 0;
+    int clen = 0, olen = 0, outpoint = 0;
+    void init(int original, int compressed)
+    {
+        comp = 0; olen = original; clen = compressed; outpoint = olen % clen;
+    }
+    void update(const uint8_t* h, int pt)
+    {
+        comp = (comp << 1) ^ h[pt & (HISTBUFLEN - 1)];
+        comp ^= h[(pt + olen) & (HISTBUFLEN - 1)] << outpoint;
+        comp ^= (comp >> clen);
+        comp &= (1u << clen) - 1;
+    }
+};
+
+struct TEntry { int8_t ctr = 0; uint16_t tag = 0; uint8_t u = 0; };
+
+struct LEntry {
+    uint16_t nbiter = 0, curiter = 0, tag = 0;
+    uint8_t confid = 0, age = 0;
+    bool dir = false;
+};
+
+struct Predictor {
+    // ---- global state
+    uint8_t ghist[HISTBUFLEN];
+    int ptghist = 0;
+    uint64_t phist = 0;
+    int m[NHIST + 1];
+    Folded ci[NHIST + 1], ct0[NHIST + 1], ct1[NHIST + 1];
+    TEntry* gtable[NHIST + 1];
+    int8_t btable[1 << LOGB];
+    int8_t use_alt_on_na[NUSEALT];
+    int tick = 0;
+    uint64_t rng = 0x2545F4914F6CDD1DULL;  // fixed seed: runs are deterministic
+
+    // loop predictor
+    LEntry ltable[1 << LOGL];
+    int8_t withloop = -1;
+
+    // statistical corrector
+    int8_t bias[3][1 << LOGBIAS];
+    int8_t ggehl[GNB][1 << LOGGEHL];
+    int8_t pgehl[PNB][1 << LOGGEHL];
+    int8_t lgehl[LNB][1 << LOGGEHL];
+    int8_t imlit[1 << LOGIMLI];
+    Folded gfold[GNB];
+    uint16_t lhist[1 << LOGLOCAL];
+    int sc_thres = 35, sc_tc = 0;
+    int8_t firsth = 0, secondh = 0;
+
+    // IMLI state
+    uint8_t bwd[1 << LOGBWD];     // 1 = branch observed jumping backward
+    uint8_t cond[1 << LOGCOND];   // 1 = branch observed not-taken (=> conditional)
+    uint32_t imli = 0;
+    uint64_t prev_ip = 0;
+    bool prev_taken = false, have_prev = false;
+
+    // allocation throttle
+    int8_t payoff[1 << LOGPAY];
+
+    // ---- per-prediction scratch (consumed by update)
+    uint64_t p_ip = ~0ULL;
+    int gi[NHIST + 1]; uint16_t gt[NHIST + 1];
+    int bi;
+    int hitbank, altbank, usealt_idx;
+    bool longest_pred, alt_pred, tage_pred, pseudo_new;
+    bool high_conf, med_conf;
+    // loop
+    int lhit, lidx; bool lvalid, lpred;
+    bool pred_inter;  // TAGE or loop
+    // SC
+    int sc_idx_bias[3], sc_idx_g[GNB], sc_idx_p[PNB], sc_idx_l[LNB], sc_idx_imli;
+    int lsum; bool sc_pred, final_pred;
+
+    uint64_t rnd() { rng ^= rng << 13; rng ^= rng >> 7; rng ^= rng << 17; return rng; }
+
+    void init()
+    {
+        memset(ghist, 0, sizeof ghist);
+        m[0] = 0;
+        for (int i = 1; i <= NHIST; i++) {
+            double r = (double)(i - 1) / (NHIST - 1);
+            m[i] = (int)(MINHIST * pow((double)MAXHIST / MINHIST, r) + 0.5);
+        }
+        for (int i = 1; i <= NHIST; i++) {
+            ci[i].init(m[i], LOGG);
+            ct0[i].init(m[i], TBITS[i]);
+            ct1[i].init(m[i], TBITS[i] - 1);
+            gtable[i] = new TEntry[1 << LOGG]();
+        }
+        for (int i = 0; i < (1 << LOGB); i++) btable[i] = 0;
+        for (int i = 0; i < NUSEALT; i++) use_alt_on_na[i] = 0;
+        for (int j = 0; j < 3; j++)
+            for (int i = 0; i < (1 << LOGBIAS); i++) bias[j][i] = (i & 1) ? 0 : -1;
+        memset(ggehl, 0, sizeof ggehl); memset(pgehl, 0, sizeof pgehl);
+        memset(lgehl, 0, sizeof lgehl); memset(imlit, 0, sizeof imlit);
+        memset(lhist, 0, sizeof lhist);
+        memset(bwd, 0, sizeof bwd); memset(cond, 0, sizeof cond);
+        memset(payoff, 0, sizeof payoff);
+        for (int i = 0; i < GNB; i++) gfold[i].init(GHL[i], LOGGEHL);
+    }
+
+    // ------------------------------------------------------------ TAGE
+    int F(uint64_t A, int size, int bank) const
+    {
+        // path-history mixing function from the TAGE reference code
+        int A1, A2;
+        A = A & ((1ULL << size) - 1);
+        A1 = (int)(A & ((1 << LOGG) - 1));
+        A2 = (int)(A >> LOGG);
+        if (bank < LOGG) A2 = ((A2 << bank) & ((1 << LOGG) - 1)) + (A2 >> (LOGG - bank));
+        A1 = A1 ^ A2;
+        if (bank < LOGG) A1 = ((A1 << bank) & ((1 << LOGG) - 1)) + (A1 >> (LOGG - bank));
+        return A1;
+    }
+    int gindex(uint64_t pc, int bank) const
+    {
+        int sz = m[bank] > 16 ? 16 : m[bank];
+        int sh = abs(LOGG - bank) + 1;
+        uint64_t idx = pc ^ (pc >> sh) ^ ci[bank].comp ^ F(phist, sz, bank % LOGG);
+        return (int)(idx & ((1 << LOGG) - 1));
+    }
+    uint16_t gtag(uint64_t pc, int bank) const
+    {
+        uint64_t t = pc ^ ct0[bank].comp ^ (ct1[bank].comp << 1);
+        return (uint16_t)(t & ((1 << TBITS[bank]) - 1));
+    }
+
+    // ------------------------------------------------------------ loop
+    int lindex(uint64_t pc) const { return (int)((pc ^ (pc >> 2)) & ((1 << (LOGL - 2)) - 1)) << 2; }
+    uint16_t ltag(uint64_t pc) const { return (uint16_t)((pc >> (LOGL - 2)) & ((1 << LOOPTAG) - 1)); }
+
+    void loop_lookup(uint64_t pc)
+    {
+        lidx = lindex(pc); lhit = -1; lvalid = false; lpred = false;
+        uint16_t t = ltag(pc);
+        for (int w = 0; w < 4; w++) {
+            LEntry& e = ltable[lidx + w];
+            if (e.tag == t) {
+                lhit = w;
+                lvalid = (e.confid == CONFLOOP);
+                lpred = (e.curiter + 1 == e.nbiter) ? !e.dir : e.dir;
+                return;
+            }
+        }
+    }
+
+    void loop_update(uint64_t pc, bool taken, bool alloc)
+    {
+        if (lhit >= 0) {
+            LEntry& e = ltable[lidx + lhit];
+            if (lvalid) {
+                if (taken != lpred) {  // a confident loop entry mispredicted: free it
+                    e.nbiter = 0; e.age = 0; e.confid = 0; e.curiter = 0;
+                    return;
+                } else if (lpred != tage_pred || (rnd() & 7) == 0) {
+                    if (e.age < CONFLOOP) e.age++;
+                }
+            }
+            e.curiter = (e.curiter + 1) & ((1 << WIDTHNBITERLOOP) - 1);
+            if (e.curiter > e.nbiter) { e.confid = 0; e.nbiter = 0; }
+            if (taken != e.dir) {
+                if (e.curiter == e.nbiter) {
+                    if (e.confid < CONFLOOP) e.confid++;
+                    if (e.nbiter < 3) { e.dir = taken; e.nbiter = 0; e.age = 0; e.confid = 0; }
+                } else {
+                    if (e.nbiter == 0) { e.confid = 0; e.nbiter = e.curiter; }  // first complete trip
+                    else { e.nbiter = 0; e.confid = 0; }                        // trip count changed
+                }
+                e.curiter = 0;
+            }
+        } else if (alloc && (rnd() & 3) == 0) {
+            int x = rnd() & 3;
+            for (int i = 0; i < 4; i++) {
+                LEntry& e = ltable[lidx + ((x + i) & 3)];
+                if (e.age == 0) {
+                    e.dir = !taken; e.tag = ltag(pc); e.nbiter = 0; e.age = 7; e.confid = 0; e.curiter = 0;
+                    break;
+                } else e.age--;
+            }
+        }
+    }
+
+    // ------------------------------------------------------------ SC
+    static int ctrsum(int8_t c) { return 2 * c + 1; }
+
+    void sc_compute(uint64_t pc)
+    {
+        const int MB = (1 << LOGBIAS) - 1, MG = (1 << LOGGEHL) - 1;
+        int conf = high_conf ? 2 : (med_conf ? 1 : 0);
+        sc_idx_bias[0] = (int)(((pc ^ (pc >> 2)) << 1) ^ pred_inter) & MB;
+        sc_idx_bias[1] = (int)((((pc ^ (pc >> 3)) << 3) ^ (conf << 1)) ^ pred_inter) & MB;
+        sc_idx_bias[2] = (int)(((((hitbank + 1) * 16 + (altbank + 1)) * 2 + pred_inter)) ^ ((pc & 0x1f) << 5)) & MB;
+        lsum = 0;
+        for (int j = 0; j < 3; j++) lsum += ctrsum(bias[j][sc_idx_bias[j]]);
+        for (int i = 0; i < GNB; i++) {
+            sc_idx_g[i] = (int)((pc ^ (pc >> (i + 2)) ^ gfold[i].comp) ^ ((uint64_t)i << (LOGGEHL - 2))) & MG;
+            lsum += ctrsum(ggehl[i][sc_idx_g[i]]);
+        }
+        for (int i = 0; i < PNB; i++) {
+            uint64_t p = phist & ((1ULL << PHL[i]) - 1);
+            uint64_t h = p ^ (p >> LOGGEHL) ^ (p >> (2 * LOGGEHL));
+            sc_idx_p[i] = (int)((pc ^ (pc >> (i + 3)) ^ h) ^ ((uint64_t)i << (LOGGEHL - 3))) & MG;
+            lsum += ctrsum(pgehl[i][sc_idx_p[i]]);
+        }
+#ifndef TSL_NO_LOCAL
+        uint64_t lh = lhist[(pc ^ (pc >> LOGLOCAL)) & ((1 << LOGLOCAL) - 1)];
+        for (int i = 0; i < LNB; i++) {
+            uint64_t h = lh & ((1ULL << LHL[i]) - 1);
+            h = h ^ (h >> LOGGEHL);
+            sc_idx_l[i] = (int)((pc ^ (pc >> (i + 1)) ^ (h << 1)) ^ ((uint64_t)i << (LOGGEHL - 2))) & MG;
+            lsum += ctrsum(lgehl[i][sc_idx_l[i]]);
+        }
+#endif
+#ifndef TSL_NO_IMLI
+        // IMLI-SIC: table indexed by a hash of the pc and the IMLI counter
+        sc_idx_imli = (int)((pc ^ (pc >> 5) ^ ((uint64_t)imli << 3) ^ (imli >> 6)) & ((1 << LOGIMLI) - 1));
+        lsum += 2 * ctrsum(imlit[sc_idx_imli]);
+#endif
+        sc_pred = lsum >= 0;
+    }
+
+    void sc_update(bool taken)
+    {
+        if (sc_pred != taken || abs(lsum) < sc_thres) {
+            // O-GEHL style adaptive threshold
+            if (sc_pred != taken) { if (++sc_tc > 63) { sc_tc = 0; if (sc_thres < 511) sc_thres++; } }
+            else { if (--sc_tc < -64) { sc_tc = 0; if (sc_thres > 6) sc_thres--; } }
+            for (int j = 0; j < 3; j++) satupd<SCW>(bias[j][sc_idx_bias[j]], taken);
+            for (int i = 0; i < GNB; i++) satupd<SCW>(ggehl[i][sc_idx_g[i]], taken);
+            for (int i = 0; i < PNB; i++) satupd<SCW>(pgehl[i][sc_idx_p[i]], taken);
+#ifndef TSL_NO_LOCAL
+            for (int i = 0; i < LNB; i++) satupd<SCW>(lgehl[i][sc_idx_l[i]], taken);
+#endif
+#ifndef TSL_NO_IMLI
+            satupd<SCW>(imlit[sc_idx_imli], taken);
+#endif
+        }
+    }
+
+    // ------------------------------------------------------------ IMLI
+    // Runs at the start of every prediction: classifies the previous branch,
+    // if it was taken, as backward/forward from the current pc.
+    void imli_on_next_branch(uint64_t pc)
+    {
+        if (!have_prev || !prev_taken) return;
+        bool backward = pc <= prev_ip;
+        bwd[(prev_ip ^ (prev_ip >> LOGBWD)) & ((1 << LOGBWD) - 1)] = backward;
+        if (backward && cond[(prev_ip ^ (prev_ip >> LOGCOND)) & ((1 << LOGCOND) - 1)]) {
+            if (imli < (1u << IMLIWIDTH) - 1) imli++;
+        }
+    }
+    void imli_on_result(uint64_t pc, bool taken)
+    {
+        if (!taken) {
+            cond[(pc ^ (pc >> LOGCOND)) & ((1 << LOGCOND) - 1)] = 1;
+            if (bwd[(pc ^ (pc >> LOGBWD)) & ((1 << LOGBWD) - 1)]) imli = 0;  // inner-most loop exit
+        }
+        prev_ip = pc; prev_taken = taken; have_prev = true;
+    }
+
+    // ------------------------------------------------------------ predict
+    bool predict(uint64_t pc)
+    {
+#ifndef TSL_NO_IMLI
+        imli_on_next_branch(pc);
+#endif
+        p_ip = pc;
+        for (int i = 1; i <= NHIST; i++) { gi[i] = gindex(pc, i); gt[i] = gtag(pc, i); }
+        bi = (int)((pc ^ (pc >> LOGB)) & ((1 << LOGB) - 1));
+
+        hitbank = 0; altbank = 0;
+        for (int i = NHIST; i > 0; i--)
+            if (gtable[i][gi[i]].tag == gt[i]) { hitbank = i; break; }
+        for (int i = hitbank - 1; i > 0; i--)
+            if (gtable[i][gi[i]].tag == gt[i]) { altbank = i; break; }
+
+        bool base_pred = btable[bi] >= 0;
+        if (hitbank > 0) {
+            const TEntry& p = gtable[hitbank][gi[hitbank]];
+            longest_pred = p.ctr >= 0;
+            bool alt_conf;
+            if (altbank > 0) {
+                int8_t ac = gtable[altbank][gi[altbank]].ctr;
+                alt_pred = ac >= 0;
+                alt_conf = abs(2 * ac + 1) > 1;
+            } else {
+                alt_pred = base_pred;
+                alt_conf = (btable[bi] == 1 || btable[bi] == -2);
+            }
+            usealt_idx = ((hitbank - 1) * 2 / NHIST) * 2 + (alt_conf ? 1 : 0);
+            pseudo_new = abs(2 * p.ctr + 1) <= 1;
+            tage_pred = (use_alt_on_na[usealt_idx] < 0 || !pseudo_new) ? longest_pred : alt_pred;
+            int a = abs(2 * p.ctr + 1);
+            high_conf = a >= (1 << CWIDTH) - 1;
+            med_conf = a == (1 << CWIDTH) - 3;
+        } else {
+            longest_pred = alt_pred = tage_pred = base_pred;
+            pseudo_new = false;
+            high_conf = (btable[bi] == 1 || btable[bi] == -2);
+            med_conf = false;
+        }
+
+        pred_inter = tage_pred;
+#ifndef TSL_NO_LOOP
+        loop_lookup(pc);
+        if (lhit >= 0 && lvalid && withloop >= 0) pred_inter = lpred;
+#endif
+
+        final_pred = pred_inter;
+#ifndef TSL_NO_SC
+        sc_compute(pc);
+        if (pred_inter != sc_pred) {
+            // chooser between TAGE(+loop) and SC, following TAGE-SC-L 2016
+            final_pred = sc_pred;
+            int a = abs(lsum);
+            if (high_conf) {
+                if (a < sc_thres / 4) final_pred = pred_inter;
+                else if (a < sc_thres / 2) final_pred = (secondh < 0) ? sc_pred : pred_inter;
+            }
+            if (med_conf && a < sc_thres / 4) final_pred = (firsth < 0) ? sc_pred : pred_inter;
+        }
+#endif
+        return final_pred;
+    }
+
+    // ------------------------------------------------------------ update
+    void update(uint64_t pc, bool taken)
+    {
+        if (pc != p_ip) predict(pc);  // defensive: the interface always predicts first
+
+#ifndef TSL_NO_SC
+        if (pred_inter != sc_pred) {
+            int a = abs(lsum);
+            if (high_conf && a < sc_thres / 2 && a >= sc_thres / 4) satupd<7>(secondh, pred_inter != taken);
+            if (med_conf && a < sc_thres / 4) satupd<7>(firsth, pred_inter != taken);
+        }
+        sc_update(taken);
+#endif
+
+#ifndef TSL_NO_LOOP
+        if (lhit >= 0 && lvalid && lpred != tage_pred) satupd<7>(withloop, lpred == taken);
+        loop_update(pc, taken, tage_pred != taken);
+#endif
+
+        tage_update(pc, taken);
+        history_update(pc, taken);
+#ifndef TSL_NO_IMLI
+        imli_on_result(pc, taken);
+#endif
+        p_ip = ~0ULL;
+    }
+
+    void tage_update(uint64_t pc, bool taken)
+    {
+        bool alloc = (tage_pred != taken) && (hitbank < NHIST);
+        if (hitbank > 0 && pseudo_new) {
+            if (longest_pred == taken) alloc = false;
+            if (longest_pred != alt_pred) satupd<5>(use_alt_on_na[usealt_idx], alt_pred == taken);
+        }
+        // when the final (SC/loop corrected) prediction was right, allocate rarely
+        if (alloc && final_pred == taken && (rnd() & 31) != 0) alloc = false;
+
+        int nalloc = 2;  // up to two entries, as in TAGE-SC-L 2016 (NNN = 1)
+#ifdef TSL_THROTTLE
+        int8_t& pay = payoff[(pc ^ (pc >> LOGPAY)) & ((1 << LOGPAY) - 1)];
+        if (hitbank > 0 && longest_pred != alt_pred && longest_pred == taken) satupd<PAYW>(pay, true);
+        if (alloc) {
+            if (pay < TSL_THR_LIMIT) {
+                nalloc = 1;
+                if ((rnd() & ((1 << TSL_THR_SHIFT) - 1)) != 0) alloc = false;
+            }
+            if (alloc) satupd<PAYW>(pay, false);
+        }
+#else
+        (void)pc;
+#endif
+
+        if (alloc) {
+            int start = hitbank + 1;
+            if ((rnd() & 3) == 0 && start < NHIST) start++;  // occasionally skip a table
+            int penalty = 0, na = 0;
+            for (int i = start; i <= NHIST; i++) {
+                TEntry& e = gtable[i][gi[i]];
+                if (e.u == 0) {
+                    if (abs(2 * e.ctr + 1) <= 3) {  // replace only weak/medium entries
+                        e.tag = gt[i]; e.ctr = taken ? 0 : -1;
+                        na++;
+                        if (na >= nalloc) break;
+                        i++;  // do not allocate in two consecutive tables
+                    } else {
+                        // strong but not useful: decay toward weak instead of replacing
+                        if (e.ctr > 0) e.ctr--; else e.ctr++;
+                    }
+                } else penalty++;
+            }
+            tick += penalty - 2 * na;
+            if (tick < 0) tick = 0;
+            if (tick >= BORNTICK) {
+                for (int i = 1; i <= NHIST; i++)
+                    for (int j = 0; j < (1 << LOGG); j++) gtable[i][j].u >>= 1;
+                tick = 0;
+            }
+        }
+
+        if (hitbank > 0) {
+            TEntry& p = gtable[hitbank][gi[hitbank]];
+            if (pseudo_new && longest_pred != taken) {  // protect: also train the alternate
+                if (altbank > 0) satupd<CWIDTH>(gtable[altbank][gi[altbank]].ctr, taken);
+                else satupd<2>(btable[bi], taken);
+            }
+            satupd<CWIDTH>(p.ctr, taken);
+            if (abs(2 * p.ctr + 1) <= 1) p.u = 0;  // weak entries are not useful
+            if (longest_pred != alt_pred && longest_pred == taken && p.u < (1 << UWIDTH) - 1) p.u++;
+        } else {
+            satupd<2>(btable[bi], taken);
+        }
+    }
+
+    void history_update(uint64_t pc, bool taken)
+    {
+        // direction bit mixed with a pc bit, path bit from the pc (as in Seznec's code)
+        uint64_t t = (pc ^ (pc >> 2)) ^ (taken ? 1 : 0);
+        for (int k = 0; k < TSL_HBITS; k++) {
+            ptghist--;
+            ghist[ptghist & (HISTBUFLEN - 1)] = (uint8_t)((t >> k) & 1);
+            for (int i = 1; i <= NHIST; i++) {
+                ci[i].update(ghist, ptghist);
+                ct0[i].update(ghist, ptghist);
+                ct1[i].update(ghist, ptghist);
+            }
+            for (int i = 0; i < GNB; i++) gfold[i].update(ghist, ptghist);
+        }
+        phist = ((phist << 1) ^ ((pc ^ (pc >> 2) ^ (pc >> 4)) & 1)) & ((1ULL << PHISTWIDTH) - 1);
+        uint16_t& l = lhist[(pc ^ (pc >> LOGLOCAL)) & ((1 << LOGLOCAL) - 1)];
+        l = (uint16_t)((l << 1) | (taken ? 1 : 0));
+    }
+
+    // storage in bits (all state a hardware implementation would keep)
+    long storage_bits() const
+    {
+        long b = 0;
+        for (int i = 1; i <= NHIST; i++) b += (long)(1 << LOGG) * (CWIDTH + UWIDTH + TBITS[i]);
+        b += (1 << LOGB) * 2;                       // base bimodal
+        b += NUSEALT * 5 + 11;                      // use_alt_on_na, tick
+        b += MAXHIST + PHISTWIDTH;                  // global + path history actually used
+#ifndef TSL_NO_LOOP
+        b += (1 << LOGL) * (2 * WIDTHNBITERLOOP + LOOPTAG + 4 + 4 + 1) + 7;
+#endif
+#ifndef TSL_NO_SC
+        b += 3 * (1 << LOGBIAS) * SCW + (GNB + PNB) * (1 << LOGGEHL) * SCW + 9 + 7 + 2 * 7;
+#ifndef TSL_NO_LOCAL
+        b += LNB * (1 << LOGGEHL) * SCW + (1 << LOGLOCAL) * 16;
+#endif
+#ifndef TSL_NO_IMLI
+        b += (1 << LOGIMLI) * SCW + IMLIWIDTH + (1 << LOGBWD) + (1 << LOGCOND) + 64 + 1;
+#endif
+#endif
+#ifdef TSL_THROTTLE
+        b += (1 << LOGPAY) * PAYW;
+#endif
+        return b;
+    }
+};
+
+static Predictor* bp[NUM_CPUS];
+
+}  // namespace tsl
+
+void O3_CPU::initialize_branch_predictor()
+{
+    tsl::bp[cpu] = new tsl::Predictor();
+    tsl::bp[cpu]->init();
+    long bits = tsl::bp[cpu]->storage_bits();
+    cout << "CPU " << cpu << " TAGE-SC-L style predictor"
+#ifdef TSL_NO_SC
+         << " [no SC]"
+#endif
+#ifdef TSL_NO_LOOP
+         << " [no loop]"
+#endif
+#ifdef TSL_NO_IMLI
+         << " [no IMLI]"
+#endif
+#ifdef TSL_NO_LOCAL
+         << " [no local]"
+#endif
+         << " storage: " << bits << " bits (" << bits / 8192.0 << " KB)" << endl;
+}
+
+uint8_t O3_CPU::predict_branch(uint64_t ip)
+{
+    return tsl::bp[cpu]->predict(ip) ? 1 : 0;
+}
+
+void O3_CPU::last_branch_result(uint64_t ip, uint8_t taken)
+{
+    tsl::bp[cpu]->update(ip, taken != 0);
+}

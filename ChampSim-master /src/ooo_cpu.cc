@@ -364,6 +364,7 @@ void O3_CPU::read_from_trace()
 			  {
 			    branch_mispredictions++;
 			    total_rob_occupancy_at_branch_mispredict += ROB.occupancy;
+			    branch_type_misses[IFETCH_BUFFER.entry[ifetch_buffer_index].branch_type]++; // [stats-only addition]
 			    if(warmup_complete[cpu])
 			      {
 				fetch_stall = 1;
