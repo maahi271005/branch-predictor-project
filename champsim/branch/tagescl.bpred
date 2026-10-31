@@ -79,7 +79,7 @@
 #endif
 
 namespace tsl {
-    
+
 // ------------------------------------------------------------------ params
 static const int NHIST = 12;                         // tagged tables T1..T12
 static const int MINHIST = 4, MAXHIST = TSL_MAXHIST; // geometric history lengths
