@@ -13,7 +13,7 @@ STAGE=$(mktemp -d)
 PKG=$STAGE/$NAME
 mkdir -p "$PKG"
 
-# ChampSim tree (the repository directory name ends in a space; copy its contents)
+# ChampSim tree (copy its contents)
 tar -C "$ROOT/champsim/" \
     --exclude=./bin --exclude=./obj --exclude=./dpc3_traces --exclude='./results_*' \
     --exclude='./scripts/wget-log*' --exclude=./inc/champsim.h.bak \

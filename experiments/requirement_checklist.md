@@ -35,7 +35,7 @@ Legend: [x] done · [~] partial · [ ] not done · [!] blocked. Status as of 202
 - [x] Aggregates, relative improvements, storage, notes on metric definitions
 
 ## Project-process requirements
-- [x] Workspace inspected; version/build/interface verified; trailing-space directory handled via symlink
+- [x] Workspace inspected; version/build/interface verified; trailing-space directory "ChampSim-master " later renamed to champsim/ (Windows-safe)
 - [x] 10 traces located, verified (`xz -t`, length), smoke-tested
 - [x] Version control; originals preserved (nothing renamed/deleted; original `bin/`, `obj/` untouched)
 - [x] Literature review · [x] Candidate comparison · [x] Design rationale

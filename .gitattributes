@@ -1,0 +1,21 @@
+# Keep Linux line endings for everything that is executed or compiled, so a clone made with
+# Git for Windows still works under WSL / Linux.
+* text=auto eol=lf
+*.sh       text eol=lf
+*.py       text eol=lf
+*.cc       text eol=lf
+*.cpp      text eol=lf
+*.h        text eol=lf
+*.bpred    text eol=lf
+*_pref     text eol=lf
+*.llc_repl text eol=lf
+Makefile   text eol=lf
+makefile*  text eol=lf
+# Data files: stored byte-for-byte (Python writes CSV with CRLF; do not convert)
+*.csv -text
+# Binary deliverables
+*.docx binary
+*.xlsx binary
+*.png  binary
+*.zip  binary
+*.pdf  binary
