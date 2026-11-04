@@ -1,0 +1,151 @@
+{
+  "stage": "M50_50M_200M",
+  "results_directory": "experiments/results/M50_50M_200M/<predictor>/<trace>.txt",
+  "simulator": "ChampSim (2021 build_champsim.sh version) in champsim/, stats-only core additions (BP_STATS, BP_TYPE_MISSES)",
+  "configuration": {
+    "cores": 1,
+    "l1i_prefetcher": "no",
+    "l1d_prefetcher": "no",
+    "l2c_prefetcher": "no",
+    "llc_prefetcher": "no",
+    "llc_replacement": "lru",
+    "equivalent_build": "./build_champsim.sh <predictor> no no no no lru 1",
+    "branch_mispredict_penalty_cycles": 1,
+    "rob_entries": 352,
+    "fetch_width": 6
+  },
+  "warmup_instructions": 50000000,
+  "simulation_instructions": 200000000,
+  "window": "instructions 0 - 250M of each trace (no trace shorter than 2,000M instructions)",
+  "traces": {
+    "count": 50,
+    "original10": 10,
+    "additional40": 40,
+    "source": "SPEC CPU 2017 ChampSim Traces, Zenodo record 10960004 (CC-BY-4.0), md5-verified",
+    "manifest": "trace_manifest.csv"
+  },
+  "predictors": {
+    "bimodal": {
+      "label": "Bimodal",
+      "origin": "ChampSim default",
+      "storage_bits": 32768,
+      "build": {
+        "binary": "bimodal",
+        "predictor": "branch/bimodal.bpred",
+        "predictor_sha256": "e5a43f0c5ff91a4f837f6d56ecf5797cf91cb40eb070e18c8ddff0f67750a200",
+        "extra_flags": "",
+        "config": "l1i=no l1d=no l2c=no llc=no repl=lru cores=1",
+        "compiler": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+        "built": "2026-10-31T20:51:33+00:00",
+        "binary_sha256_16": "246493e4a0f8f1b8"
+      }
+    },
+    "gshare": {
+      "label": "Gshare",
+      "origin": "ChampSim default",
+      "storage_bits": 32782,
+      "build": {
+        "binary": "gshare",
+        "predictor": "branch/gshare.bpred",
+        "predictor_sha256": "ce41cb218a189d2677b5ce06e100a4d652c84dcb3d08846d68a8f77a1f26d6a2",
+        "extra_flags": "",
+        "config": "l1i=no l1d=no l2c=no llc=no repl=lru cores=1",
+        "compiler": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+        "built": "2026-10-31T20:51:39+00:00",
+        "binary_sha256_16": "228309da9ef177e0"
+      }
+    },
+    "perceptron": {
+      "label": "Perceptron",
+      "origin": "ChampSim default",
+      "storage_bits": 32624,
+      "build": {
+        "binary": "perceptron",
+        "predictor": "branch/perceptron.bpred",
+        "predictor_sha256": "03ac80f09b643a780d3164930024ab6543e9ddcabcdab745acb058ca6bda63de",
+        "extra_flags": "",
+        "config": "l1i=no l1d=no l2c=no llc=no repl=lru cores=1",
+        "compiler": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+        "built": "2026-10-31T20:51:39+00:00",
+        "binary_sha256_16": "1f998c772e800cd4"
+      }
+    },
+    "hashed_perceptron": {
+      "label": "Hashed Perceptron",
+      "origin": "ChampSim default",
+      "storage_bits": 524542,
+      "build": {
+        "binary": "hashed_perceptron",
+        "predictor": "branch/hashed_perceptron.bpred",
+        "predictor_sha256": "d350b9df3bf54d28fcd7b1ea24efac8a1e54c05e87c4d6e7169ab286848c3ed6",
+        "extra_flags": "",
+        "config": "l1i=no l1d=no l2c=no llc=no repl=lru cores=1",
+        "compiler": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+        "built": "2026-10-31T20:51:39+00:00",
+        "binary_sha256_16": "b2c70d7c20661946"
+      }
+    },
+    "tage": {
+      "label": "TAGE",
+      "origin": "project reference (tagescl.bpred -DTSL_NO_SC -DTSL_NO_LOOP)",
+      "storage_bits": 383674,
+      "build": {
+        "binary": "tage",
+        "predictor": "branch/tagescl.bpred",
+        "predictor_sha256": "3be5e685ada6a334dabec1cdc4a10910d6b203463af1a8a9995aac731415a373",
+        "extra_flags": "-DTSL_NO_SC -DTSL_NO_LOOP",
+        "config": "l1i=no l1d=no l2c=no llc=no repl=lru cores=1",
+        "compiler": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+        "built": "2026-10-31T20:51:40+00:00",
+        "binary_sha256_16": "c561a8a6ddda3bd2"
+      }
+    },
+    "tsl_base": {
+      "label": "TAGE-SC-L",
+      "origin": "project reference (tagescl.bpred -DTSL_NO_IMLI)",
+      "storage_bits": 476319,
+      "build": {
+        "binary": "tsl_base",
+        "predictor": "branch/tagescl.bpred",
+        "predictor_sha256": "3be5e685ada6a334dabec1cdc4a10910d6b203463af1a8a9995aac731415a373",
+        "extra_flags": "-DTSL_NO_IMLI",
+        "config": "l1i=no l1d=no l2c=no llc=no repl=lru cores=1",
+        "compiler": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+        "built": "2026-10-31T20:51:40+00:00",
+        "binary_sha256_16": "2ffe44bb43377442"
+      }
+    },
+    "tsl_proposed": {
+      "label": "TFL-TAGE-SC-L (proposed)",
+      "origin": "proposed (tagescl.bpred -DTSL_IMHIST -DTSL_BHIST = tfl_tage_scl.bpred)",
+      "storage_bits": 508666,
+      "build": {
+        "binary": "tsl_proposed",
+        "predictor": "branch/tagescl.bpred",
+        "predictor_sha256": "3be5e685ada6a334dabec1cdc4a10910d6b203463af1a8a9995aac731415a373",
+        "extra_flags": "-DTSL_IMHIST -DTSL_BHIST",
+        "config": "l1i=no l1d=no l2c=no llc=no repl=lru cores=1",
+        "compiler": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+        "built": "2026-10-31T20:51:40+00:00",
+        "binary_sha256_16": "b2e1a7b0caf4d9aa"
+      }
+    }
+  },
+  "parallel_jobs": 14,
+  "host": "Windows 11 + WSL2 Ubuntu 26.04, 16 logical CPUs, 7.8 GB RAM for WSL",
+  "started": "2026-10-31T21:48:26+00:00",
+  "finished": "2026-11-01T10:26:27+00:00",
+  "metrics": {
+    "ipc": "ROI instructions / ROI cycles (ChampSim 'CPU 0 cumulative IPC')",
+    "mpki": "1000 x mispredictions / ROI instructions, all branch types",
+    "accuracy": "100 x (branches - mispredictions) / branches, all branch types (ChampSim's definition)",
+    "cond_accuracy": "same, conditional branches only",
+    "mean_ipc": "arithmetic mean of per-trace IPC",
+    "geomean_ipc": "geometric mean of per-trace IPC",
+    "speedup": "geometric mean of per-trace IPC ratios",
+    "mean_mpki": "arithmetic mean of per-trace MPKI; % reductions computed from the means",
+    "pooled_accuracy": "sum of correct predictions / sum of branches over all traces",
+    "storage": "logical predictor state in bits (see summary.csv storage_basis)"
+  },
+  "aggregation_trace_set": "50 traces on which all 7 predictors succeeded"
+}

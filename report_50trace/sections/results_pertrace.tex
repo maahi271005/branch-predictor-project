@@ -1,0 +1,20 @@
+Figures~\ref{fig:pertrace_ipc} and~\ref{fig:pertrace_mpki} show the per-trace changes relative to TAGE-SC-L (the best baseline by geometric-mean IPC) and the hashed perceptron (the best ChampSim predictor). Table~\ref{tab:extremes} lists the extremes, and Table~\ref{tab:traces} lists every trace.
+
+\paragraph{Best predictor per trace.} \prop{} has the fewest mispredictions on \val{n_best_mpki_prop} of the \val{n_traces} traces: alone on \val{n_sole_mpki_prop}, and tied with others on the rest. TAGE-SC-L is best or tied on \val{n_best_mpki_tsl} (alone on \val{n_sole_mpki_tsl}), and no other predictor is the sole best on any trace. On \val{n_tied_best_mpki} traces several predictors make exactly the same, minimal number of mispredictions. On 649.fotonik3d\_s-1176B all seven do; on 657.xz\_s-56B the four large predictors make none at all.
+
+By cycles, \prop{} is fastest or tied on \val{n_best_ipc_prop} traces and TAGE-SC-L on \val{n_best_ipc_tsl}. The hashed perceptron is fastest alone on \val{n_sole_ipc_hp} traces and TAGE on \val{n_sole_ipc_tage}. These are traces with almost no mispredictions, where cycle counts differ by a few hundredths of a percent for reasons unrelated to prediction quality. For example, on 649.fotonik3d\_s-7084B the hashed perceptron is fastest although it mispredicts more than the TAGE family.
+
+\paragraph{Where the gains come from.} Against the hashed perceptron, the largest IPC gains are on \val{vs_hp_best_trace} (\val{vs_hp_best_pct}\%), 648.exchange2, 600.perlbench, 628.pop2 and 641.leela (Table~\ref{tab:extremes}). On these traces every TAGE-family predictor is clearly more accurate than the hashed perceptron, which suggests branch patterns that tagged long-history tables capture better than a hashed perceptron. On 638.imagick\_s-4128B, for instance, TAGE-SC-L and \prop{} make almost no mispredictions, while the hashed perceptron does not reach that level (Figure~\ref{fig:heatmap}).
+
+Our TAGE alone has more mispredictions than the hashed perceptron on \val{n_tage_worse_hp} traces. With the statistical corrector and loop predictor (TAGE-SC-L) that number falls to \val{n_tsl_worse_hp}. For \prop{} it is \val{n_prop_worse_hp}, both by at most \val{vs_hp_worstm} MPKI. The corrector is thus what makes the TAGE family robust on traces where a perceptron-style predictor does well.
+
+\paragraph{Effect of the loop-structure components.} Relative to TAGE-SC-L, the largest reductions are on:
+\begin{itemize}
+\item 627.cam4\_s-490B (MPKI \val{vs_tsl_bestm} lower);
+\item 602.gcc\_s-2226B, both 657.xz traces, 621.wrf\_s-8100B, 631.deepsjeng, 605.mcf\_s-1152B and 620.omnetpp\_s-141B.
+\end{itemize}
+In relative terms the largest reductions are on 602.gcc. On \val{tsl_rel1_trace} MPKI falls from \val{tsl_rel1_from} to \val{tsl_rel1_to} (\val{tsl_rel1_pct}\%), and on \val{tsl_rel2_trace} from \val{tsl_rel2_from} to \val{tsl_rel2_to} (\val{tsl_rel2_pct}\%). However, the median relative change over the \val{tsl_rel_n} traces on which TAGE-SC-L has an MPKI of at least 0.05 is only \val{tsl_rel_median_pct}\%.
+
+The \val{vs_tsl_mpki_loss} traces with more mispredictions than TAGE-SC-L belong to twelve benchmarks (the largest increases: 644.nab, 619.lbm, 625.x264, 621.wrf). Every increase is at most \val{vs_tsl_worstm} MPKI: at most a few hundred extra mispredictions in 200M instructions, and fewer than 100 on most of these traces. These look like the expected side effect of adding inputs to the corrector (more aliasing and slower training), not a systematic failure on a workload class.
+
+\paragraph{Hard traces.} All predictors struggle on the same traces: 605.mcf\_s-1152B, the three 641.leela traces, 657.xz\_s-2302B, 631.deepsjeng and 620.omnetpp (Figure~\ref{fig:heatmap}). There even \prop{} mispredicts several times per thousand instructions, and it removes at most about 1.5\% of TAGE-SC-L's mispredictions. These programs (game-tree search, network simulation, graph optimisation, compression) are known for branches that depend on data values rather than on branch history. None of the evaluated predictors, including the proposed one, addresses that kind of branch.

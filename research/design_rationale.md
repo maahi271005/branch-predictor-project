@@ -52,7 +52,7 @@ definition, not of the inference.
   - backward-branch history: 16-bit history of backward-branch outcomes + two 1K×6-bit SC tables.
 
 ## 4. Decisions backed by measurements
-See `research/candidate_comparison.md` and `experiments/experiment_log.md`. In short: the SC is the
+See `research/candidate_comparison.md` and the harness results in `experiments/results/harness/`. In short: the SC is the
 main lever (−6.7% MPKI vs TAGE on tune); the N1-enabled components add a further −0.9% (main) over
 TAGE-SC-L without them; a per-branch allocation throttle helps plain TAGE (−0.5%) but is subsumed in
 TAGE-SC-L; longer histories, 2-bit history insertion, IMLI-in-GEHL and the region-based IMLI variant

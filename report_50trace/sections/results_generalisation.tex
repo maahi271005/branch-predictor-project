@@ -1,0 +1,19 @@
+The design was developed on the original ten programs. Tuning used a different instruction window, but the final configuration was also checked on the reported window. The \val{n_add} additional traces were never used for design or tuning, which makes them the cleaner test (Table~\ref{tab:subsets}, Figure~\ref{fig:generalisation}).
+
+\paragraph{The result carries over.} On the original ten traces \prop{} reduces mean MPKI by \val{original10_hp_red}\% relative to the hashed perceptron and by \val{original10_tsl_red}\% relative to TAGE-SC-L, with geometric-mean IPC gains of \val{original10_hp_ipcimp}\% and \val{original10_tsl_ipcimp}\%. These are exactly the values of the earlier study. On the \val{n_add} additional traces the corresponding values are:
+\begin{itemize}
+\item relative to the hashed perceptron: \val{additional40_hp_red}\% lower MPKI and \val{additional40_hp_ipcimp}\% higher geometric-mean IPC;
+\item relative to TAGE-SC-L: \val{additional40_tsl_red}\% lower MPKI and \val{additional40_tsl_ipcimp}\% higher geometric-mean IPC.
+\end{itemize}
+\prop{} has the lowest mean MPKI and the highest geometric-mean IPC in both subsets, so its first place does not depend on the traces used during design. The order among the baselines does change: TAGE is behind the hashed perceptron on the original ten but ahead on the additional traces (below).
+
+\paragraph{Why the relative MPKI gain is larger on the additional traces.} Two effects explain why the percentage reductions are larger on the new traces, while the IPC improvement over TAGE-SC-L is about the same in both subsets.
+\begin{itemize}
+\item The additional set contains many SPECfp traces with low MPKI (mean MPKI of the hashed perceptron \val{additional40_hp_mpki} against \val{original10_hp_mpki} on the original ten). A small absolute reduction is therefore a larger percentage.
+\item It contains 627.cam4\_s-490B, the trace with the largest gain over TAGE-SC-L.
+\end{itemize}
+The original ten traces are dominated by hard SPECint traces (605.mcf, 657.xz, 631.deepsjeng, 620.omnetpp). There, even our TAGE is slightly worse than the hashed perceptron (\val{original10_tage_mpki} against \val{original10_hp_mpki} MPKI); on the additional traces TAGE is clearly better (\val{additional40_tage_mpki} against \val{additional40_hp_mpki}). The earlier study's conclusion that a TAGE of comparable size does not beat the hashed perceptron on average was thus a property of its ten traces and does not hold on the larger set.
+
+\paragraph{SPECint and SPECfp.} \prop{} reduces mean MPKI relative to TAGE-SC-L by \val{INT_tsl_red}\% on the \val{INT_n} SPECint traces and by \val{FP_tsl_red}\% on the \val{FP_n} SPECfp traces. Relative to the hashed perceptron the reductions are \val{INT_hp_red}\% and \val{FP_hp_red}\%. The geometric-mean IPC gain over TAGE-SC-L is similar in both suites (\val{INT_tsl_ipcimp}\% and \val{FP_tsl_ipcimp}\%). The gain over the hashed perceptron is larger on SPECint (\val{INT_hp_ipcimp}\% against \val{FP_hp_ipcimp}\%), where the absolute number of mispredictions removed is larger.
+
+The overlap between the two subsets must be kept in mind: 12 of the 40 additional traces are further SimPoints of benchmarks that also appear among the original ten (for example 602.gcc, 605.mcf, 657.xz). They are different program phases, but not different programs. The other 28 come from ten benchmarks that the earlier study did not use at all.

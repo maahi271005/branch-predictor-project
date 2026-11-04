@@ -1,0 +1,15 @@
+\prop{} was evaluated, unchanged from its frozen design, on \val{n_traces} SPEC CPU2017 traces against all four predictors shipped with ChampSim and against our own TAGE and TAGE-SC-L. All \val{n_runs} simulations succeeded and passed the consistency checks.
+\begin{itemize}
+\item \textbf{Best overall.} \prop{} is the best of the seven predictors in geometric-mean IPC (\val{prop_gm_ipc}), pooled accuracy (\val{prop_acc}\%) and mean MPKI (\val{prop_mpki}).
+\item \textbf{Against the best ChampSim predictor.} Relative to the 64 KB hashed perceptron, \prop{} lowers mean MPKI by \val{vs_hp_pct_mpki}\% and raises geometric-mean IPC by \val{vs_hp_ipc}\%, with fewer mispredictions on \val{vs_hp_mpki_win} of \val{n_traces} traces and slightly less storage. Against the 4 KB default predictors the gains are \val{vs_perc_ipc}\% to \val{vs_bim_ipc}\% in geometric-mean IPC.
+\item \textbf{The contribution itself.} Relative to the same TAGE-SC-L without them, the target-free loop-structure components lower mean MPKI by \val{vs_tsl_pct_mpki}\% and raise geometric-mean IPC by \val{vs_tsl_ipc}\%, for \val{prop_minus_tsl_pct}\% more storage. They have fewer mispredictions on \val{vs_tsl_mpki_win} traces and more on \val{vs_tsl_mpki_loss}, and \val{vs_tsl_top_share}\% of the MPKI gain comes from one trace. The contribution is real on these runs but small.
+\item \textbf{Generalisation.} The first place of \prop{} and the direction of every one of its gains, observed on the original ten traces, hold on the \val{n_add} traces not used during design.
+\end{itemize}
+
+\paragraph{Future work.} Four follow-ups address the open questions of this evaluation:
+\begin{itemize}
+\item a storage-matched TAGE-SC-L (the \val{prop_minus_tsl_kb} KB spent on larger tables), to separate the value of the loop-structure history from the value of extra storage;
+\item an analysis of which loop structures produce the large gains on 627.cam4 and 602.gcc, and why some traces lose a few hundred predictions;
+\item evaluation on non-SPEC workloads (server, CBP and mobile traces) and in a ChampSim version with wrong-path execution, where the inference needs repair after mispredictions;
+\item modelling the access latency of the larger corrector, which this simulator does not capture.
+\end{itemize}

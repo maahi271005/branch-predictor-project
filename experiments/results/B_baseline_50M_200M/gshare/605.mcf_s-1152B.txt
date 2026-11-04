@@ -1,5 +1,5 @@
 # RUN binary=gshare bin_sha=8fb8f073f0e31c77 trace=605.mcf_s-1152B warm=50M sim=200M
-# CMD /home/maahi/BRANCH_PREDICTOR_PROJECT/build/bin/gshare -warmup_instructions 50000000 -simulation_instructions 200000000 -traces /home/maahi/BRANCH_PREDICTOR_PROJECT/champsim/dpc3_traces/605.mcf_s-1152B.champsimtrace.xz
+# CMD build/bin/gshare -warmup_instructions 50000000 -simulation_instructions 200000000 -traces champsim/dpc3_traces/605.mcf_s-1152B.champsimtrace.xz
 
 *** ChampSim Multicore Out-of-Order Simulator ***
 
@@ -10,7 +10,7 @@ LLC sets: 2048
 LLC ways: 16
 Off-chip DRAM Size: 4096 MB Channels: 1 Width: 64-bit Data Rate: 3200 MT/s
 
-CPU 0 runs /home/maahi/BRANCH_PREDICTOR_PROJECT/champsim/dpc3_traces/605.mcf_s-1152B.champsimtrace.xz
+CPU 0 runs champsim/dpc3_traces/605.mcf_s-1152B.champsimtrace.xz
 CPU 0 GSHARE branch predictor
 Heartbeat CPU 0 instructions: 10000002 cycles: 4186250 heartbeat IPC: 2.38877 cumulative IPC: 2.38877 (Simulation time: 0 hr 0 min 25 sec) 
 Heartbeat CPU 0 instructions: 20000003 cycles: 8374106 heartbeat IPC: 2.38786 cumulative IPC: 2.38831 (Simulation time: 0 hr 0 min 57 sec) 

@@ -1,0 +1,9 @@
+Figure~\ref{fig:mpki_ipc} relates the per-trace MPKI reduction to the per-trace IPC change. Fewer mispredictions never cost measurable performance: no trace loses more than 0.1\% IPC against any baseline. How much IPC an avoided misprediction buys, however, varies widely between traces.
+\begin{itemize}
+\item \textbf{Relative to the hashed perceptron}, IPC gain grows roughly with MPKI reduction, but with large scatter. On \val{vs_hp_best_trace} a reduction of 0.84 MPKI gives \val{vs_hp_best_pct}\% IPC. Several SPECint traces with a similar or larger reduction gain about half as much.
+\item \textbf{Relative to TAGE-SC-L}, 627.cam4\_s-490B stands out (\val{vs_tsl_bestm} MPKI, \val{vs_tsl_best_pct}\% IPC). On \val{tsl_rel1_trace}, by contrast, MPKI falls by \val{tsl_rel1_pct}\% but IPC rises by only \val{tsl_rel1_ipc}\%.
+\end{itemize}
+
+The reason is the cost of a misprediction in this simulator. Fetch stops until the mispredicted branch executes, so the penalty depends on how long the branch waits for its operands, and on whether the pipeline is stalled on memory anyway. On 602.gcc\_s-2226B the IPC with \prop{} is only \val{tsl_rel1_prop_ipc}: the core spends most of its time waiting for cache misses, and removing mispredictions recovers little. On compute-bound traces with high IPC, a misprediction wastes a full window of useful work, and the same MPKI reduction is worth more.
+
+For this reason the report gives both MPKI (a property of the predictor) and IPC (its effect on this particular core), and uses the geometric mean for IPC.

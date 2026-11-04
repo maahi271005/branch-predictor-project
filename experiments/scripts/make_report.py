@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate the technical report (DOCX) from the processed results.
 
-  build/venv/bin/python experiments/scripts/make_report.py [--results submission/results] [--out submission/Branch_Predictor_Report.docx]
+  build/venv/bin/python experiments/scripts/make_report.py [--results archive/10trace_study/submission/results] [--out archive/10trace_study/submission/Branch_Predictor_Report.docx]
 
 Every number in the report is read from results_summary.csv, results_per_trace.csv and
 ablation_mpki.csv (produced by analyze.py from the raw simulator outputs), or from the
@@ -91,8 +91,8 @@ def f2(x): return f"{float(x):.2f}"
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--results", default=os.path.join(ROOT, "submission", "results"))
-    ap.add_argument("--out", default=os.path.join(ROOT, "submission", "Branch_Predictor_Report.docx"))
+    ap.add_argument("--results", default=os.path.join(ROOT, "archive", "10trace_study", "submission", "results"))
+    ap.add_argument("--out", default=os.path.join(ROOT, "archive", "10trace_study", "submission", "Branch_Predictor_Report.docx"))
     a = ap.parse_args()
     S = {r["predictor"]: r for r in rd(os.path.join(a.results, "results_summary.csv"))}
     PT = {(r["predictor"], r["trace"]): r for r in rd(os.path.join(a.results, "results_per_trace.csv"))}
@@ -417,7 +417,7 @@ def main():
 
     # ---------------------------------------------------------------- 11
     R.h("11. Exploration: what else was tried", 1)
-    R.p("All in the functional harness on the tuning window (mean MPKI over 10 traces); details in experiments/experiment_log.md.")
+    R.p("All in the functional harness on the tuning window (mean MPKI over 10 traces); details in experiments/results/harness/.")
     R.table(["Experiment", "Result", "Decision"], [
         ["Per-branch allocation throttle (payoff counter, 3 settings) in TAGE-SC-L", "−0.00% / +0.06% / +0.09%", "rejected"],
         ["Same throttle in plain TAGE", "−0.49% / −0.55%", "works in TAGE but subsumed by TAGE-SC-L's 1/32 allocation rule"],

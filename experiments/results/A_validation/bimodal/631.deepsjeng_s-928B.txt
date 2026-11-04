@@ -1,5 +1,5 @@
 # RUN binary=bimodal bin_sha=a9846dd980eab821 trace=631.deepsjeng_s-928B warm=1M sim=10M
-# CMD /home/maahi/BRANCH_PREDICTOR_PROJECT/build/bin/bimodal -warmup_instructions 1000000 -simulation_instructions 10000000 -traces /home/maahi/BRANCH_PREDICTOR_PROJECT/champsim/dpc3_traces/631.deepsjeng_s-928B.champsimtrace.xz
+# CMD build/bin/bimodal -warmup_instructions 1000000 -simulation_instructions 10000000 -traces champsim/dpc3_traces/631.deepsjeng_s-928B.champsimtrace.xz
 
 *** ChampSim Multicore Out-of-Order Simulator ***
 
@@ -10,7 +10,7 @@ LLC sets: 2048
 LLC ways: 16
 Off-chip DRAM Size: 4096 MB Channels: 1 Width: 64-bit Data Rate: 3200 MT/s
 
-CPU 0 runs /home/maahi/BRANCH_PREDICTOR_PROJECT/champsim/dpc3_traces/631.deepsjeng_s-928B.champsimtrace.xz
+CPU 0 runs champsim/dpc3_traces/631.deepsjeng_s-928B.champsimtrace.xz
 CPU 0 Bimodal branch predictor
 
 Warmup complete CPU 0 instructions: 1000001 cycles: 390103 (Simulation time: 0 hr 0 min 2 sec) 

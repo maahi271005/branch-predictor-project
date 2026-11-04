@@ -1,13 +1,35 @@
-# Large inputs and generated artefacts — kept on disk, never committed
-*.champsimtrace.xz
-*.champsimtrace.gz
-champsim/dpc3_traces/
+# --- Build output ---------------------------------------------------------
+# build/ holds binaries, objects, harness builds, branch streams, logs,
+# the Python venv and the LaTeX engine (all recreated by the scripts).
+build/
 champsim/bin/
 champsim/obj/
 champsim/results_*/
 champsim/scripts/wget-log*
-champsim/inc/champsim.h.bak
-build/
+
+# --- Traces (16 GB for the 50 traces; download them, see README) ------------
+champsim/dpc3_traces/
+*.champsimtrace.xz*
+*.br
+*.part
+
+# --- Unfinished or bookkeeping files from simulation runs -------------------
+*.partial
+experiments/results/*.started
+experiments/results/*.finished
+
+# --- LaTeX intermediates (the final PDF is committed) ----------------------
+report_50trace/main.*
+!report_50trace/main.tex
+
+# --- Python / editor / OS ---------------------------------------------------
 __pycache__/
-# local Claude Code permissions
+*.pyc
+.venv/
+venv/
 .claude/settings.local.json
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini

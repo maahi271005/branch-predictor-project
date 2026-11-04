@@ -1,0 +1,22 @@
+The complete procedure is in \code{README.md}. In short (Linux or WSL, with \code{g++}, \code{xz}, \code{python3}):
+{\footnotesize
+\begin{verbatim}
+# 1. traces: download the 50 files of experiments/traces/target_traces.tsv
+#    from Zenodo record 10960004 into TRACE_DIR, then verify and map them
+experiments/scripts/check_traces.sh TRACE_DIR experiments/traces/trace_integrity.txt
+python3 experiments/scripts/reconcile_traces.py --trace-dir TRACE_DIR \
+        --check experiments/traces/trace_integrity.txt   # -> trace_manifest.csv, trace_map.tsv
+# 2. build the seven binaries
+bash experiments/scripts/build_all_50trace.sh
+# 3. run the 350 simulations (resumable)
+python3 experiments/scripts/run_matrix.py --stage M50_50M_200M \
+        --bins bimodal,gshare,perceptron,hashed_perceptron,tage,tsl_base,tsl_proposed \
+        --trace-map experiments/traces/trace_map.tsv --warm 50 --sim 200 -j 14
+# 4. analysis, figures, report values and PDF
+python3 experiments/scripts/analyze_50trace.py
+python3 experiments/scripts/make_figures_50trace.py      # needs matplotlib
+python3 experiments/scripts/make_report_50trace.py
+cd report_50trace && tectonic main.tex
+\end{verbatim}
+}
+The predictor alone can also be built with ChampSim's own script: \code{./build\_champsim.sh tfl\_tage\_scl no no no no lru 1}.

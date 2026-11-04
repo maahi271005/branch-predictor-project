@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build the results/comparison files and figures from raw ChampSim outputs.
 
-  build/venv/bin/python experiments/scripts/analyze.py [--out submission/results]
+  build/venv/bin/python experiments/scripts/analyze.py [--out archive/10trace_study/submission/results]
 
 Inputs  : experiments/results/B_baseline_50M_200M/*/*.txt and G_final_50M_200M/*/*.txt (ChampSim),
           experiments/results/harness/{main,tune}/*.txt (MPKI ablations from the replay harness)
@@ -90,7 +90,7 @@ ABL_LABEL = {
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=os.path.join(ROOT, "submission", "results"))
+    ap.add_argument("--out", default=os.path.join(ROOT, "archive", "10trace_study", "submission", "results"))
     a = ap.parse_args()
     os.makedirs(os.path.join(a.out, "figures"), exist_ok=True)
     data, missing = load()

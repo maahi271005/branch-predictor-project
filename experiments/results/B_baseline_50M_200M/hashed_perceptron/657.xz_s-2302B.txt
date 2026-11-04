@@ -1,5 +1,5 @@
 # RUN binary=hashed_perceptron bin_sha=7736c81b5859db6b trace=657.xz_s-2302B warm=50M sim=200M
-# CMD /home/maahi/BRANCH_PREDICTOR_PROJECT/build/bin/hashed_perceptron -warmup_instructions 50000000 -simulation_instructions 200000000 -traces /home/maahi/BRANCH_PREDICTOR_PROJECT/champsim/dpc3_traces/657.xz_s-2302B.champsimtrace.xz
+# CMD build/bin/hashed_perceptron -warmup_instructions 50000000 -simulation_instructions 200000000 -traces champsim/dpc3_traces/657.xz_s-2302B.champsimtrace.xz
 
 *** ChampSim Multicore Out-of-Order Simulator ***
 
@@ -10,7 +10,7 @@ LLC sets: 2048
 LLC ways: 16
 Off-chip DRAM Size: 4096 MB Channels: 1 Width: 64-bit Data Rate: 3200 MT/s
 
-CPU 0 runs /home/maahi/BRANCH_PREDICTOR_PROJECT/champsim/dpc3_traces/657.xz_s-2302B.champsimtrace.xz
+CPU 0 runs champsim/dpc3_traces/657.xz_s-2302B.champsimtrace.xz
 Heartbeat CPU 0 instructions: 10000003 cycles: 3246836 heartbeat IPC: 3.07992 cumulative IPC: 3.07992 (Simulation time: 0 hr 0 min 33 sec) 
 Heartbeat CPU 0 instructions: 20000002 cycles: 6501857 heartbeat IPC: 3.07218 cumulative IPC: 3.07604 (Simulation time: 0 hr 1 min 8 sec) 
 Heartbeat CPU 0 instructions: 30000000 cycles: 9794130 heartbeat IPC: 3.03741 cumulative IPC: 3.06306 (Simulation time: 0 hr 1 min 34 sec) 

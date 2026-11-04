@@ -8,6 +8,11 @@ Resumable: a run is skipped when its output file already exists and contains
 Example:
   run_matrix.py --stage B_baseline --bins bimodal,gshare --warm 50 --sim 100 -j 14
 (warm / sim are in millions of instructions)
+
+--trace-map FILE replaces the built-in 10-trace list: a TSV with a header line
+and columns "trace<TAB>path" (trace = name without .champsimtrace.xz, path =
+path of the archive, absolute or relative to the project root). Used for the
+multi-trace evaluation (stage M_*).
 """
 import argparse, hashlib, os, subprocess, sys, time
 from concurrent.futures import ThreadPoolExecutor
@@ -36,8 +41,19 @@ def header_for(binary, trace, warm, sim, bin_hash):
     return f"# RUN binary={binary} bin_sha={bin_hash} trace={trace} warm={warm}M sim={sim}M\n"
 
 
+def read_trace_map(path):
+    m = {}
+    with open(path) as f:
+        next(f)
+        for line in f:
+            if line.strip():
+                name, p = line.rstrip("\n").split("\t")[:2]
+                m[name] = os.path.join(ROOT, p)  # no-op for absolute paths
+    return m
+
+
 def run_one(job):
-    binary, trace, warm, sim, out, bin_hash = job
+    binary, trace, warm, sim, out, bin_hash, trace_path = job
     hdr = header_for(binary, trace, warm, sim, bin_hash)
     if os.path.exists(out):
         with open(out) as f:
@@ -47,7 +63,7 @@ def run_one(job):
     cmd = [os.path.join(BIN_DIR, binary),
            "-warmup_instructions", str(warm * 1000000),
            "-simulation_instructions", str(sim * 1000000),
-           "-traces", os.path.join(TRACE_DIR, trace + ".champsimtrace.xz")]
+           "-traces", trace_path]
     t0 = time.time()
     tmp = out + ".partial"
     with open(tmp, "w") as f:
@@ -67,10 +83,17 @@ def main():
     ap.add_argument("--traces", default="all", help="comma-separated trace prefixes or 'all'")
     ap.add_argument("--warm", type=int, required=True, help="warmup, millions of instructions")
     ap.add_argument("--sim", type=int, required=True, help="simulation, millions of instructions")
+    ap.add_argument("--trace-map", help="TSV trace<TAB>path replacing the built-in 10-trace list")
     ap.add_argument("-j", type=int, default=12)
     a = ap.parse_args()
 
-    traces = TRACES if a.traces == "all" else [t for t in TRACES if any(t.startswith(p) for p in a.traces.split(","))]
+    if a.trace_map:
+        tmap = read_trace_map(a.trace_map)
+        all_traces = list(tmap)
+    else:
+        all_traces = TRACES
+        tmap = {t: os.path.join(TRACE_DIR, t + ".champsimtrace.xz") for t in TRACES}
+    traces = all_traces if a.traces == "all" else [t for t in all_traces if any(t.startswith(p) for p in a.traces.split(","))]
     jobs = []
     for b in a.bins.split(","):
         bp = os.path.join(BIN_DIR, b)
@@ -80,7 +103,7 @@ def main():
         d = os.path.join(RES_DIR, a.stage, b)
         os.makedirs(d, exist_ok=True)
         for t in traces:
-            jobs.append((b, t, a.warm, a.sim, os.path.join(d, t + ".txt"), h))
+            jobs.append((b, t, a.warm, a.sim, os.path.join(d, t + ".txt"), h, tmap[t]))
     # longest-running traces first would be ideal; interleave binaries per trace
     jobs.sort(key=lambda j: (traces.index(j[1]), j[0]))
     print(f"{len(jobs)} runs, stage={a.stage}, warm={a.warm}M sim={a.sim}M, j={a.j}", flush=True)

@@ -1,0 +1,21 @@
+\paragraph{Which predictor is best?} On these \val{n_traces} traces \prop{} is the best of the seven predictors on every aggregate metric: geometric-mean IPC, arithmetic-mean IPC, pooled accuracy and mean MPKI. It is the sole best or tied on \val{n_best_mpki_prop} traces by mispredictions. The margin over the strongest predictor shipped with ChampSim is clear and broad. Relative to the hashed perceptron:
+\begin{itemize}
+\item mean MPKI is \val{vs_hp_pct_mpki}\% lower, and geometric-mean IPC \val{vs_hp_ipc}\% higher;
+\item \prop{} has fewer mispredictions on \val{vs_hp_mpki_win} of \val{n_traces} traces, and no trace loses more than \val{vs_hp_worst_pct}\% IPC;
+\item it uses slightly less storage.
+\end{itemize}
+This is the main result of the evaluation, and it is a property of the TAGE-SC-L design as a whole. Our TAGE-SC-L without the contribution already has no more mispredictions than the hashed perceptron on any trace.
+
+\paragraph{What does the contribution add?} The loop-structure components made possible by the target-free inference reduce mean MPKI by \val{vs_tsl_pct_mpki}\% relative to the same predictor without them. They improve geometric-mean IPC by \val{vs_tsl_ipc}\%. This is a small effect, and three facts qualify it:
+\begin{itemize}
+\item It is unevenly distributed: one trace (627.cam4\_s-490B) provides \val{vs_tsl_top_share}\% of the MPKI reduction, and the median per-trace IPC change is \val{vs_tsl_median_ipc}\%.
+\item It is consistent in sign but not universal: fewer mispredictions on \val{vs_tsl_mpki_win} traces and more on \val{vs_tsl_mpki_loss}, every increase being at most \val{vs_tsl_worstm} MPKI.
+\item It costs \val{prop_minus_tsl_pct}\% more storage, and a storage-matched TAGE-SC-L was not evaluated.
+\end{itemize}
+The aggregate IPC gain of \val{vs_tsl_ipc}\% is more than ten times the largest run-to-run variation measured in the earlier study (at most 0.003\% of geometric-mean IPC when the predictor's random seed is changed). That variation was measured on the original ten traces only, and with a single deterministic run per trace no statistical significance is claimed. The fair summary is that the components work as intended and help clearly on a few programs (627.cam4, 602.gcc, 657.xz). On most other programs they change little, so they are a refinement of TAGE-SC-L rather than a step beyond it. Which loop structures in these programs are responsible was not analysed.
+
+\paragraph{Does the result generalise?} Yes, in direction and ranking. On the \val{n_add} traces never used during design, \prop{} again has the lowest MPKI and the highest geometric-mean IPC, and its relative gains are larger than on the original ten. The IPC gain over TAGE-SC-L is practically the same in both subsets (\val{original10_tsl_ipcimp}\% and \val{additional40_tsl_ipcimp}\%). The larger set also corrects a conclusion of the earlier study, which was based on the original ten traces. On those traces our TAGE was slightly worse than the hashed perceptron. Over all \val{n_traces} traces TAGE is better (\val{tage_mpki} against \val{hp_mpki} MPKI), and is worse on only \val{n_tage_worse_hp} traces.
+
+\paragraph{Arithmetic versus geometric means.} Both means give the same ranking of all seven predictors. The relative differences between the top predictors are also similar under both: \val{vs_tsl_meanipc}\% (arithmetic) against \val{vs_tsl_ipc}\% (geometric) relative to TAGE-SC-L, and \val{vs_hp_meanipc}\% against \val{vs_hp_ipc}\% relative to the hashed perceptron. The conclusions therefore do not depend on the choice of mean.
+
+\paragraph{Practical significance.} For a designer choosing among the predictors shipped with ChampSim, the \val{vs_hp_ipc}\% IPC improvement over the hashed perceptron at slightly lower storage is the practically relevant result. The further \val{vs_tsl_ipc}\% over TAGE-SC-L would justify its cost in a real design only if it were confirmed on a wider workload set. It would also need to be compared against the same storage spent on larger tables. In a processor with wrong-path fetch, the inference would further require checkpointing and repair of the loop-structure state.

@@ -1,0 +1,383 @@
+% TFL-TAGE-SC-L: 50-trace evaluation report.
+% Build:  tectonic main.tex      (or: pdflatex main && bibtex main && pdflatex main && pdflatex main)
+% Every number in the text is a \val{...} generated from the result CSVs by
+% experiments/scripts/make_report_50trace.py (generated/values.tex); tables are in generated/.
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{url}
+\setlist{itemsep=2pt,topsep=4pt}
+\captionsetup{font=small,labelfont=bf}
+\input{generated/values.tex}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\prop}{TFL-TAGE-SC-L}
+% long file and trace names: allow a line break after every underscore
+\renewcommand{\_}{\textunderscore\allowbreak}
+\setlength{\emergencystretch}{3em}
+
+\title{\textbf{TFL-TAGE-SC-L: A TAGE-SC-L Branch Predictor with Target-Free Loop-Structure History}\\[4pt]
+\large Evaluation on \val{n_traces} SPEC CPU2017 traces against the ChampSim default predictors}
+\date{November 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\input{sections/abstract.tex}
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+% ---------------------------------------------------------------------------------------
+\section{Introduction and objective}
+
+The assignment asks for a branch predictor implemented in ChampSim that improves on suitable baselines, evaluated with IPC, branch prediction accuracy and MPKI. We use the ChampSim version supplied for the course (2021, \code{build\_champsim.sh}), whose predictor interface is
+\begin{verbatim}
+uint8_t O3_CPU::predict_branch(uint64_t ip);
+void    O3_CPU::last_branch_result(uint64_t ip, uint8_t taken);
+\end{verbatim}
+Both functions are called in \code{O3\_CPU::read\_from\_trace()} for every instruction that the trace marks as a branch, in trace order, and \code{last\_branch\_result()} immediately follows \code{predict\_branch()} with the true outcome. The predictor is never told the branch type or the target, and there is no wrong-path fetch. A misprediction stalls fetch until the branch executes.
+
+\paragraph{Problem statement.} Design a branch predictor for this ChampSim interface that improves on the predictors shipped with ChampSim in IPC, accuracy and MPKI, at a storage budget comparable to the largest of them (the 64 KB hashed perceptron), and demonstrate the improvement experimentally.
+
+\paragraph{Motivation.} Among the predictors shipped with this ChampSim the hashed perceptron (64 KB) is by far the most accurate, and in the design phase (earlier study) a TAGE of similar storage was not better on average because it lost on traces dominated by data-dependent, hard-to-predict branches. Combining TAGE with a perceptron-like statistical corrector (TAGE-SC-L) is the established remedy~\cite{seznec2014tagescl,seznec2016tagescl}. Part of TAGE-SC-L's corrector accuracy comes from \emph{loop-structure history} --- the inner-most-loop iteration counter (IMLI)~\cite{seznec2015imli}, the per-IMLI outcome history (IMHIST) and a history of backward branches --- which is defined on backward branches and therefore needs the branch target, information this interface hides. The question addressed is whether those features can be recovered inside the predictor, without changing the simulator, and what they buy.
+
+\paragraph{Proposed predictor and novelty.} \prop{} is a re-implementation of TAGE-SC-L extended with IMLI-SIC, IMHIST and a backward-branch history. TAGE, TAGE-SC-L, IMLI, IMHIST and backward-branch histories are published techniques. The novelty of this work is a \emph{target-free inference} of backward branches from the order in which branches reach the predictor, which makes these loop-structure components usable in an interface that provides no target, together with their integration and evaluation (Section~\ref{sec:impl}).
+
+\paragraph{Objective of this report.} The design and its parameters were fixed and verified in an earlier study on ten traces. This report evaluates the frozen design on a much larger collection: \val{n_traces} SPEC CPU2017 traces (the original \val{n_orig} plus \val{n_add} additional traces), against every branch predictor shipped with this ChampSim version (bimodal, gshare, perceptron, hashed perceptron) and against our own TAGE and TAGE-SC-L reference configurations, with identical simulation settings for all seven predictors (\val{n_runs} simulations). The questions are: which predictor performs best overall; how \prop{} compares with each baseline on IPC, accuracy and MPKI; on how many traces it wins or loses; where the largest gains and regressions occur; what the storage cost is; and whether the result obtained on the original ten traces generalises.
+
+\paragraph{Relation to the earlier 10-trace study.} All numbers in this report come from the new \val{n_traces}-trace experiment (stage \code{M50\_50M\_200M}). The earlier report and its results are preserved unchanged in \code{archive/10trace\_study/}; Section~\ref{sec:previous} explains how the two experiments relate. No predictor source, parameter or configuration was changed for this evaluation, and no tuning was performed on the new traces.
+
+% ---------------------------------------------------------------------------------------
+\section{Background and related work}
+
+\begin{table}[H]
+\centering\small
+\caption{Related work used in this project.}
+\begin{tabular}{p{3.9cm}p{5.4cm}p{5.2cm}}
+\toprule
+Work & Core idea & Use in this project \\
+\midrule
+Jim\'enez \& Lin, HPCA 2001~\cite{jimenez2001perceptron} & Perceptron per branch over global history & Baseline; basis of the corrector's adder \\
+Seznec \& Michaud 2006~\cite{seznec2006tage}; Seznec 2011~\cite{seznec2011newcase} & TAGE: tagged tables, geometric history lengths, longest match provides & Base predictor (re-implemented) \\
+Seznec, CBP-4/CBP-5~\cite{seznec2014tagescl,seznec2016tagescl} & TAGE-SC-L: TAGE + statistical corrector + loop predictor & Architecture and update rules followed \\
+Seznec et al., MICRO 2015~\cite{seznec2015imli} & IMLI counter; IMLI-SIC and IMLI-OH corrector components & IMLI-SIC used; IMHIST is the CBP-2016 successor of IMLI-OH \\
+Jim\'enez, CBP-5~\cite{jimenez2016mpp} & Multiperspective perceptron: many feature types in one adder & Motivates heterogeneous corrector features \\
+Michaud, TACO 2018~\cite{michaud2018batage} & BATAGE; controlled allocation throttling & Motivated an allocation-throttle experiment (rejected) \\
+Lin \& Tarsa, IISWC 2019~\cite{lin2019notsolved} & Most mispredictions come from a few hard-to-predict branches & Explains the residual mispredictions on mcf/xz \\
+ChampSim2 PR \#2~\cite{champsim2pr} & TAGE-SC-L adapter that detects backward branches from the simulator's next instruction & Closest related engineering; ours uses only predictor-visible information \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Newer work (CBP-2025 entries, LLBP~\cite{schall2024llbp}, BranchNet, Whisper) needs much larger storage, offline training, ISA hints or data values the traces do not carry; it was reviewed but not used. The simulator is described in~\cite{gober2022champsim}.
+
+% ---------------------------------------------------------------------------------------
+\section{Predictor implementation}\label{sec:impl}
+
+This section describes the implementation that was verified in the earlier study; it is unchanged.
+
+\subsection{Baselines}
+
+\begin{table}[H]
+\centering\small
+\caption{Predictors compared (storage = logical predictor state; see Section~\ref{sec:storage}).}\label{tab:predictors}
+\begin{tabular}{lp{8.5cm}r}
+\toprule
+Predictor & Design (from the source) & Storage \\
+\midrule
+Bimodal (ChampSim) & 16,384 2-bit counters indexed by PC mod 16381 & \val{bim_kb} KB \\
+Gshare (ChampSim) & 16,384 2-bit counters indexed by hash(PC) XOR 14-bit global history & \val{gsh_kb} KB \\
+Perceptron (ChampSim)~\cite{jimenez2001perceptron} & 163 perceptrons $\times$ 25 8-bit weights, 24-bit history, $\theta = 60$ & \val{perc_kb} KB \\
+Hashed perceptron (ChampSim) & 16 tables $\times$ 4,096 8-bit weights, history lengths 0--232, adaptive threshold & \val{hp_kb} KB \\
+TAGE (ours) & Bimodal + 12 tagged tables (Section~\ref{sec:arch}) & \val{tage_kb} KB \\
+TAGE-SC-L (ours) & + 64-entry loop predictor + statistical corrector (bias, global, path, local tables) & \val{tsl_kb} KB \\
+\textbf{\prop{} (proposed)} & + IMLI-SIC, IMHIST, backward-branch history via target-free inference & \val{prop_kb} KB \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The four ChampSim predictors are unchanged. TAGE and TAGE-SC-L are configurations of the same implementation as the proposed design with components switched off at compile time (\code{-DTSL\_NO\_SC -DTSL\_NO\_LOOP} and \code{-DTSL\_NO\_IMLI}), so the comparison with them isolates the components rather than implementation differences. They are not ChampSim defaults and are reported as project reference baselines.
+
+\paragraph{Why these baselines.} The four ChampSim predictors are the complete set of branch predictors shipped with this ChampSim version, so the comparison omits none of the simulator's defaults; they also cover the main families (counter tables, global-history hashing, perceptrons) and include the two reference papers' predictors (perceptron~\cite{jimenez2001perceptron}; the hashed perceptron as its multi-table successor). The hashed perceptron is the strongest default and has a similar storage budget, so it is the main like-for-like competitor. TAGE~\cite{seznec2011newcase} is the second reference paper's design, and TAGE-SC-L is the state-of-the-art family the proposal builds on: comparing with our own TAGE-SC-L (the same code without the loop-structure components) isolates the contribution of the novelty from that of the base design.
+
+\subsection{Architecture of \prop{}}\label{sec:arch}
+
+\prop{} (TAGE-SC-L with Target-Free Loop-structure history) is implemented in \code{branch/tagescl.bpred} and selected by \code{branch/tfl\_tage\_scl.bpred} (\code{\#define TSL\_IMHIST}, \code{\#define TSL\_BHIST}).
+
+\paragraph{Target-free backward-branch inference.} Let $B$ be a taken branch with target $T$ and $N$ the next branch presented to the predictor. Execution proceeds sequentially from $T$ to $N$, so $pc(N) \ge T$. If $T \le pc(B)$, the sequential path from $T$ reaches $B$ itself, so $pc(N) \le pc(B)$; if $T > pc(B)$ then $pc(N) \ge T > pc(B)$. Hence, for taken instances,
+\[
+B \text{ is backward} \iff pc(\text{next branch presented to the predictor}) \le pc(B).
+\]
+The test runs at the start of the next \code{predict\_branch()} call, before any later prediction uses the loop state. Two 4,096-bit tables extend it: \code{bwd} remembers the inferred direction of each (hashed) branch for its not-taken, loop-exit instances, and \code{cond} marks a branch as conditional once it has been seen not-taken. In the earlier study the inference agreed with ChampSim's own branch targets on 99.9996--100\% of taken branches on all ten original traces (50M instructions each).
+
+\begin{table}[H]
+\centering\small
+\caption{\prop{} structures; the total equals the value printed by the predictor's \code{storage\_bits()}.}\label{tab:breakdown}
+\begin{tabular}{lp{8.0cm}r}
+\toprule
+Structure & Configuration & Bits \\
+\midrule
+Bimodal base & 8K $\times$ 2-bit counters & 16,384 \\
+Tagged tables T1--T12 & 2,048 entries each: 3-bit counter, 1-bit useful, 8--13-bit tag; histories 4, 6, 10, 16, 25, 40, 64, 101, 160, 254, 403, 640 & 366,592 \\
+TAGE control & use\_alt\_on\_na 4 $\times$ 5 bit, TICK, 640-bit global + 27-bit path history & 698 \\
+Loop predictor & 64 entries (4-way): 2 $\times$ 10-bit trip counts, 10-bit tag, 4-bit confidence, 4-bit age, direction; WITHLOOP & 2,503 \\
+SC bias tables & 3 $\times$ 1,024 $\times$ 6-bit & 18,432 \\
+SC global + path GEHL & 4 global (lengths 6--40) + 3 path (9--25) tables $\times$ 1,024 $\times$ 6-bit & 43,008 \\
+SC control & adaptive threshold, its counter, two chooser counters & 30 \\
+SC local GEHL & 4 $\times$ 1,024 $\times$ 6-bit (lengths 3--16) + 256 $\times$ 16-bit local histories & 28,672 \\
+IMLI-SIC & 512 $\times$ 6-bit table + 10-bit IMLI counter & 3,082 \\
+Backward inference & \code{bwd} and \code{cond} tables (4,096 bits each) + previous branch PC and outcome & 8,257 \\
+IMHIST & 256 $\times$ 10-bit histories (one per IMLI value) + 1,024 $\times$ 6-bit table & 8,704 \\
+Backward-branch history & 16-bit history + 2 $\times$ 1,024 $\times$ 6-bit tables & 12,304 \\
+\midrule
+\textbf{Total} & & \textbf{\val{prop_bits} (\val{prop_kb} KB)} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Not counted: the folded-history registers used for hashing (422 bits; recomputable from the global history) and the 64-bit pseudo-random generator state.
+
+\subsection{Prediction and training workflow}
+
+\paragraph{Prediction.}
+\begin{enumerate}
+\item \textbf{Loop-structure state.} If the previous branch was taken, classify it as backward or forward from the current PC, store the bit in \code{bwd}, shift a 1 into the backward history if backward, and increment IMLI if the branch is backward and known to be conditional.
+\item \textbf{TAGE lookup.} For each of the 12 tables compute an index (PC, folded global history, path history) and a tag. The longest matching table is the provider and the next longest the alternate (the bimodal table if none).
+\item \textbf{TAGE prediction.} Use the provider's counter sign, except when the provider is newly allocated (weak counter) and the use\_alt\_on\_na counter for its table group and the alternate's confidence indicate that the alternate is more reliable.
+\item \textbf{Loop predictor.} If a loop entry matches the PC with full confidence and the WITHLOOP counter is non-negative, its prediction replaces TAGE's.
+\item \textbf{Statistical corrector.} Sum the centred values $(2c+1)$ of 6-bit counters from 3 bias tables, 4 global-history, 3 path-history and 4 local-history GEHL tables, the IMLI-SIC table (weighted $\times 2$), the IMHIST table and the 2 backward-history tables.
+\item \textbf{Final choice.} If the corrector's sign agrees, keep the prediction. Otherwise the corrector wins, except when TAGE is highly confident and $|\mathit{sum}| < \theta/4$ (keep TAGE), or $\theta/4 \le |\mathit{sum}| < \theta/2$ (a chooser counter decides), or TAGE has medium confidence and $|\mathit{sum}| < \theta/4$ (a second chooser decides).
+\end{enumerate}
+
+\paragraph{Training} (called immediately with the true outcome).
+\begin{enumerate}
+\item \textbf{Corrector.} Train the chooser counters; if the corrector was wrong or $|\mathit{sum}| < \theta$, move every selected counter towards the outcome and adapt $\theta$.
+\item \textbf{Loop predictor.} Update the matching entry's iteration count, trip count and confidence; on a TAGE misprediction, allocate an entry with probability 1/4.
+\item \textbf{TAGE.} Update the provider counter (and the alternate when a weak provider mispredicted) and the useful bits; on a TAGE misprediction allocate up to two entries in longer-history tables; if the final prediction was right, allocate only with probability 1/32. A TICK counter periodically halves the useful bits.
+\item \textbf{Histories.} Shift one bit into the 640-bit global history and one PC bit into the 27-bit path history; update the 16-bit local history.
+\item \textbf{Loop-structure state.} A not-taken branch is marked conditional; if it is known to be backward it ends the inner loop: IMLI is reset and a 0 enters the backward history. The outcome of every branch known to be conditional is appended to IMHIST[IMLI].
+\end{enumerate}
+The predictor is deterministic (fixed-seed xorshift for the probabilistic decisions).
+
+\subsection{Implementation and integration}
+\begin{itemize}
+\item \code{branch/tagescl.bpred} (C++11, one predictor object per CPU) implements all TAGE-family variants; compile-time switches build the baselines and ablations from the same code. Wrappers \code{tfl\_tage\_scl.bpred}, \code{tage\_scl.bpred} and \code{tage.bpred} select configurations for the standard \code{./build\_champsim.sh <name> no no no no lru 1} workflow.
+\item The simulator core was changed only to print exact counters (\code{BP\_STATS}, \code{BP\_TYPE\_MISSES}); the timing model is unchanged.
+\item The experiment binaries are built out-of-tree by \code{experiments/scripts/build.sh} with exactly the configuration of \code{build\_champsim.sh <predictor> no no no no lru 1}; all seven binaries are linked against the same simulator object files.
+\end{itemize}
+
+% ---------------------------------------------------------------------------------------
+\section{Experimental methodology}\label{sec:method}
+
+\subsection{Simulator configuration}
+\begin{itemize}
+\item ChampSim 2021, 1 core (6-wide fetch, 352-entry ROB), no prefetchers at any level, LRU last-level cache; misprediction penalty as in the shipped configuration. Only the branch predictor differs between the seven configurations.
+\item Every predictor and every trace: \textbf{50M warm-up + 200M measured instructions} (instructions 0--250M of each trace), the protocol documented for the earlier study (DPC-3 practice). Every trace holds 2,000M instructions, so no run reaches the end of its trace (checked for every run).
+\item Binaries: g++ 15.2.0, \code{-O3 -std=c++11}; predictor source \code{tagescl.bpred} SHA-256 \code{3be5e685\ldots}, identical to the frozen version of the earlier study. A smoke test (1M + 10M instructions on 657.xz\_s-2302B) reproduced the earlier study's recorded IPC, cycle and misprediction counts exactly for both bimodal and \prop{}, confirming that the new toolchain does not change results.
+\item The \val{n_runs} simulations (7 predictors $\times$ \val{n_traces} traces) ran 14 at a time under WSL2 on a 16-thread Intel i7-11800H between \val{started} and \val{finished} (UTC); \val{n_runs_ok} completed successfully and \val{n_runs_failed} failed (Section~\ref{sec:validity}).
+\end{itemize}
+
+\subsection{Benchmark trace description}\label{sec:traces}
+
+The evaluation uses \val{n_traces} SimPoint traces of the SPEC CPU2017 speed suite~\cite{speccpu2017} in ChampSim format (\val{n_bench} benchmarks; \val{n_int} SPECint and \val{n_fp} SPECfp traces):
+\begin{itemize}
+\item \textbf{Original 10} (the traces of the earlier study): 602.gcc\_s-1850B, 605.mcf\_s-1152B, 607.cactuBSSN\_s-2421B, 619.lbm\_s-2676B, 620.omnetpp\_s-141B, 623.xalancbmk\_s-10B, 625.x264\_s-12B, 631.deepsjeng\_s-928B, 638.imagick\_s-824B, 657.xz\_s-2302B.
+\item \textbf{Additional 40}: three or four SimPoints each of perlbench, bwaves, wrf, leela, nab, exchange2, fotonik3d and roms; two of cam4; one of pop2; and further SimPoints of gcc (2), mcf (2), cactuBSSN, lbm, omnetpp, xalancbmk, x264, imagick and xz (2).
+\end{itemize}
+All files come from the Zenodo record ``SPEC CPU 2017 ChampSim Traces''~\cite{zenodo10960004} (file names as in the DPC-3 distribution~\cite{dpc3traces}; \val{trace_gb} GB compressed). Before the experiment every file was checked with \code{xz -t} (full decompression and CRC check), its SHA-256 and MD5 were recorded, and size and MD5 were compared with Zenodo's published values: all \val{n_traces} match, and the \val{n_traces} SHA-256 values are distinct (no duplicates). One local file (an interrupted download of 644.nab\_s-5853B, a byte-exact prefix of the complete file) failed \code{xz -t} and was excluded in favour of the complete copy. Appendix~\ref{app:manifest} lists the manifest; Table~\ref{tab:traces} in Section~\ref{sec:pertrace} gives per-trace characteristics.
+
+\subsection{Metrics}\label{sec:metrics}
+\begin{itemize}
+\item \textbf{IPC} = measured instructions / measured cycles (ChampSim's ``CPU 0 cumulative IPC'' of the region of interest).
+\item \textbf{MPKI} = $1000 \times$ mispredictions / measured instructions, all branch types (ChampSim's definition; recomputed from exact counters and checked against the printed value).
+\item \textbf{Accuracy} = (branches $-$ mispredictions) / branches. ChampSim counts \emph{all branch types}; because unconditional branches are trivially predicted, conditional-branch accuracy is reported separately. Aggregate accuracy is \emph{pooled}: total correct predictions over total branches of all traces.
+\item \textbf{Mean IPC} is the arithmetic mean of the per-trace IPCs; \textbf{geometric-mean IPC} is the geometric mean of the per-trace IPCs; the \textbf{speedup} of predictor $A$ over $B$ is the geometric mean of the per-trace ratios IPC$_A$/IPC$_B$ (equal to the ratio of the geometric-mean IPCs); \emph{IPC improvement} = (speedup $-$ 1) $\times$ 100\%. The arithmetic mean is dominated by high-IPC traces, the geometric mean weighs relative changes equally; both are reported, and conclusions are drawn from the geometric mean.
+\item \textbf{Mean MPKI} is the arithmetic mean over traces; percentage MPKI reductions are computed from the means, $(\mathrm{MPKI}_{\mathrm{ref}} - \mathrm{MPKI})/\mathrm{MPKI}_{\mathrm{ref}}$, not averaged per trace (near-zero-MPKI traces would otherwise dominate).
+\item \textbf{Per-trace wins/losses} count traces with strictly fewer (more) mispredictions or strictly fewer (more) cycles; exact equality is a tie.
+\item \textbf{Storage} is the logical predictor state in bits (Section~\ref{sec:storage}).
+\end{itemize}
+
+\subsection{Validity checks}\label{sec:validity}
+All raw outputs were re-parsed by an independent script (\code{experiments/scripts/analyze\_50trace.py}, standard library only) which records one row per expected run, including failures, and checks: exit status, completion, requested window, no trace wrap-around, IPC/MPKI/accuracy recomputed from the exact counters against ChampSim's printed values, the predictor-reported storage against Table~\ref{tab:storage}, identical branch counts for all predictors on the same trace, the binary hash of every run against the binaries in \code{build/bin}, and that every summary value can be recomputed from \code{raw\_results.csv}. The check log is \code{results\_50trace/checks.txt}. \input{sections/validity_result.tex}
+
+% ---------------------------------------------------------------------------------------
+\section{Hardware and storage accounting}\label{sec:storage}
+
+\begin{table}[H]
+\centering\small
+\caption{Storage of every predictor (logical state). TAGE-family values are printed by the predictor and were checked in every run.}\label{tab:storage}
+\input{generated/tab_storage.tex}
+\end{table}
+
+\input{sections/storage_text.tex}
+
+% ---------------------------------------------------------------------------------------
+\section{Results}\label{sec:results}
+
+\subsection{Overall comparison}
+
+\begin{table}[H]
+\centering\small
+\caption{Results over the \val{n_traces_agg} traces (50M + 200M instructions each). Bold: best value in the column.}\label{tab:summary}
+\resizebox{\linewidth}{!}{\input{generated/tab_summary.tex}}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/fig1_ipc_comparison.pdf}
+\caption{Arithmetic-mean (a) and geometric-mean (b) IPC of every predictor over \val{n_traces_agg} traces.}\label{fig:ipc}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\linewidth]{figures/fig4_geomean_ipc_speedup.pdf}
+\caption{Geometric-mean IPC speedup over bimodal.}\label{fig:speedup}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/fig2_accuracy_comparison.pdf}
+\caption{Pooled branch prediction accuracy: all branch types (ChampSim's definition) and conditional branches only. The y-axis does not start at zero.}\label{fig:acc}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/fig3_mpki_comparison.pdf}
+\caption{Mean MPKI over all traces, the SPECint traces and the SPECfp traces (note the different y-scales).}\label{fig:mpki}
+\end{figure}
+
+\input{sections/results_overall.tex}
+
+\subsection{\prop{} relative to each baseline}
+
+\begin{table}[H]
+\centering\small
+\caption{\prop{} relative to each baseline over \val{n_traces_agg} traces (MPKI reductions from the means; IPC improvement from the geometric-mean speedup; per-trace counts by exact mispredictions and cycles).}\label{tab:comparison}
+\resizebox{\linewidth}{!}{\input{generated/tab_comparison.tex}}
+\end{table}
+
+\input{sections/results_comparison.tex}
+
+\subsection{Per-trace analysis}\label{sec:pertrace}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/fig5_per_trace_ipc_vs_best_baselines.pdf}
+\caption{Per-trace IPC change of \prop{} relative to the best baseline by geometric-mean IPC and the best ChampSim default predictor, sorted.}\label{fig:pertrace_ipc}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/fig6_per_trace_mpki_change.pdf}
+\caption{Per-trace MPKI change of \prop{} (negative = fewer mispredictions; symmetric-log scale, linear within $\pm 0.01$).}\label{fig:pertrace_mpki}
+\end{figure}
+
+\begin{table}[H]
+\centering\small
+\caption{Traces with the largest IPC gains and losses of \prop{} relative to the best baseline and the best ChampSim default ($\Delta$MPKI = proposed $-$ baseline).}\label{tab:extremes}
+\resizebox{\linewidth}{!}{\input{generated/tab_extremes.tex}}
+\end{table}
+
+\input{sections/results_pertrace.tex}
+
+{\small\setlength{\tabcolsep}{4pt}\input{generated/tab_traces.tex}}
+
+\begin{figure}[p]
+\centering
+\includegraphics[height=0.9\textheight]{figures/fig7_mpki_heatmap.pdf}
+\caption{MPKI of every predictor on every trace (log colour scale), grouped into SPECfp and SPECint.}\label{fig:heatmap}
+\end{figure}
+
+\subsection{Generalisation: original 10 versus additional 40 traces}\label{sec:generalisation}
+
+\begin{table}[H]
+\centering\small
+\caption{Mean MPKI and the gain of \prop{} on trace subsets (HP = hashed perceptron, TSL = TAGE-SC-L; IPC as geometric-mean improvement).}\label{tab:subsets}
+\resizebox{\linewidth}{!}{\input{generated/tab_subsets.tex}}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/fig10_generalisation_original_vs_additional.pdf}
+\caption{MPKI reduction and geometric-mean IPC improvement of \prop{} relative to each baseline, on the original 10 traces and on the 40 additional traces.}\label{fig:generalisation}
+\end{figure}
+
+\input{sections/results_generalisation.tex}
+
+\subsection{Storage versus performance}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/fig8_storage_vs_mpki.pdf}
+\caption{Storage against mean MPKI; (b) zooms on the 45--65 KB predictors.}\label{fig:storage}
+\end{figure}
+
+\input{sections/results_storage.tex}
+
+\subsection{MPKI reduction versus IPC gain}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/fig9_mpki_reduction_vs_ipc_gain.pdf}
+\caption{Per-trace MPKI reduction against IPC change of \prop{}, coloured by suite; the traces with the largest IPC change are labelled (labels that would overlap are omitted).}\label{fig:mpki_ipc}
+\end{figure}
+
+\input{sections/results_mpki_ipc.tex}
+
+\subsection{Simulation runtime}
+
+\begin{table}[H]
+\centering\small
+\caption{Simulation wall time per run (14 runs in parallel on 8 physical cores, so per-run times include contention).}\label{tab:runtime}
+\input{generated/tab_runtime.tex}
+\end{table}
+
+Total simulation effort was \val{total_sim_hours} CPU-hours of wall-clock time per job summed over the \val{n_runs_ok} successful runs. Runtime reflects simulation cost, not predictor latency: ChampSim does not model predictor access time.
+
+% ---------------------------------------------------------------------------------------
+\section{Discussion}\label{sec:discussion}
+\input{sections/discussion.tex}
+
+% ---------------------------------------------------------------------------------------
+\section{Relation to the earlier 10-trace study}\label{sec:previous}
+\input{sections/previous.tex}
+
+% ---------------------------------------------------------------------------------------
+\section{Limitations and threats to validity}
+\input{sections/limitations.tex}
+
+% ---------------------------------------------------------------------------------------
+\section{Conclusion and future work}
+\input{sections/conclusion.tex}
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\appendix
+\section{IPC, MPKI and accuracy of every predictor on every trace}\label{app:all}
+{\footnotesize\setlength{\tabcolsep}{4pt}\input{generated/tab_all_ipc.tex}}
+{\footnotesize\setlength{\tabcolsep}{4pt}\input{generated/tab_all_mpki.tex}}
+{\footnotesize\setlength{\tabcolsep}{4pt}\input{generated/tab_all_accuracy.tex}}
+
+\section{Trace manifest}\label{app:manifest}
+{\small\input{generated/tab_manifest.tex}}
+
+\section{Reproduction}\label{app:repro}
+\input{sections/reproduction.tex}
+
+\end{document}

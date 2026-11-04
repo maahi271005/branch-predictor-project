@@ -1,0 +1,98 @@
+PASS  raw_results.csv has 350 rows  [350]
+PASS  report run counts  [report 350/350, csv 350/350]
+PASS  report trace counts  [report 50 / 50]
+PASS  bim_mean_ipc = 0.9065  [report 0.9065]
+PASS  bim_gm_ipc = 0.7797  [report 0.7797]
+PASS  bim_mpki = 9.334  [report 9.334]
+PASS  bim_acc = 93.089  [report 93.089]
+PASS  bim_speedup_bim = +0.00  [report +0.00]
+PASS  vs_bim: MPKI reduction 82.56%, IPC +14.329%, MPKI wins 49, IPC wins 47  [report 82.56%, +14.329%, 49, 47]
+PASS  gsh_mean_ipc = 0.9825  [report 0.9825]
+PASS  gsh_gm_ipc = 0.8330  [report 0.8330]
+PASS  gsh_mpki = 4.619  [report 4.619]
+PASS  gsh_acc = 96.580  [report 96.580]
+PASS  gsh_speedup_bim = +6.84  [report +6.84]
+PASS  vs_gsh: MPKI reduction 64.76%, IPC +7.013%, MPKI wins 49, IPC wins 48  [report 64.76%, +7.013%, 49, 48]
+PASS  perc_mean_ipc = 1.0060  [report 1.0060]
+PASS  perc_gm_ipc = 0.8508  [report 0.8508]
+PASS  perc_mpki = 3.700  [report 3.700]
+PASS  perc_acc = 97.260  [report 97.260]
+PASS  perc_speedup_bim = +9.13  [report +9.13]
+PASS  vs_perc: MPKI reduction 56.01%, IPC +4.767%, MPKI wins 49, IPC wins 48  [report 56.01%, +4.767%, 49, 48]
+PASS  hp_mean_ipc = 1.0539  [report 1.0539]
+PASS  hp_gm_ipc = 0.8845  [report 0.8845]
+PASS  hp_mpki = 1.922  [report 1.922]
+PASS  hp_acc = 98.577  [report 98.577]
+PASS  hp_speedup_bim = +13.45  [report +13.45]
+PASS  vs_hp: MPKI reduction 15.29%, IPC +0.772%, MPKI wins 46, IPC wins 45  [report 15.29%, +0.772%, 46, 45]
+PASS  tage_mean_ipc = 1.0597  [report 1.0597]
+PASS  tage_gm_ipc = 0.8877  [report 0.8877]
+PASS  tage_mpki = 1.805  [report 1.805]
+PASS  tage_acc = 98.663  [report 98.663]
+PASS  tage_speedup_bim = +13.86  [report +13.86]
+PASS  vs_tage: MPKI reduction 9.82%, IPC +0.413%, MPKI wins 46, IPC wins 46  [report 9.82%, +0.413%, 46, 46]
+PASS  tsl_mean_ipc = 1.0636  [report 1.0636]
+PASS  tsl_gm_ipc = 0.8909  [report 0.8909]
+PASS  tsl_mpki = 1.663  [report 1.663]
+PASS  tsl_acc = 98.769  [report 98.769]
+PASS  tsl_speedup_bim = +14.27  [report +14.27]
+PASS  vs_tsl: MPKI reduction 2.09%, IPC +0.052%, MPKI wins 29, IPC wins 30  [report 2.09%, +0.052%, 29, 30]
+PASS  prop_mean_ipc = 1.0641  [report 1.0641]
+PASS  prop_gm_ipc = 0.8914  [report 0.8914]
+PASS  prop_mpki = 1.628  [report 1.628]
+PASS  prop_acc = 98.795  [report 98.795]
+PASS  prop_speedup_bim = +14.33  [report +14.33]
+PASS  all 148 \val keys used in the LaTeX sources are defined
+PASS  no unfinished RESULTS-TEXT placeholders
+PASS  10 figures (PNG) generated  [10]
+PASS  figure non-empty: results_50trace\figures\fig10_generalisation_original_vs_additional.png  [168160]
+PASS  figure non-empty: results_50trace\figures\fig1_ipc_comparison.png  [143822]
+PASS  figure non-empty: results_50trace\figures\fig2_accuracy_comparison.png  [173100]
+PASS  figure non-empty: results_50trace\figures\fig3_mpki_comparison.png  [154294]
+PASS  figure non-empty: results_50trace\figures\fig4_geomean_ipc_speedup.png  [104756]
+PASS  figure non-empty: results_50trace\figures\fig5_per_trace_ipc_vs_best_baselines.png  [577784]
+PASS  figure non-empty: results_50trace\figures\fig6_per_trace_mpki_change.png  [617670]
+PASS  figure non-empty: results_50trace\figures\fig7_mpki_heatmap.png  [924513]
+PASS  figure non-empty: results_50trace\figures\fig8_storage_vs_mpki.png  [156882]
+PASS  figure non-empty: results_50trace\figures\fig9_mpki_reduction_vs_ipc_gain.png  [178870]
+PASS  figure non-empty: report_50trace\figures\fig10_generalisation_original_vs_additional.pdf  [22993]
+PASS  figure non-empty: report_50trace\figures\fig1_ipc_comparison.pdf  [20644]
+PASS  figure non-empty: report_50trace\figures\fig2_accuracy_comparison.pdf  [22235]
+PASS  figure non-empty: report_50trace\figures\fig3_mpki_comparison.pdf  [22242]
+PASS  figure non-empty: report_50trace\figures\fig4_geomean_ipc_speedup.pdf  [20557]
+PASS  figure non-empty: report_50trace\figures\fig5_per_trace_ipc_vs_best_baselines.pdf  [29821]
+PASS  figure non-empty: report_50trace\figures\fig6_per_trace_mpki_change.pdf  [31676]
+PASS  figure non-empty: report_50trace\figures\fig7_mpki_heatmap.pdf  [75664]
+PASS  figure non-empty: report_50trace\figures\fig8_storage_vs_mpki.pdf  [24008]
+PASS  figure non-empty: report_50trace\figures\fig9_mpki_reduction_vs_ipc_gain.pdf  [26064]
+PASS  figure referenced by main.tex exists: fig1_ipc_comparison.pdf
+PASS  figure referenced by main.tex exists: fig4_geomean_ipc_speedup.pdf
+PASS  figure referenced by main.tex exists: fig2_accuracy_comparison.pdf
+PASS  figure referenced by main.tex exists: fig3_mpki_comparison.pdf
+PASS  figure referenced by main.tex exists: fig5_per_trace_ipc_vs_best_baselines.pdf
+PASS  figure referenced by main.tex exists: fig6_per_trace_mpki_change.pdf
+PASS  figure referenced by main.tex exists: fig7_mpki_heatmap.pdf
+PASS  figure referenced by main.tex exists: fig10_generalisation_original_vs_additional.pdf
+PASS  figure referenced by main.tex exists: fig8_storage_vs_mpki.pdf
+PASS  figure referenced by main.tex exists: fig9_mpki_reduction_vs_ipc_gain.pdf
+PASS  PDF opens  [28 pages]
+PASS  PDF contains section 'Abstract'
+PASS  PDF contains section 'Introduction and objective'
+PASS  PDF contains section 'Background and related work'
+PASS  PDF contains section 'Predictor implementation'
+PASS  PDF contains section 'Experimental methodology'
+PASS  PDF contains section 'Hardware and storage accounting'
+PASS  PDF contains section 'Benchmark trace description'
+PASS  PDF contains section 'Results'
+PASS  PDF contains section 'Discussion'
+PASS  PDF contains section 'Relation to the earlier 10-trace study'
+PASS  PDF contains section 'Limitations'
+PASS  PDF contains section 'Conclusion and future work'
+PASS  PDF contains section 'References'
+PASS  PDF contains section 'Trace manifest'
+PASS  PDF states 50 traces
+PASS  PDF pages with embedded graphics  [19]
+PASS  no old 10-trace aggregate values in the main text
+PASS  PDF has no unresolved references ('??')
+
+96 checks, 0 failed

@@ -1,5 +1,5 @@
 # RUN binary=tage bin_sha=4b5e62795cf0dce0 trace=657.xz_s-2302B warm=50M sim=200M
-# CMD /home/maahi/BRANCH_PREDICTOR_PROJECT/build/bin/tage -warmup_instructions 50000000 -simulation_instructions 200000000 -traces /home/maahi/BRANCH_PREDICTOR_PROJECT/champsim/dpc3_traces/657.xz_s-2302B.champsimtrace.xz
+# CMD build/bin/tage -warmup_instructions 50000000 -simulation_instructions 200000000 -traces champsim/dpc3_traces/657.xz_s-2302B.champsimtrace.xz
 
 *** ChampSim Multicore Out-of-Order Simulator ***
 
@@ -10,7 +10,7 @@ LLC sets: 2048
 LLC ways: 16
 Off-chip DRAM Size: 4096 MB Channels: 1 Width: 64-bit Data Rate: 3200 MT/s
 
-CPU 0 runs /home/maahi/BRANCH_PREDICTOR_PROJECT/champsim/dpc3_traces/657.xz_s-2302B.champsimtrace.xz
+CPU 0 runs champsim/dpc3_traces/657.xz_s-2302B.champsimtrace.xz
 CPU 0 TAGE-SC-L style predictor [no SC] [no loop] [IMLI mode 0] storage: 383674 bits (46.8352 KB)
 Heartbeat CPU 0 instructions: 10000003 cycles: 3246836 heartbeat IPC: 3.07992 cumulative IPC: 3.07992 (Simulation time: 0 hr 0 min 20 sec) 
 Heartbeat CPU 0 instructions: 20000002 cycles: 6501857 heartbeat IPC: 3.07218 cumulative IPC: 3.07604 (Simulation time: 0 hr 0 min 51 sec) 

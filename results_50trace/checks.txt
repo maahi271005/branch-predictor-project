@@ -1,0 +1,27 @@
+PASS  manifest has 50 unique traces  [50]
+PASS  all manifest traces VALID
+PASS  manifest md5 == Zenodo md5 for all traces
+PASS  expected runs = 7 x 50 = 350  [350]
+PASS  all 350 runs successful  [350 ok, 0 not ok]
+PASS  all runs of bimodal produced by one binary  [246493e4a0f8f1b8]
+PASS  all runs of gshare produced by one binary  [228309da9ef177e0]
+PASS  all runs of perceptron produced by one binary  [1f998c772e800cd4]
+PASS  all runs of hashed_perceptron produced by one binary  [b2c70d7c20661946]
+PASS  all runs of tage produced by one binary  [c561a8a6ddda3bd2]
+PASS  all runs of tsl_base produced by one binary  [2ffe44bb43377442]
+PASS  all runs of tsl_proposed produced by one binary  [b2e1a7b0caf4d9aa]
+PASS  binary hashes checked against build/bin
+PASS  IPC / MPKI / accuracy recomputed from counters agree with ChampSim's printed values (all ok runs)
+PASS  printed storage_bits of TAGE-family runs match storage table
+PASS  branch counts consistent across predictors on every trace (rel. spread <= 1e-4)
+PASS  traces with all 7 predictors successful  [50/50]
+PASS  summary reconciles with raw_results.csv: bimodal  [mean IPC 0.906506, geomean IPC 0.779652, mean MPKI 9.334196]
+PASS  summary reconciles with raw_results.csv: gshare  [mean IPC 0.982486, geomean IPC 0.832957, mean MPKI 4.618524]
+PASS  summary reconciles with raw_results.csv: perceptron  [mean IPC 1.006009, geomean IPC 0.850815, mean MPKI 3.700415]
+PASS  summary reconciles with raw_results.csv: hashed_perceptron  [mean IPC 1.053868, geomean IPC 0.884545, mean MPKI 1.921638]
+PASS  summary reconciles with raw_results.csv: tage  [mean IPC 1.059707, geomean IPC 0.887703, mean MPKI 1.805089]
+PASS  summary reconciles with raw_results.csv: tsl_base  [mean IPC 1.063600, geomean IPC 0.890903, mean MPKI 1.662509]
+PASS  summary reconciles with raw_results.csv: tsl_proposed  [mean IPC 1.064124, geomean IPC 0.891370, mean MPKI 1.627762]
+PASS  original-10 runs identical to the earlier 10-trace study (cycles and mispredictions)  [70 identical, 0 different]
+
+25 checks, 0 failed

@@ -1,0 +1,12 @@
+Figure~\ref{fig:storage} places every predictor by storage and mean MPKI.
+
+\paragraph{The three storage classes.}
+\begin{itemize}
+\item \textbf{About 4 KB.} The perceptron is the most accurate (\val{perc_mpki} MPKI at \val{perc_kb} KB). It dominates gshare and bimodal, which use the same or slightly more storage.
+\item \textbf{47--64 KB.} The hashed perceptron is dominated by both TAGE (smaller and more accurate) and \prop{} (\val{hp_minus_prop_bits} bits smaller, \val{vs_hp_pct_mpki}\% lower MPKI).
+\end{itemize}
+Among the predictors evaluated, the best accuracy for a given storage is therefore obtained by the perceptron at about 4 KB, and above that by TAGE (\val{tage_kb} KB), TAGE-SC-L (\val{tsl_kb} KB) and \prop{} (\val{prop_kb} KB).
+
+\paragraph{Diminishing returns along the TAGE family.} Going from TAGE to TAGE-SC-L adds \val{tsl_kb} $-$ \val{tage_kb} KB (corrector and loop predictor) and lowers mean MPKI from \val{tage_mpki} to \val{tsl_mpki}. Going from TAGE-SC-L to \prop{} adds \val{prop_minus_tsl_kb} KB (\val{prop_minus_tsl_pct}\%) and lowers it to \val{prop_mpki} (\val{vs_tsl_pct_mpki}\%). Per kilobyte, the loop-structure components are thus less effective than the corrector, which is consistent with their effect being concentrated on a few traces.
+
+\paragraph{The equal-storage question.} The experiment does not show whether spending the same \val{prop_minus_tsl_kb} KB on larger TAGE-SC-L tables would give a similar gain: no storage-matched TAGE-SC-L was evaluated, neither here nor in the earlier study. Given the diminishing returns above and the small size of the gain, this is the main open question about the contribution. The comparison with the hashed perceptron, which is larger than \prop{}, is not affected by this caveat.

@@ -1,0 +1,26 @@
+Table~\ref{tab:comparison} compares \prop{} with each baseline.
+
+\paragraph{ChampSim's 4 KB predictors.} Against bimodal, gshare and perceptron, \prop{} reduces mean MPKI by \val{vs_bim_pct_mpki}\%, \val{vs_gsh_pct_mpki}\% and \val{vs_perc_pct_mpki}\%, and improves geometric-mean IPC by \val{vs_bim_ipc}\%, \val{vs_gsh_ipc}\% and \val{vs_perc_ipc}\%. It has fewer mispredictions on \val{vs_perc_mpki_win} of \val{n_traces} traces against each of them. The one remaining trace is a tie: on 649.fotonik3d\_s-1176B every predictor makes exactly the same number of mispredictions. These comparisons are not storage-equivalent (about 4 KB against 62 KB) and are included because these are the default predictors of the simulator.
+
+\paragraph{Hashed perceptron (best ChampSim predictor, 64 KB).} This is the most relevant comparison with a ChampSim predictor, because its storage is similar and slightly larger. \prop{} reduces mean MPKI from \val{hp_mpki} to \val{prop_mpki} (\val{vs_hp_pct_mpki}\%) and improves geometric-mean IPC by \val{vs_hp_ipc}\% (arithmetic mean \val{vs_hp_meanipc}\%). The gain is broad rather than driven by a few traces:
+\begin{itemize}
+\item \prop{} has fewer mispredictions on \val{vs_hp_mpki_win} traces and more on \val{vs_hp_mpki_loss} (\val{vs_hp_mpki_tie} ties).
+\item It has higher IPC on \val{vs_hp_ipc_win} traces and lower IPC on \val{vs_hp_ipc_loss}. No IPC loss exceeds 0.1\%: the largest is \val{vs_hp_worst_pct}\% on \val{vs_hp_worst_trace}.
+\item \val{vs_hp_n_ipc_gt0p1} traces gain more than 0.1\% IPC, and the median per-trace IPC change is \val{vs_hp_median_ipc}\%.
+\item The largest single contributor (\val{vs_hp_top_trace}) provides only \val{vs_hp_top_share}\% of the MPKI reduction; without it the reduction is still \val{vs_hp_pct_mpki_excl_top}\%.
+\end{itemize}
+
+\paragraph{TAGE.} Against our TAGE with the same tagged tables but no corrector or loop predictor, \prop{} reduces mean MPKI by \val{vs_tage_pct_mpki}\% and improves geometric-mean IPC by \val{vs_tage_ipc}\%. It has fewer mispredictions on \val{vs_tage_mpki_win} traces and more on \val{vs_tage_mpki_loss}. This difference combines the statistical corrector, the loop predictor and the loop-structure components.
+
+\paragraph{TAGE-SC-L (the same predictor without the contribution).} This comparison isolates the effect of the proposed loop-structure components and the target-free inference. The effect is positive but small:
+\begin{itemize}
+\item Mean MPKI falls from \val{tsl_mpki} to \val{prop_mpki} (\val{vs_tsl_pct_mpki}\%). Pooled accuracy rises by \val{vs_tsl_acc_pp} percentage points, and geometric-mean IPC by \val{vs_tsl_ipc}\%.
+\item \prop{} has fewer mispredictions on \val{vs_tsl_mpki_win} traces, more on \val{vs_tsl_mpki_loss} and the same number on \val{vs_tsl_mpki_tie}.
+\item For IPC the count is \val{vs_tsl_ipc_win} higher, \val{vs_tsl_ipc_loss} lower and \val{vs_tsl_ipc_tie} equal.
+\end{itemize}
+The losses are all tiny: the largest MPKI increase on any trace is \val{vs_tsl_worstm} (\val{vs_tsl_worstm_trace}), and the largest IPC loss is \val{vs_tsl_worst_pct}\% (\val{vs_tsl_worst_trace}). The gains, in contrast, are concentrated:
+\begin{itemize}
+\item On 627.cam4\_s-490B MPKI falls by \val{vs_tsl_bestm} and IPC rises by \val{vs_tsl_best_pct}\%. This one trace provides \val{vs_tsl_top_share}\% of the mean-MPKI reduction; without it, the reduction over the other 49 traces is \val{vs_tsl_pct_mpki_excl_top}\%.
+\item On \val{vs_tsl_n_ipc_flat} traces the IPC changes by less than 0.01\% in either direction, and the median per-trace IPC change is \val{vs_tsl_median_ipc}\%.
+\end{itemize}
+The improvement over TAGE-SC-L is therefore consistent in sign but modest in size on most workloads, and larger on a few.
